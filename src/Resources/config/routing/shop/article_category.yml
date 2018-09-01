@@ -1,0 +1,9 @@
+odiseo_sylius_blog_plugin_shop_partial_article_category_index:
+    path: /partial
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article_category:indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findEnabled

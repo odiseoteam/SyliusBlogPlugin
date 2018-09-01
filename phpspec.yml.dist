@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Odiseo\SyliusBlogPlugin
+        psr4_prefix: Odiseo\SyliusBlogPlugin

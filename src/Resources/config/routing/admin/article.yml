@@ -1,0 +1,17 @@
+odiseo_sylius_blog_plugin_admin_article:
+    resource: |
+        alias: odiseo_blog.article
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_article
+        permission: true
+        vars:
+            all:
+                subheader: odiseo_sylius_blog.ui.manage_articles
+                templates:
+                    form: '@OdiseoSyliusBlogPlugin/Admin/Article/_form.html.twig'
+            index:
+                icon: newspaper
+    type: sylius.resource

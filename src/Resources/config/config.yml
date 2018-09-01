@@ -1,0 +1,9 @@
+imports:
+    - { resource: "@OdiseoBlogBundle/Resources/config/config.yml" }
+
+odiseo_blog:
+    resources:
+        article:
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Model\Article
+                repository: Odiseo\SyliusBlogPlugin\Doctrine\ORM\ArticleRepository

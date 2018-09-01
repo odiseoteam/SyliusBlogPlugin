@@ -1,0 +1,55 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block metatags %}
+    {% if article.metaKeywords is not empty %}
+        <meta name="keywords" content="{{ article.metaKeywords }}"/>
+    {% endif %}
+    {% if article.metaDescription is not empty %}
+        <meta name="description" content="{{ article.metaDescription }}"/>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="ui breadcrumb">
+    <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
+    <div class="divider"> /</div>
+    <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog.ui.blog.header'|trans }}</a>
+    <div class="divider"> /</div>
+    <div class="active section">{{ article.title }}</div>
+</div>
+
+<div class="ui grid">
+    <div class="twelve wide column">
+        <div class="ui segment">
+            <h1 class="ui dividing header">{{ article.title }}</h1>
+            <div class="ui items">
+                <div class="item">
+                    <div class="content">
+                        <div class="meta ui right">
+                            <span>{{ article.createdAt|date }}</span>
+                        </div>
+                        <div class="description">
+                            {% if article.images|length > 0 %}
+                                <img src="{{ article.images[0].path|imagine_filter(filter|default('sylius_large')) }}" class="ui image centered">
+                                <div class="ui hidden divider"></div>
+                            {% endif %}
+                            <p>{{ article.content|raw }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if article.categories|length > 0 %}
+            <div class="extra">
+                <strong>{{ 'odiseo_sylius_blog.ui.categories'|trans }}: </strong>
+                {% for articleCategory in article.categories %}
+                    <div class="ui label">{{ articleCategory.title }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="four wide column">
+        {{ include('@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig') }}
+    </div>
+</div>
+{% endblock %}

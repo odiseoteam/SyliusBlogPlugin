@@ -1,0 +1,24 @@
+odiseo_sylius_blog:
+    ui:
+        articles: Articles
+        manage_articles: Manage articles
+        new_article: New article
+        show_article: Show article
+        edit_article: Edit article
+        manage_article_categories: Manage article categories
+        categories: Categories
+        blog:
+            header: Blog
+            subheader: See our awesome articles written to you
+            about:
+                title: About
+                content: Etiam porta <i>sem malesuada magna mollis euismod</i>. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+    menu:
+        admin:
+            blog:
+                header: Blog
+                article_categories: Article categories
+                articles: Articles
+    form:
+        article:
+            channels: Channels

@@ -1,0 +1,17 @@
+odiseo_sylius_blog_plugin_admin_article_category:
+    resource: |
+        alias: odiseo_blog.article_category
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_article_category
+        permission: true
+        vars:
+            all:
+                subheader: odiseo_sylius_blog.ui.manage_article_categories
+                templates:
+                    form: '@OdiseoSyliusBlogPlugin/Admin/ArticleCategory/_form.html.twig'
+            index:
+                icon: list alternate
+    type: sylius.resource

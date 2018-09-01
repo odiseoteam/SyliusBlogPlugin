@@ -1,0 +1,7 @@
+odiseo_sylius_blog:
+    ui:
+        articles: Artículos
+        manage_articles: Administrar artículos
+        new_article: Nuevo artículo
+        show_article: Mostrar artículo
+        edit_article: Editar artículo

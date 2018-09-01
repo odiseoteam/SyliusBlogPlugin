@@ -1,0 +1,12 @@
+sylius:
+    resource: "../../../../vendor/sylius/sylius/app/config/routing.yml"
+
+# Put your own routes here
+
+odiseo_sylius_blog_plugin_admin:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yml"
+    prefix: /admin
+
+odiseo_sylius_blog_plugin_shop:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yml"
+    prefix: /{_locale}/blog

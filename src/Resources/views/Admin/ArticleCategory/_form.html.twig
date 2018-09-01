@@ -1,0 +1,18 @@
+{% from '@OdiseoSyliusBlogPlugin/Admin/Macro/translationForm.html.twig' import translationFormWithSlug %}
+
+{{ form_errors(form) }}
+
+<div class="ui two column stackable grid">
+    <div class="column">
+        <div class="ui segment">
+            {{ form_row(form.code) }}
+            {{ form_row(form.enabled) }}
+        </div>
+    </div>
+</div>
+
+<div class="ui one column stackable grid">
+    <div class="column">
+        {{ translationFormWithSlug(form.translations, article_category) }}
+    </div>
+</div>
