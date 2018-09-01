@@ -11,7 +11,7 @@ Feature: Editing a article
 
     @ui
     Scenario: Renaming a article
-        Given I want to modify the "article1" article
+        Given I want to modify the article "article1"
         When I rename it to "Article Edited"
         And I save my changes
         Then I should be notified that it has been successfully edited

@@ -8,7 +8,6 @@ use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
 use Odiseo\BlogBundle\Doctrine\ORM\ArticleCategoryRepositoryInterface;
 use Odiseo\BlogBundle\Model\ArticleCategoryInterface;
-use Odiseo\SyliusBlogPlugin\Doctrine\ORM\ArticleRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class ArticleCategoryContext implements Context
@@ -24,7 +23,7 @@ final class ArticleCategoryContext implements Context
 
     public function __construct(
         FactoryInterface $articleCategoryFactory,
-        ArticleRepositoryInterface $articleCategoryRepository,
+        ArticleCategoryRepositoryInterface $articleCategoryRepository,
         EntityManagerInterface $entityManager
     ) {
         $this->articleCategoryFactory = $articleCategoryFactory;

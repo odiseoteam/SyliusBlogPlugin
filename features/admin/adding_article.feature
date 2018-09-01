@@ -6,6 +6,7 @@ Feature: Adding a new article
 
     Background:
         Given I am logged in as an administrator
+        And the store operates on a single channel in "United States"
 
     @ui
     Scenario: Adding a new article
@@ -27,7 +28,7 @@ Feature: Adding a new article
 
     @ui
     Scenario: Trying to add a article with existing code
-        Given there is an existing article "article1" code
+        Given there is an existing article with "article1" code
         And I want to add a new article
         When I fill the code with "article1"
         And I add it

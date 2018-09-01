@@ -73,7 +73,7 @@ final class ManagingArticleCategoriesContext implements Context
     }
 
     /**
-     * @When I fill the code with :articleCategorySlug
+     * @When I fill the slug with :articleCategorySlug
      * @param $articleCategorySlug
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */

@@ -24,8 +24,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
      */
     public function fillSlug($slug)
     {
-        var_dump($this->getDocument()->find('#odiseo_blog_article_translations_en_US_slug'));
-        $this->getDocument()->fillField('odiseo_blog_article_translations_en_US_slug', $slug);
+        $this->getDocument()->fillField('Slug', $slug);
     }
 
     /**

@@ -26,7 +26,8 @@
 
 This plugin add blog features the Sylius ecommerce framework. It uses the [OdiseoBlogBundle](https://github.com/odiseoteam/OdiseoBlogBundle) Symfony bundle.
 
-<img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_1.png" alt="Blog admin">
+<img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_1.png" alt="Blog admin" width="80%">
+<img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_2.png" alt="Blog admin" width="80%">
 
 ## Demo
 

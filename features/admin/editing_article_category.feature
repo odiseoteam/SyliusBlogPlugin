@@ -11,7 +11,7 @@ Feature: Editing a article category
 
     @ui
     Scenario: Renaming a article category
-        Given I want to modify the "sylius" article category
+        Given I want to modify the article category "sylius"
         When I rename it to "Sylius Framework"
         And I save my changes
         Then I should be notified that it has been successfully edited
