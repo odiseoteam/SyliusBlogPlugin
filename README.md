@@ -78,7 +78,14 @@ odiseo_sylius_blog_plugin_shop:
     prefix: /{_locale}/blog
 ```
 
-5. Finish the installation updatating the database schema and installing assets:
+5. Because this plugin uses FOSCKeditorBundle you need to exacute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html):
+
+```
+php bin/console ckeditor:install
+php bin/console assets:install web
+```
+
+6. Finish the installation updatating the database schema and installing assets:
    
 ```
 php bin/console doctrine:schema:update --force
