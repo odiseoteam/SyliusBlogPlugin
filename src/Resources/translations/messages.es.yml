@@ -5,3 +5,20 @@ odiseo_sylius_blog:
         new_article: Nuevo artículo
         show_article: Mostrar artículo
         edit_article: Editar artículo
+        manage_article_categories: Administrar categorías
+        categories: Categorías
+        blog:
+            header: Blog
+            subheader: Vea nuestros artículos escritos para usted
+            about:
+                title: Sobre el blog
+                content: Etiam porta <i>sem malesuada magna mollis euismod</i>. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+    menu:
+        admin:
+            blog:
+                header: Blog
+                article_categories: Categorías
+                articles: Artículos
+    form:
+        article:
+            channels: Canales
