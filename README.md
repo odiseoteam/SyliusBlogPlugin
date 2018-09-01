@@ -66,7 +66,7 @@ public function registerBundles(): array
     - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yml" }
 ```
 
-5. Add the routes:
+4. Add the routes:
 
 ```yml
 odiseo_sylius_blog_plugin_admin:
@@ -78,7 +78,7 @@ odiseo_sylius_blog_plugin_shop:
     prefix: /{_locale}/blog
 ```
 
-6. Finish the installation updatating the database schema and installing assets:
+5. Finish the installation updatating the database schema and installing assets:
    
 ```
 php bin/console doctrine:schema:update --force
