@@ -6,5 +6,11 @@
         {{ 'odiseo_sylius_blog.ui.blog.about.content'|trans|raw }}
     </p>
 </div>
-<h4 class="ui header">Categories</h4>
-{{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
+<div class="ui segment">
+    <h4 class="ui header">
+        {{ 'odiseo_sylius_blog.ui.latest_articles'|trans }}
+    </h4>
+    {{ render(url('odiseo_sylius_blog_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
+</div>
+<h4 class="ui header">{{ 'odiseo_sylius_blog.ui.categories'|trans }}</h4>
+{{ render(url('odiseo_sylius_blog_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}

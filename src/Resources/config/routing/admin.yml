@@ -1,5 +1,5 @@
-odiseo_sylius_blog_plugin_admin_article_category:
+odiseo_sylius_blog_admin_article_category:
     resource: "admin/article_category.yml"
 
-odiseo_sylius_blog_plugin_admin_article:
+odiseo_sylius_blog_admin_article:
     resource: "admin/article.yml"

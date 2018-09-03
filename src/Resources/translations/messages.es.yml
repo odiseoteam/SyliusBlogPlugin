@@ -7,6 +7,7 @@ odiseo_sylius_blog:
         edit_article: Editar artículo
         manage_article_categories: Administrar categorías
         categories: Categorías
+        latest_articles: Artículos recientes
         blog:
             header: Blog
             subheader: Vea nuestros artículos escritos para usted

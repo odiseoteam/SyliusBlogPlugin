@@ -1,4 +1,4 @@
-odiseo_sylius_blog_plugin_admin_article:
+odiseo_sylius_blog_admin_article:
     resource: |
         alias: odiseo_blog.article
         section: admin

@@ -1,7 +1,7 @@
 {% if resources|length > 0 %}
 <div class="ui list">
     {% for articleCategory in resources %}
-    <a class="item" href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a>
+    <a class="item" href="{{ path('odiseo_sylius_blog_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a>
     {% endfor %}
 </div>
 {% endif %}

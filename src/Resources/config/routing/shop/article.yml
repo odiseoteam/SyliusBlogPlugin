@@ -1,4 +1,4 @@
-odiseo_sylius_blog_plugin_shop_article_show:
+odiseo_sylius_blog_shop_article_show:
     path: /article/{slug}
     methods: [GET]
     defaults:
@@ -12,7 +12,7 @@ odiseo_sylius_blog_plugin_shop_article_show:
                     - "expr:service('sylius.context.locale').getLocaleCode()"
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
 
-odiseo_sylius_blog_plugin_shop_article_index_by_category:
+odiseo_sylius_blog_shop_article_index_by_category:
     path: /category/{slug}
     methods: [GET]
     defaults:
@@ -26,7 +26,7 @@ odiseo_sylius_blog_plugin_shop_article_index_by_category:
                     - "expr:service('sylius.context.locale').getLocaleCode()"
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
 
-odiseo_sylius_blog_plugin_shop_article_index:
+odiseo_sylius_blog_shop_article_index:
     path: /
     methods: [GET]
     defaults:
@@ -37,3 +37,17 @@ odiseo_sylius_blog_plugin_shop_article_index:
                 method: findByChannel
                 arguments:
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
+
+odiseo_sylius_blog_shop_partial_article_index_latest:
+    path: /article/latest/{count}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findLatestByChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - '!!int $count'

@@ -6,6 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 use Odiseo\BlogBundle\Doctrine\ORM\ArticleRepositoryInterface as BaseArticleRepositoryInterface;
 use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
 use Pagerfanta\Pagerfanta;
+use Sylius\Component\Core\Model\ChannelInterface;
 
 interface ArticleRepositoryInterface extends BaseArticleRepositoryInterface
 {
@@ -51,4 +52,13 @@ interface ArticleRepositoryInterface extends BaseArticleRepositoryInterface
      * @return Pagerfanta
      */
     public function findByCategoryAndChannel(string $categorySlug, ?string $localeCode, string $channelCode): Pagerfanta;
+
+    /**
+     * @param ChannelInterface $channel
+     * @param string $locale
+     * @param int $count
+     *
+     * @return array
+     */
+    public function findLatestByChannel(ChannelInterface $channel, string $locale, int $count): array;
 }

@@ -69,11 +69,11 @@ public function registerBundles(): array
 4. Add the routes:
 
 ```yml
-odiseo_sylius_blog_plugin_admin:
+odiseo_sylius_blog_admin:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yml"
     prefix: /admin
     
-odiseo_sylius_blog_plugin_shop:
+odiseo_sylius_blog_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yml"
     prefix: /{_locale}/blog
 ```

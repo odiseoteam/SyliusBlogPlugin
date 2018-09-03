@@ -8,6 +8,7 @@ use Odiseo\BlogBundle\Doctrine\ORM\ArticleRepository as BaseArticleRepository;
 use Doctrine\ORM\QueryBuilder;
 use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
 use Pagerfanta\Pagerfanta;
+use Sylius\Component\Core\Model\ChannelInterface;
 
 class ArticleRepository extends BaseArticleRepository implements ArticleRepositoryInterface
 {
@@ -20,6 +21,7 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
             ->innerJoin('o.channels', 'channels')
             ->andWhere('o.enabled = true')
             ->andWhere('channels.code = :channelCode')
+            ->addOrderBy('o.createdAt', 'DESC')
             ->setParameter('channelCode', $channelCode)
         ;
     }
@@ -27,11 +29,7 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     /**
      * @inheritdoc
      */
-    public function createByCategoryAndChannelQueryBuilder(
-        string $categorySlug,
-        ?string $localeCode,
-        string $channelCode
-    ): QueryBuilder
+    public function createByCategoryAndChannelQueryBuilder(string $categorySlug, ?string $localeCode, string $channelCode): QueryBuilder
     {
         return $this->createByChannelQueryBuilder($channelCode)
             ->leftJoin('o.categories', 'category')
@@ -46,11 +44,7 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     /**
      * @inheritdoc
      */
-    public function findOneBySlugAndChannel(
-        string $slug,
-        ?string $localeCode,
-        string $channelCode
-    ): ?ArticleInterface
+    public function findOneBySlugAndChannel(string $slug, ?string $localeCode, string $channelCode): ?ArticleInterface
     {
         return $this->createByChannelQueryBuilder($channelCode)
             ->leftJoin('o.translations', 'translation')
@@ -74,12 +68,24 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     /**
      * @inheritdoc
      */
-    public function findByCategoryAndChannel(
-        string $categorySlug,
-        ?string $localeCode,
-        string $channelCode
-    ): Pagerfanta
+    public function findByCategoryAndChannel(string $categorySlug, ?string $localeCode, string $channelCode): Pagerfanta
     {
         return $this->getPaginator($this->createByCategoryAndChannelQueryBuilder($categorySlug, $localeCode, $channelCode));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findLatestByChannel(ChannelInterface $channel, string $locale, int $count): array
+    {
+        return $this->createByChannelQueryBuilder($channel->getCode())
+            ->addSelect('translation')
+            ->innerJoin('o.translations', 'translation', 'WITH', 'translation.locale = :locale')
+            ->addOrderBy('o.createdAt', 'DESC')
+            ->setParameter('locale', $locale)
+            ->setMaxResults($count)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

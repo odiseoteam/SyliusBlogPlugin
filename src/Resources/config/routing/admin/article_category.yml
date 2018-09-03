@@ -1,4 +1,4 @@
-odiseo_sylius_blog_plugin_admin_article_category:
+odiseo_sylius_blog_admin_article_category:
     resource: |
         alias: odiseo_blog.article_category
         section: admin
