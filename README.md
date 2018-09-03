@@ -89,14 +89,32 @@ php bin/console assets:install web
    
 ```
 php bin/console doctrine:schema:update --force
-php bin/console assets:install
 php bin/console sylius:theme:assets:install
 ```
+
+## Usage
+
+For the administration you will have the Blog menu. And for the frontend you can go to the /{locale}/blog to see the blog articles. 
+Feel free to modify the plugin templates like you want.
+
+### Partial routes
+
+To render a list of latest articles you can do something like this:
+
+```twig
+{{ render(url('odiseo_sylius_blog_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
+``` 
+   
+And to render a list of categories:
+
+```twig
+{{ render(url('odiseo_sylius_blog_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
+``` 
 
 ## Test the plugin
 
 You can follow the instructions to test this plugins in the proper documentation page: [Test the plugin](doc/tests.md).
-    
+ 
 ## Credits
 
 This plugin is maintained by <a href="https://odiseo.com.ar">Odiseo</a>. Want us to help you with this plugin or any Sylius project? Contact us on <a href="mailto:team@odiseo.com.ar">team@odiseo.com.ar</a>.
