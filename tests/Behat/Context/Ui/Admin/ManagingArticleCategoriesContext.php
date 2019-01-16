@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Odiseo\BlogBundle\Model\ArticleCategoryInterface;
-use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
-use Sylius\Behat\Page\SymfonyPageInterface;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\CreatePageInterface;
@@ -55,7 +54,7 @@ final class ManagingArticleCategoriesContext implements Context
 
     /**
      * @Given I want to add a new article category
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToAddNewArticleCategory()
     {
@@ -115,7 +114,7 @@ final class ManagingArticleCategoriesContext implements Context
     /**
      * @Given /^I want to modify the (article category "([^"]+)")/
      * @param ArticleCategoryInterface $articleCategory
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToModifyArticleCategory(ArticleCategoryInterface $articleCategory)
     {
@@ -132,7 +131,7 @@ final class ManagingArticleCategoriesContext implements Context
 
     /**
      * @When I want to browse article categories
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToBrowseArticleCategories()
     {
@@ -151,7 +150,7 @@ final class ManagingArticleCategoriesContext implements Context
     /**
      * @Then /^the (article category "([^"]+)") should appear in the admin/
      * @param ArticleCategoryInterface $articleCategory
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function articleCategoryShouldAppearInTheAdmin(ArticleCategoryInterface $articleCategory)
     {

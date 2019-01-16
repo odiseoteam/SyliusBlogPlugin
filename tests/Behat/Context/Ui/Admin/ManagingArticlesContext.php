@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
-use Sylius\Behat\Page\SymfonyPageInterface;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\CreatePageInterface;
@@ -54,7 +54,7 @@ final class ManagingArticlesContext implements Context
 
     /**
      * @Given I want to add a new article
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToAddNewArticle()
     {
@@ -114,7 +114,7 @@ final class ManagingArticlesContext implements Context
     /**
      * @Given /^I want to modify the (article "([^"]+)")/
      * @param ArticleInterface $article
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToModifyArticle(ArticleInterface $article)
     {
@@ -131,7 +131,7 @@ final class ManagingArticlesContext implements Context
 
     /**
      * @When I want to browse articles
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToBrowseArticles()
     {
@@ -150,7 +150,7 @@ final class ManagingArticlesContext implements Context
     /**
      * @Then /^the (article "([^"]+)") should appear in the admin/
      * @param ArticleInterface $article
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function articleShouldAppearInTheAdmin(ArticleInterface $article)
     {

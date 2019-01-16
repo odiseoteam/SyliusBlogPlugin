@@ -34,4 +34,12 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         $this->getDocument()->fillField('Title', $title);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function fillContent($content)
+    {
+        $this->getDocument()->fillField('Content', $content);
+    }
 }

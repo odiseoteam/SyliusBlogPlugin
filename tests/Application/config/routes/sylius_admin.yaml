@@ -1,0 +1,7 @@
+sylius_admin:
+    resource: "@SyliusAdminBundle/Resources/config/routing.yml"
+    prefix: /admin
+
+odiseo_sylius_blog_admin:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yml"
+    prefix: /admin

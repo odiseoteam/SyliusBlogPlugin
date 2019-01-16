@@ -24,4 +24,10 @@ interface CreatePageInterface extends BaseCreatePageInterface, ContainsErrorInte
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
     public function fillTitle($title);
+
+    /**
+     * @param string $content
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function fillContent($content);
 }
