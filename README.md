@@ -20,6 +20,7 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-blog-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-blog-plugin/downloads" />
     </a>
+    <p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-approved-by-sylius.png" width="100"></a></p>
 </h1>
 
 ## Description
