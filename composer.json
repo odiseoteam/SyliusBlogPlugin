@@ -11,7 +11,7 @@
     "require": {
         "php": "^7.2",
 
-        "sylius/sylius": "~1.3",
+        "sylius/sylius": "^1.3",
         "odiseoteam/blog-bundle": "^1.0"
     },
     "require-dev": {
