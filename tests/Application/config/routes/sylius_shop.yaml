@@ -12,7 +12,3 @@ sylius_shop_default_locale:
     methods: [GET]
     defaults:
         _controller: sylius.controller.shop.locale_switch:switchAction
-
-odiseo_sylius_blog_shop:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yml"
-    prefix: /{_locale}/blog

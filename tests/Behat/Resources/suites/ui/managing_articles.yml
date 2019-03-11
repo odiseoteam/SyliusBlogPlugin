@@ -1,7 +1,7 @@
 default:
     suites:
         ui_managing_articles:
-            contexts_services:
+            contexts:
                 - sylius.behat.context.hook.doctrine_orm
 
                 - odiseo_sylius_blog.context.transform.article
