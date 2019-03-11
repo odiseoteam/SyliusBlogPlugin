@@ -89,7 +89,7 @@ php bin/console assets:install public
    
 ```
 php bin/console doctrine:schema:update --force
-php bin/console assets:install
+php bin/console sylius:theme:assets:install
 ```
 
 ## Usage
