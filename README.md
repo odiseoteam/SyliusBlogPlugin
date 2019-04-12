@@ -20,11 +20,14 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-blog-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-blog-plugin/downloads" />
     </a>
+    <p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-approved-by-sylius.png" width="100"></a></p>
 </h1>
 
 ## Description
 
-This plugin add blog features the Sylius ecommerce framework. It uses the [OdiseoBlogBundle](https://github.com/odiseoteam/OdiseoBlogBundle) Symfony bundle.
+This plugin add blog features to the Sylius ecommerce framework. It uses the [OdiseoBlogBundle](https://github.com/odiseoteam/OdiseoBlogBundle) Symfony bundle.
+
+Now supporting Sylius 1.4 with Symfony 4 + Flex structure.
 
 <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_1.png" alt="Blog admin" width="80%">
 <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_2.png" alt="Blog admin" width="80%">
@@ -38,35 +41,30 @@ You can see this plugin in action in our Sylius Demo application.
 
 ## Installation
 
-1. Run `composer require odiseoteam/sylius-blog-plugin`.
+1. Run `composer require odiseoteam/sylius-blog-plugin`
 
-2. Add the plugin and the OdiseoBlogBundle to the AppKernel but add it before SyliusResourceBundle. To do that you need change the registerBundles.
-The OdiseoBlogBundle uses FOSCKeditorBundle so you need add it to the kernel too.
+2. Enable the plugin in bundles.php
 
 ```php
-public function registerBundles(): array
-{
-    $preResourceBundles = [
-        new \Odiseo\BlogBundle\OdiseoBlogBundle(),
-        new \Odiseo\SyliusBlogPlugin\OdiseoSyliusBlogPlugin(),
-    ];
+<?php
 
-    $bundles = [
-        ...
-        new \FOS\CKEditorBundle\FOSCKEditorBundle(),
-    ];
-
-    return array_merge($preResourceBundles, parent::registerBundles(), $bundles);
-}
+return [
+    // ...
+    Odiseo\BlogBundle\OdiseoBlogBundle::class => ['all' => true],
+    FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
+    Odiseo\SyliusBlogPlugin\OdiseoSyliusBlogPlugin::class => ['all' => true],
+    // ...
+];
 ```
  
-3. Import the configurations on your config.yml:
+3. Import the plugin configurations
  
 ```yml
+imports:
     - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yml" }
 ```
 
-4. Add the routes:
+4. Add the shop and admin routes
 
 ```yml
 odiseo_sylius_blog_admin:
@@ -76,16 +74,18 @@ odiseo_sylius_blog_admin:
 odiseo_sylius_blog_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yml"
     prefix: /{_locale}/blog
+    requirements:
+        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 ```
 
-5. Because this plugin uses FOSCKeditorBundle you need to exacute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html):
+5. Because this plugin uses FOSCKeditorBundle you need to execute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html)
 
 ```
 php bin/console ckeditor:install
-php bin/console assets:install web
+php bin/console assets:install public
 ```
 
-6. Finish the installation updatating the database schema and installing assets:
+6. Finish the installation updating the database schema and installing assets
    
 ```
 php bin/console doctrine:schema:update --force
