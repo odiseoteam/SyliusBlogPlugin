@@ -46,6 +46,22 @@
                 {% endfor %}
             </div>
             {% endif %}
+
+            <div class="ui comments">
+                <h3 class="ui dividing header">{{ 'odiseo_blog.ui.article_comments'|trans }}</h3>
+                {% for comment in article.enabledComments %}
+                    {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig', {'comment': comment, 'withReply': true}) }}
+                {% endfor %}
+
+                <h4>{{ 'odiseo_sylius_blog.ui.leave_comment'|trans|raw }}</h4>
+
+                {{ render(url('odiseo_blog_partial_comment_create', {
+                    'articleId': article.id,
+                    'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
+                    'redirectRoute': 'odiseo_sylius_blog_shop_article_show',
+                    'redurectParameters': {'slug': article.slug }
+                })) }}
+            </div>
         </div>
     </div>
     <div class="sixteen wide mobile four wide computer column">

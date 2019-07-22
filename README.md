@@ -27,7 +27,16 @@
 
 This plugin add blog features to the Sylius ecommerce framework. It uses the [OdiseoBlogBundle](https://github.com/odiseoteam/OdiseoBlogBundle) Symfony bundle.
 
-Now supporting Sylius 1.4 with Symfony 4 + Flex structure.
+Now supporting Sylius 1.4+ with Symfony 4 + Flex structure.
+
+Features:
+
+* Articles and article categories, both translatables.
+* Multi images for articles.
+* This plugin comes with fixtures.
+* [NEW] Comments and comment replies. Comments can be made as ShopUser or as guest.
+
+Screenshots:
 
 <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_1.png" alt="Blog admin" width="80%">
 <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/screenshot_2.png" alt="Blog admin" width="80%">
@@ -43,7 +52,8 @@ You can see this plugin in action in our Sylius Demo application.
 
 1. Run `composer require odiseoteam/sylius-blog-plugin`
 
-2. Enable the plugin in bundles.php
+2. Enable the plugin in bundles.php. This plugin need the FOSCKEditorBundle and EWZRecaptchaBundle so make sure to include
+them too:  
 
 ```php
 <?php
@@ -52,6 +62,7 @@ return [
     // ...
     Odiseo\BlogBundle\OdiseoBlogBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
+    EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class => ['all' => true],
     Odiseo\SyliusBlogPlugin\OdiseoSyliusBlogPlugin::class => ['all' => true],
     // ...
 ];
@@ -111,6 +122,19 @@ And to render a list of categories:
 {{ render(url('odiseo_sylius_blog_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
 ``` 
 
+## Fixtures
+
+This plugin comes with fixtures:
+
+### Blog
+
+Simply add this configuration on your fixture suite:
+
+```yml
+blog:
+    options:
+        articles_per_channel: 10
+```
 ## Test the plugin
 
 You can follow the instructions to test this plugins in the proper documentation page: [Test the plugin](doc/tests.md).

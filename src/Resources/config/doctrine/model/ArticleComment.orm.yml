@@ -1,0 +1,10 @@
+Odiseo\SyliusBlogPlugin\Model\ArticleComment:
+    type: mappedSuperclass
+    table: odiseo_blog_article_comment
+    manyToOne:
+        author:
+            targetEntity: Sylius\Component\Core\Model\ShopUserInterface
+            nullable: true
+            joinColumn:
+                name: author_id
+                referencedColumnName: id

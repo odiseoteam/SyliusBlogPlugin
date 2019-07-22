@@ -1,0 +1,34 @@
+{% form_theme form '@SyliusShop/Form/theme.html.twig' %}
+
+{{ form_start(form, {'action': path('odiseo_blog_partial_comment_create', {
+    'articleId': form.vars.data.article?form.vars.data.article.id:form.vars.data.parent.article.id,
+    'commentId': app.request.get('commentId'),
+    'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
+    'redirectRoute': 'odiseo_sylius_blog_shop_article_show',
+    'redirectParameters': {'slug': form.vars.data.article?form.vars.data.article.slug:form.vars.data.parent.article.slug }
+}), 'method': 'POST', 'attr': {'class': 'ui reply form'}}) }}
+    {% if form.vars.data.author %}
+        {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment_author.html.twig', {'author': form.vars.data.author}) }}
+    {% endif %}
+
+    {% if form.name is defined or form.email is defined %}
+    <div class="two fields">
+        {% if form.name is defined %}
+            {{ form_row(form.name) }}
+        {% endif %}
+        {% if form.email is defined %}
+            {{ form_row(form.email) }}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {{ form_row(form.comment) }}
+
+    {% if form.recaptcha is defined %}
+        {{ form_row(form.recaptcha) }}
+    {% endif %}
+
+    <button type="submit" class="ui blue labeled submit icon button">
+        <i class="icon edit"></i> {{ 'odiseo_sylius_blog.ui.add_comment'|trans }}
+    </button>
+{{ form_end(form, {'render_rest': true}) }}

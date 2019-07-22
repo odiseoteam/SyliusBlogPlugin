@@ -32,5 +32,11 @@ final class AdminMenuListener
             ->setLabel('odiseo_sylius_blog.menu.admin.blog.articles')
             ->setLabelAttribute('icon', 'newspaper')
         ;
+
+        $blog
+            ->addChild('comments', ['route' => 'odiseo_blog_admin_article_comment_index'])
+            ->setLabel('odiseo_sylius_blog.menu.admin.blog.article_comments')
+            ->setLabelAttribute('icon', 'comment')
+        ;
     }
 }

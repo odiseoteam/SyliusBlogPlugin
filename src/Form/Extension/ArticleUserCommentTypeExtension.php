@@ -3,11 +3,13 @@
 namespace Odiseo\SyliusBlogPlugin\Form\Extension;
 
 use Odiseo\BlogBundle\Form\Type\ArticleType;
+use Odiseo\BlogBundle\Form\Type\ArticleUserCommentType;
+use Odiseo\SyliusBlogPlugin\Model\ArticleCommentInterface;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class ArticleTypeExtension extends AbstractTypeExtension
+final class ArticleUserCommentTypeExtension extends AbstractTypeExtension
 {
     /**
      * {@inheritdoc}
@@ -16,13 +18,16 @@ final class ArticleTypeExtension extends AbstractTypeExtension
     {
         parent::buildForm($builder, $options);
 
-        $builder
-            ->add('channels', ChannelChoiceType::class, [
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'odiseo_sylius_blog.form.article.channels',
-            ])
-        ;
+        /** @var ArticleCommentInterface $articleComment */
+        $articleComment = $builder->getData();
+
+        if ($articleComment->getAuthor()) {
+            $builder
+                ->remove('name')
+                ->remove('email')
+                ->remove('recaptcha')
+            ;
+        }
     }
 
     /**
@@ -30,6 +35,6 @@ final class ArticleTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedTypes(): array
     {
-        return [ArticleType::class];
+        return [ArticleUserCommentType::class];
     }
 }

@@ -7,3 +7,75 @@ odiseo_blog:
             classes:
                 model: Odiseo\SyliusBlogPlugin\Model\Article
                 repository: Odiseo\SyliusBlogPlugin\Doctrine\ORM\ArticleRepository
+        article_comment:
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Model\ArticleComment
+
+sylius_grid:
+    grids:
+        odiseo_blog_article_comment:
+            fields:
+                id:
+                    position: 1
+                    label: sylius.ui.id
+                article_parent:
+                    position: 2
+                    label: odiseo_sylius_blog.ui.article_parent
+                    type: twig
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/Admin/Grid/Field/article_parent.html.twig"
+                comment:
+                    position: 3
+                    label: sylius.ui.comment
+                enabled:
+                    position: 4
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                createdAt:
+                    position: 5
+                    label: sylius.ui.created_at
+        odiseo_blog_article:
+            fields:
+                id:
+                    position: 1
+                    label: sylius.ui.id
+                code:
+                    position: 2
+                    label: sylius.ui.code
+                image:
+                    position: 3
+                    type: twig
+                    label: sylius.ui.image
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/Admin/Grid/Field/image.html.twig"
+                title:
+                    position: 4
+                    label: sylius.ui.title
+                enabled:
+                    position: 5
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                createdAt:
+                    position: 6
+                    label: sylius.ui.created_at
+        odiseo_blog_article_category:
+            fields:
+                id:
+                    label: sylius.ui.id
+                code:
+                    label: sylius.ui.code
+                title:
+                    label: sylius.ui.title
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                createdAt:
+                    label: sylius.ui.created_at

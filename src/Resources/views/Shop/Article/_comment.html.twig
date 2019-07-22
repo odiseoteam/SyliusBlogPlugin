@@ -1,0 +1,33 @@
+<div class="comment">
+    <a class="avatar">
+        <img src="//placehold.it/50x50">
+    </a>
+    <div class="content">
+        <a class="author">{{ comment.name }}</a>
+        <div class="metadata">
+            <span class="date">{{ comment.createdAt|date }}</span>
+        </div>
+        <div class="text">
+            {{ comment.comment }}
+        </div>
+        {% if withReply is defined and withReply == true %}
+        <div class="actions">
+            <a class="reply">{{ 'odiseo_sylius_blog.ui.reply'|trans }}</a>
+        </div>
+        {{ render(url('odiseo_blog_partial_comment_create', {
+            'articleId': comment.article.id,
+            'commentId': comment.id,
+            'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
+            'redirectRoute': 'odiseo_sylius_blog_shop_article_show',
+            'redurectParameters': {'slug': comment.article.slug }
+        })) }}
+        {% endif %}
+    </div>
+    {% if comment.enabledChildren|length > 0 %}
+        <div class="comments">
+            {% for comment in comment.enabledChildren %}
+                {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig', {'comment': comment, 'withReply': false}) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

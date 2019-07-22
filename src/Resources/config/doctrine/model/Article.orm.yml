@@ -12,3 +12,9 @@ Odiseo\SyliusBlogPlugin\Model\Article:
                 inverseJoinColumns:
                     channel_id:
                         referencedColumnName: id
+    manyToOne:
+        author:
+            targetEntity: Sylius\Component\Core\Model\AdminUserInterface
+            joinColumn:
+                name: author_id
+                referencedColumnName: id

@@ -1,13 +1,21 @@
 odiseo_sylius_blog:
     ui:
+        article: Artículo
         articles: Artículos
+        article_parent: Artículo o Comentario
         manage_articles: Administrar artículos
         new_article: Nuevo artículo
         show_article: Mostrar artículo
         edit_article: Editar artículo
         manage_article_categories: Administrar categorías
+        manage_article_comments: Administrar comentarios
         categories: Categorías
         latest_articles: Artículos recientes
+        leave_comment: Deja un comentario
+        reply: Responder
+        add_comment: Agregar comentario
+        comment: Comentario
+        commenting_as: Comentando como
         blog:
             header: Blog
             subheader: Vea nuestros artículos escritos para usted
@@ -20,6 +28,7 @@ odiseo_sylius_blog:
                 header: Blog
                 article_categories: Categorías
                 articles: Artículos
+                article_comments: Comentarios
     form:
         article:
             channels: Canales

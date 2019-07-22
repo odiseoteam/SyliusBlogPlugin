@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusBlogPlugin\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Odiseo\BlogBundle\Model\Article as BaseArticle;
 use Sylius\Component\Channel\Model\ChannelInterface;
+use Sylius\Component\Core\Model\AdminUserInterface;
 
 class Article extends BaseArticle implements ArticleInterface
 {
+    /** @var AdminUserInterface|null */
+    protected $author;
+
     /** @var Collection|ChannelInterface[] */
     protected $channels;
 
@@ -17,6 +23,22 @@ class Article extends BaseArticle implements ArticleInterface
         parent::__construct();
 
         $this->channels = new ArrayCollection();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthor(): ?AdminUserInterface
+    {
+        return $this->author;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setAuthor(?AdminUserInterface $author): void
+    {
+        $this->author = $author;
     }
 
     /**
@@ -36,7 +58,7 @@ class Article extends BaseArticle implements ArticleInterface
     }
 
     /**
-     * @param ChannelInterface $channel
+     * @inheritdoc
      */
     public function addChannel(ChannelInterface $channel): void
     {
@@ -46,7 +68,7 @@ class Article extends BaseArticle implements ArticleInterface
     }
 
     /**
-     * @param ChannelInterface $channel
+     * @inheritdoc
      */
     public function removeChannel(ChannelInterface $channel): void
     {

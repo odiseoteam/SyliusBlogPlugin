@@ -1,0 +1,5 @@
+{% if data.article %}
+    {{ 'odiseo_sylius_blog.ui.article'|trans }} {{ 'sylius.ui.id'|trans }}: <a href="{{ path('odiseo_blog_admin_article_update', {'id': data.article.id}) }}">{{ data.article.id }}</a>
+{% elseif data.parent %}
+    {{ 'odiseo_sylius_blog.ui.comment'|trans }} {{ 'sylius.ui.id'|trans }}: <a href="{{ path('odiseo_blog_admin_article_comment_update', {'id': data.parent.id}) }}">{{ data.parent.id }}</a>
+{% endif %}
