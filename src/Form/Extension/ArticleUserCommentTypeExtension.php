@@ -33,7 +33,15 @@ final class ArticleUserCommentTypeExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function getExtendedTypes(): array
+    public function getExtendedType(): string
+    {
+        return ArticleUserCommentType::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getExtendedTypes(): array
     {
         return [ArticleUserCommentType::class];
     }

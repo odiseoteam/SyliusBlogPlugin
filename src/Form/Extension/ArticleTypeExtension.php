@@ -28,7 +28,15 @@ final class ArticleTypeExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function getExtendedTypes(): array
+    public function getExtendedType(): string
+    {
+        return ArticleType::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getExtendedTypes(): array
     {
         return [ArticleType::class];
     }

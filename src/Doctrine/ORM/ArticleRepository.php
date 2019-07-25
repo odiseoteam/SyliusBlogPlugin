@@ -42,6 +42,23 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function createByAuthorAndChannelQueryBuilder(ChannelInterface $channel, string $locale, string $authorUsername): QueryBuilder
+    {
+        return $this->createByChannelQueryBuilder($channel->getCode())
+            ->addSelect('translation')
+            ->addSelect('author')
+            ->innerJoin('o.translations', 'translation', 'WITH', 'translation.locale = :locale')
+            ->leftJoin('o.author', 'author')
+            ->andWhere('author.username = :username')
+            ->addOrderBy('o.createdAt', 'DESC')
+            ->setParameter('locale', $locale)
+            ->setParameter('username', $authorUsername)
+        ;
+    }
+
+    /**
      * @inheritdoc
      */
     public function findOneBySlugAndChannel(string $slug, ?string $localeCode, string $channelCode): ?ArticleInterface
@@ -71,6 +88,14 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     public function findByCategoryAndChannel(string $categorySlug, ?string $localeCode, string $channelCode): Pagerfanta
     {
         return $this->getPaginator($this->createByCategoryAndChannelQueryBuilder($categorySlug, $localeCode, $channelCode));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByAuthorAndChannel(ChannelInterface $channel, string $locale, string $authorUsername): Pagerfanta
+    {
+        return $this->getPaginator($this->createByAuthorAndChannelQueryBuilder($channel, $locale, $authorUsername));
     }
 
     /**

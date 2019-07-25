@@ -18,7 +18,7 @@ odiseo_sylius_blog_shop_article_index_by_category:
     defaults:
         _controller: odiseo_blog.controller.article:indexAction
         _sylius:
-            template: "@OdiseoSyliusBlogPlugin/Shop/Article/index.html.twig"
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/category_index.html.twig"
             repository:
                 method: findByCategoryAndChannel
                 arguments:
@@ -51,3 +51,17 @@ odiseo_sylius_blog_shop_partial_article_index_latest:
                     - "expr:service('sylius.context.channel').getChannel()"
                     - "expr:service('sylius.context.locale').getLocaleCode()"
                     - '!!int $count'
+
+odiseo_sylius_blog_shop_article_index_by_author:
+    path: /article/by-author/{username}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/author_index.html.twig"
+            repository:
+                method: findByAuthorAndChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - $username

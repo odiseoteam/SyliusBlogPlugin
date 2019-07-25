@@ -12,13 +12,15 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
     /** @var ArticleCommentFactoryInterface  */
     private $decoratedFactory;
 
-    /** @var ShopUserInterface */
+    /** @var ShopUserInterface|object|string|null */
     private $shopUser;
 
     public function __construct(ArticleCommentFactoryInterface $decoratedFactory, TokenStorageInterface $tokenStorage)
     {
         $this->decoratedFactory = $decoratedFactory;
-        $this->shopUser = $tokenStorage->getToken()?$tokenStorage->getToken()->getUser():null;
+
+        $token = $tokenStorage->getToken();
+        $this->shopUser = $token?$token->getUser():null;
     }
 
     /**

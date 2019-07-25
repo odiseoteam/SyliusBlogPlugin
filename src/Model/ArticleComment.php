@@ -36,8 +36,9 @@ class ArticleComment extends BaseArticleComment implements ArticleCommentInterfa
      */
     public function getUsername()
     {
-        if($this->getAuthor()) {
-            return $this->getAuthor()->getUsername();
+        $author = $this->getAuthor();
+        if($author) {
+            return $author->getUsername();
         }
 
         return $this->getEmail();

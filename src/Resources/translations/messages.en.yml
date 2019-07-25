@@ -18,6 +18,8 @@ odiseo_sylius_blog:
         commenting_as: Commenting as
         blog:
             header: Blog
+            author_header: Articles by author "%author_username%"
+            category_header: Articles by category "%category%"
             subheader: See our awesome articles written to you
             about:
                 title: About

@@ -23,6 +23,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
 
+    odiseo_sylius_blog.listener.set_article_author:
+        class: Odiseo\SyliusBlogPlugin\EventListener\SetArticleAuthorListener
+        arguments: ["@security.token_storage"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+
     #FIXTURES
     odiseo_sylius_blog.fixture.blog:
         class: Odiseo\SyliusBlogPlugin\Fixture\BlogFixture

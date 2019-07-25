@@ -1,0 +1,21 @@
+{% extends '@OdiseoSyliusBlogPlugin/Shop/Article/index.html.twig' %}
+
+{% block blog_breadcrumb %}
+    <div class="ui breadcrumb">
+        <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
+        <div class="divider"> / </div>
+        <a href="{{ path('odiseo_sylius_blog_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog.ui.blog.header'|trans }}</a>
+        <div class="divider"> / </div>
+        <div class="active section">{{ 'odiseo_sylius_blog.ui.blog.author_header'|trans({'%author_username%': app.request.get('username')}) }}</div>
+    </div>
+{% endblock %}
+
+{% block blog_header %}
+    <h1 class="ui header">
+        <i class="circular newspaper icon"></i>
+        <div class="content">
+            {{ 'odiseo_sylius_blog.ui.blog.author_header'|trans({'%author_username%': app.request.get('username')}) }}
+            <div class="sub header">{{ 'odiseo_sylius_blog.ui.blog.subheader'|trans }}</div>
+        </div>
+    </h1>
+{% endblock %}

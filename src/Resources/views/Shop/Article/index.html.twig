@@ -4,12 +4,16 @@
 {% extends '@SyliusShop/layout.html.twig' %}
 
 {% block content %}
+
+{% block blog_breadcrumb %}
 <div class="ui breadcrumb">
     <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
     <div class="divider"> / </div>
     <div class="active section">{{ 'odiseo_sylius_blog.ui.blog.header'|trans }}</div>
 </div>
+{% endblock %}
 
+{% block blog_header %}
 <h1 class="ui header">
     <i class="circular newspaper icon"></i>
     <div class="content">
@@ -17,7 +21,9 @@
         <div class="sub header">{{ 'odiseo_sylius_blog.ui.blog.subheader'|trans }}</div>
     </div>
 </h1>
+{% endblock %}
 
+{% block blog_articles %}
 <div class="ui grid">
     <div class="sixteen wide mobile twelve wide computer column">
         <div class="ui segment">
@@ -34,8 +40,17 @@
                             <a class="header" href="{{ path('odiseo_sylius_blog_shop_article_show', {'slug' : article.slug}) }}">
                                 {{ article.title }}
                             </a>
-                            <div class="meta">
-                                <span>{{ article.createdAt|date }}</span>
+                            <br>
+                            <div class="ui aligned grid">
+                                <div class="left aligned eight wide column">
+                                    <span>{{ article.createdAt|date }}</span>
+                                    {% if article.author %}
+                                        <span>by <a href="{{ path('odiseo_sylius_blog_shop_article_index_by_author', {'username': article.author.username}) }}"><strong>{{ article.author.username }}</strong></a> </span>
+                                    {% endif %}
+                                </div>
+                                <div class="right aligned eight wide column">
+                                    <a href="{{ path('odiseo_sylius_blog_shop_article_show', {'slug' : article.slug}) }}#blog-comments"><i class="ui comment icon"></i> {{ article.enabledComments|length }} comments</a>
+                                </div>
                             </div>
                             <div class="description">
                                 <p>{{ article.content|striptags|length > 200 ? article.content|striptags|slice(0, 200) ~ '...' : article.content|striptags }}</p>
@@ -43,7 +58,7 @@
                             {% if article.categories|length > 0 %}
                             <div class="extra">
                                 {% for articleCategory in article.categories %}
-                                <div class="ui label">{{ articleCategory.title }}</div>
+                                    <div class="ui label"><a href="{{ path('odiseo_sylius_blog_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a></div>
                                 {% endfor %}
                             </div>
                             {% endif %}
@@ -61,4 +76,6 @@
         {{ include('@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig') }}
     </div>
 </div>
+{% endblock %}
+
 {% endblock %}

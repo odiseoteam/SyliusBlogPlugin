@@ -27,6 +27,9 @@
                     <div class="content">
                         <div class="meta ui right">
                             <span>{{ article.createdAt|date }}</span>
+                            {% if article.author %}
+                                <span>by <a href="{{ path('odiseo_sylius_blog_shop_article_index_by_author', {'username': article.author.username}) }}"><strong>{{ article.author.username }}</strong></a> </span>
+                            {% endif %}
                         </div>
                         <div class="description">
                             {% if article.images|length > 0 %}
@@ -42,12 +45,12 @@
             <div class="extra">
                 <strong>{{ 'odiseo_sylius_blog.ui.categories'|trans }}: </strong>
                 {% for articleCategory in article.categories %}
-                    <div class="ui label">{{ articleCategory.title }}</div>
+                    <div class="ui label"><a href="{{ path('odiseo_sylius_blog_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a></div>
                 {% endfor %}
             </div>
             {% endif %}
 
-            <div class="ui comments">
+            <div class="ui comments" id="blog-comments">
                 <h3 class="ui dividing header">{{ 'odiseo_blog.ui.article_comments'|trans }}</h3>
                 {% for comment in article.enabledComments %}
                     {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig', {'comment': comment, 'withReply': true}) }}
