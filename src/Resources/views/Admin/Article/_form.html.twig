@@ -1,5 +1,7 @@
 {% from '@OdiseoSyliusBlogPlugin/Admin/Macro/translationForm.html.twig' import translationFormWithSlug %}
 
+{% form_theme form '@OdiseoSyliusBlogPlugin/Admin/Form/theme.html.twig' %}
+
 {{ form_errors(form) }}
 
 <div class="ui two column stackable grid">
@@ -24,7 +26,7 @@
 </div>
 
 <div class="ui one column stackable grid">
-    <div class="column">
+    <div class="column" id="odiseo-article-image">
         <div class="ui segment">
             {{ form_row(form.images) }}
         </div>

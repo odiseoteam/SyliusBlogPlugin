@@ -1,0 +1,9 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include 'SyliusUiBundle::_javascripts.html.twig' with {'path': 'bundles/odiseosyliusblogplugin/js/odiseo-article-image-preview.js'} %}
+
+    {{ sonata_block_render_event(event_prefix ~ '.javascripts') }}
+{% endblock %}
