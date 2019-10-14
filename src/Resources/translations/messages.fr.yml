@@ -1,0 +1,36 @@
+odiseo_sylius_blog:
+    ui:
+        article: Article
+        articles: Articles
+        article_parent: Article ou commentaire
+        manage_articles: Gérer les articles
+        new_article: Nouvel article
+        show_article: Détail de l'article
+        edit_article: Modification de l'article
+        manage_article_categories: Gérer les catégories
+        manage_article_comments: Gérer les commentaires
+        categories: Catégories
+        latest_articles: Derniers articles
+        leave_comment: Laissez un commentaire
+        reply: Répondre
+        add_comment: Ajouter un commentaire
+        comment: Commentaire
+        commenting_as: Commenter en tant que
+        blog:
+            header: Blog
+            author_header: Articles par auteur "%author_username%"
+            category_header: Articles par categorie "%category%"
+            subheader: Voir les articles choisis pour vous
+            about:
+                title: À propos
+                content: Etiam porta <i>sem malesuada magna mollis euismod</i>. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+    menu:
+        admin:
+            blog:
+                header: Blog
+                article_categories: Catégories
+                articles: Articles
+                article_comments: Commentaires
+    form:
+        article:
+            channels: Canaux
