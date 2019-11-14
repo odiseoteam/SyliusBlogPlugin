@@ -28,7 +28,7 @@ final class SetArticleAuthorListener
         $entity = $args->getEntity();
         $token = $this->tokenStorage->getToken();
 
-        if ($entity instanceOf ArticleInterface && $token) {
+        if ($entity instanceof ArticleInterface && $token) {
             $user = $token->getUser();
 
             if ($user instanceof AdminUserInterface) {
