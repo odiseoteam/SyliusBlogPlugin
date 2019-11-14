@@ -40,7 +40,7 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
      */
     public function createNewWithArticleOrComment(string $articleId, string $commentId = null): ArticleCommentInterface
     {
-        /** @var ArticleCommentInterface $articleComment */
+        /** @var \Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface $articleComment */
         $articleComment = $this->decoratedFactory->createNewWithArticleOrComment($articleId, $commentId);
 
         if ($this->shopUser instanceof ShopUserInterface) {
