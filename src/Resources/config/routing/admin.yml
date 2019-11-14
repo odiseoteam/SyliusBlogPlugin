@@ -1,8 +1,0 @@
-odiseo_sylius_blog_admin_article_category:
-    resource: "admin/article_category.yml"
-
-odiseo_sylius_blog_admin_article:
-    resource: "admin/article.yml"
-
-odiseo_sylius_blog_admin_article_comment:
-    resource: "admin/article_comment.yml"

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusBlogPlugin\Factory;
 
 use Odiseo\BlogBundle\Factory\ArticleCommentFactoryInterface;
@@ -15,18 +17,20 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
     /** @var ShopUserInterface|object|string|null */
     private $shopUser;
 
-    public function __construct(ArticleCommentFactoryInterface $decoratedFactory, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        ArticleCommentFactoryInterface $decoratedFactory,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->decoratedFactory = $decoratedFactory;
 
         $token = $tokenStorage->getToken();
-        $this->shopUser = $token?$token->getUser():null;
+        $this->shopUser = $token ? $token->getUser() : null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function createNew()
+    public function createNew(): object
     {
         return $this->decoratedFactory->createNew();
     }
@@ -36,10 +40,10 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
      */
     public function createNewWithArticleOrComment(string $articleId, string $commentId = null): ArticleCommentInterface
     {
-        /** @var \Odiseo\SyliusBlogPlugin\Model\ArticleCommentInterface $articleComment */
+        /** @var ArticleCommentInterface $articleComment */
         $articleComment = $this->decoratedFactory->createNewWithArticleOrComment($articleId, $commentId);
 
-        if($this->shopUser instanceof ShopUserInterface) {
+        if ($this->shopUser instanceof ShopUserInterface) {
             $articleComment->setAuthor($this->shopUser);
         }
 

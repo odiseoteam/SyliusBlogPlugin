@@ -1,6 +1,6 @@
 <div class="comment">
     <a class="avatar">
-        <img src="//placehold.it/50x50">
+        <img src="//placehold.it/50x50" alt="50x50">
     </a>
     <div class="content">
         <a class="author">{{ comment.name }}</a>
@@ -11,22 +11,22 @@
             {{ comment.comment|nl2br }}
         </div>
         {% if withReply is defined and withReply == true %}
-        <div class="actions">
-            <div class="ui accordion">
-                <div class="title">
-                    {{ 'odiseo_sylius_blog.ui.reply'|trans }}
-                </div>
-                <div class="content">
-                    {{ render(url('odiseo_blog_partial_comment_create', {
-                        'articleId': comment.article.id,
-                        'commentId': comment.id,
-                        'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
-                        'redirectRoute': 'odiseo_sylius_blog_shop_article_show',
-                        'redirectParameters': {'slug': comment.article.slug }
-                    })) }}
+            <div class="actions">
+                <div class="ui accordion">
+                    <div class="title">
+                        {{ 'odiseo_sylius_blog_plugin.ui.reply'|trans }}
+                    </div>
+                    <div class="content">
+                        {{ render(url('odiseo_blog_partial_comment_create', {
+                            'articleId': comment.article.id,
+                            'commentId': comment.id,
+                            'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
+                            'redirectRoute': 'odiseo_sylius_blog_plugin_shop_article_show',
+                            'redirectParameters': {'slug': comment.article.slug }
+                        })) }}
+                    </div>
                 </div>
             </div>
-        </div>
         {% endif %}
     </div>
     {% if comment.enabledChildren|length > 0 %}

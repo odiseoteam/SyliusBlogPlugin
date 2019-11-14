@@ -4,9 +4,9 @@
     <div class="ui breadcrumb">
         <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
         <div class="divider"> / </div>
-        <a href="{{ path('odiseo_sylius_blog_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog.ui.blog.header'|trans }}</a>
+        <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog_plugin.ui.blog.header'|trans }}</a>
         <div class="divider"> / </div>
-        <div class="active section">{{ 'odiseo_sylius_blog.ui.blog.category_header'|trans({'%category%': app.request.get('slug')}) }}</div>
+        <div class="active section">{{ 'odiseo_sylius_blog_plugin.ui.blog.category_header'|trans({'%category%': app.request.get('slug')}) }}</div>
     </div>
 {% endblock %}
 
@@ -14,8 +14,8 @@
     <h1 class="ui header">
         <i class="circular newspaper icon"></i>
         <div class="content">
-            {{ 'odiseo_sylius_blog.ui.blog.category_header'|trans({'%category%': app.request.get('slug')}) }}
-            <div class="sub header">{{ 'odiseo_sylius_blog.ui.blog.subheader'|trans }}</div>
+            {{ 'odiseo_sylius_blog_plugin.ui.blog.category_header'|trans({'%category%': app.request.get('slug')}) }}
+            <div class="sub header">{{ 'odiseo_sylius_blog_plugin.ui.blog.subheader'|trans }}</div>
         </div>
     </h1>
 {% endblock %}

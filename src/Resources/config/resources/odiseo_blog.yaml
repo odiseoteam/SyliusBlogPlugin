@@ -1,0 +1,9 @@
+odiseo_blog:
+    resources:
+        article:
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\Article
+                repository: Odiseo\SyliusBlogPlugin\Repository\ArticleRepository
+        article_comment:
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleComment

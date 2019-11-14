@@ -1,0 +1,60 @@
+services:
+    odiseo_sylius_blog_plugin.context.setup.article:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup\ArticleContext
+        public: true
+        arguments:
+            - '@odiseo_blog.factory.article'
+            - '@odiseo_blog.repository.article'
+            - '@odiseo_blog.manager.article'
+        tags:
+            - { name: fob.context_service }
+
+    odiseo_sylius_blog_plugin.context.transform.article:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Transform\ArticleContext
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.article'
+        tags:
+            - { name: fob.context_service }
+
+    odiseo_sylius_blog_plugin.context.ui.admin.managing_articles:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingArticlesContext
+        public: true
+        arguments:
+            - "@sylius.behat.current_page_resolver"
+            - "@sylius.behat.notification_checker"
+            - '@odiseo_sylius_blog_plugin.page.admin.article.index_page'
+            - '@odiseo_sylius_blog_plugin.page.admin.article.create_page'
+            - '@odiseo_sylius_blog_plugin.page.admin.article.update_page'
+        tags:
+            - { name: fob.context_service }
+
+    odiseo_sylius_blog_plugin.context.setup.article_category:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup\ArticleCategoryContext
+        public: true
+        arguments:
+            - '@odiseo_blog.factory.article_category'
+            - '@odiseo_blog.repository.article_category'
+            - '@odiseo_blog.manager.article_category'
+        tags:
+            - { name: fob.context_service }
+
+    odiseo_sylius_blog_plugin.context.transform.article_category:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Transform\ArticleCategoryContext
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.article_category'
+        tags:
+            - { name: fob.context_service }
+
+    odiseo_sylius_blog_plugin.context.ui.admin.managing_article_categories:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingArticleCategoriesContext
+        public: true
+        arguments:
+            - "@sylius.behat.current_page_resolver"
+            - "@sylius.behat.notification_checker"
+            - '@odiseo_sylius_blog_plugin.page.admin.article_category.index_page'
+            - '@odiseo_sylius_blog_plugin.page.admin.article_category.create_page'
+            - '@odiseo_sylius_blog_plugin.page.admin.article_category.update_page'
+        tags:
+            - { name: fob.context_service }

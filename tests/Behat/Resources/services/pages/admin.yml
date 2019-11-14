@@ -1,3 +1,0 @@
-imports:
-    - { resource: "admin/article.yml" }
-    - { resource: "admin/article_category.yml" }

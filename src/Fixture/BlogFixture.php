@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusBlogPlugin\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Odiseo\BlogBundle\EventListener\ArticleImageUploadListener;
 use Odiseo\BlogBundle\Model\ArticleCategoryInterface;
-use Odiseo\BlogBundle\Model\ArticleImage;
 use Odiseo\BlogBundle\Model\ArticleImageInterface;
-use Odiseo\SyliusBlogPlugin\Model\ArticleCommentInterface;
-use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Sylius\Bundle\FixturesBundle\Fixture\AbstractFixture;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
@@ -21,40 +22,40 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BlogFixture extends AbstractFixture
+final class BlogFixture extends AbstractFixture
 {
     /** @var ObjectManager */
-    protected $objectManager;
+    private $objectManager;
 
     /** @var FactoryInterface */
-    protected $articleFactory;
+    private $articleFactory;
 
     /** @var FactoryInterface */
-    protected $articleCategoryFactory;
+    private $articleCategoryFactory;
 
     /** @var FactoryInterface */
-    protected $articleImageFactory;
+    private $articleImageFactory;
 
     /** @var FactoryInterface */
-    protected $articleCommentFactory;
+    private $articleCommentFactory;
 
     /** @var ChannelRepositoryInterface */
-    protected $channelRepository;
+    private $channelRepository;
 
     /** @var RepositoryInterface */
-    protected $localeRepository;
+    private $localeRepository;
 
     /** @var \Faker\Generator */
-    protected $faker;
+    private $faker;
 
     /** @var OptionsResolver */
-    protected $optionsResolver;
+    private $optionsResolver;
 
     /** @var ArticleImageUploadListener */
-    protected $imageUploader;
+    private $imageUploader;
 
     /** @var array */
-    protected $categories;
+    private $categories;
 
     public function __construct(
         ObjectManager $objectManager,
@@ -96,7 +97,6 @@ class BlogFixture extends AbstractFixture
 
         /** @var ChannelInterface $channel */
         foreach ($channels as $channel) {
-            $imageIndex = 1;
             for ($i=1; $i <= $options['articles_per_channel']; $i++) {
                 /** @var ArticleInterface $article */
                 $article = $this->articleFactory->createNew();
@@ -144,7 +144,7 @@ class BlogFixture extends AbstractFixture
         $this->objectManager->flush();
     }
 
-    private function createArticleCategories()
+    private function createArticleCategories(): void
     {
         for ($i = 0; $i < 5; $i++) {
             /** @var ArticleCategoryInterface $articleCategory */
@@ -165,7 +165,10 @@ class BlogFixture extends AbstractFixture
         }
     }
 
-    private function addArticleComments(ArticleInterface $article)
+    /**
+     * @param ArticleInterface $article
+     */
+    private function addArticleComments(ArticleInterface $article): void
     {
         for ($i = 0; $i < 8; $i++) {
             /** @var ArticleCommentInterface $comment */
@@ -181,9 +184,9 @@ class BlogFixture extends AbstractFixture
     }
 
     /**
-     * @return array
+     * @return \Generator
      */
-    private function getLocales()
+    private function getLocales(): \Generator
     {
         /** @var LocaleInterface[] $locales */
         $locales = $this->localeRepository->findAll();

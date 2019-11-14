@@ -1,9 +1,9 @@
-odiseo_sylius_blog_admin:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yml"
+odiseo_sylius_blog_plugin_admin:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
     prefix: /admin
 
-odiseo_sylius_blog_shop:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yml"
+odiseo_sylius_blog_plugin_shop:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"
     prefix: /{_locale}/blog
     requirements:
         _locale: ^[a-z]{2}(?:_[A-Z]{2})?$

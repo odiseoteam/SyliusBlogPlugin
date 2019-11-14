@@ -1,4 +1,4 @@
-odiseo_sylius_blog:
+odiseo_sylius_blog_plugin:
     ui:
         article: Artículo
         articles: Artículos

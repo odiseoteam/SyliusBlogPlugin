@@ -1,0 +1,21 @@
+services:
+    odiseo_sylius_blog_plugin.page.admin.article_category.index_page:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\IndexPage
+        parent: sylius.behat.page.admin.crud.index
+        public: false
+        arguments:
+            - 'odiseo_blog_admin_article_category_index'
+
+    odiseo_sylius_blog_plugin.page.admin.article_category.create_page:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\CreatePage
+        parent: sylius.behat.page.admin.crud.create
+        public: false
+        arguments:
+            - 'odiseo_blog_admin_article_category_create'
+
+    odiseo_sylius_blog_plugin.page.admin.article_category.update_page:
+        class: Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\UpdatePage
+        parent: sylius.behat.page.admin.crud.update
+        public: false
+        arguments:
+            - 'odiseo_blog_admin_article_category_update'

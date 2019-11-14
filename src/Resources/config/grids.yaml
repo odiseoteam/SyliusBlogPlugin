@@ -1,0 +1,2 @@
+imports:
+    - { resource: grids/odiseo_blog.yaml }

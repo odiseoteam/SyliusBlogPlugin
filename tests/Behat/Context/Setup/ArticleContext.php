@@ -6,8 +6,8 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
-use Odiseo\SyliusBlogPlugin\Doctrine\ORM\ArticleRepositoryInterface;
-use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Repository\ArticleRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class ArticleContext implements Context

@@ -1,8 +1,0 @@
-odiseo_blog:
-    resource: "@OdiseoBlogBundle/Resources/config/routing/main.yml"
-
-odiseo_sylius_blog_shop_article:
-    resource: "shop/article.yml"
-
-odiseo_sylius_blog_shop_article_category:
-    resource: "shop/article_category.yml"

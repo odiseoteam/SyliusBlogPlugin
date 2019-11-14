@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
-use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 

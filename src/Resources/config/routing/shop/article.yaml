@@ -1,0 +1,67 @@
+odiseo_sylius_blog_plugin_shop_article_show:
+    path: /article/{slug}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:showAction
+        _sylius:
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/show.html.twig"
+            repository:
+                method: findOneBySlugAndChannel
+                arguments:
+                    - $slug
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - "expr:service('sylius.context.channel').getChannel().getCode()"
+
+odiseo_sylius_blog_plugin_shop_article_index_by_category:
+    path: /category/{slug}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/category_index.html.twig"
+            repository:
+                method: findByCategoryAndChannel
+                arguments:
+                    - $slug
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - "expr:service('sylius.context.channel').getChannel().getCode()"
+
+odiseo_sylius_blog_plugin_shop_article_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/index.html.twig"
+            repository:
+                method: findByChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel().getCode()"
+
+odiseo_sylius_blog_plugin_shop_partial_article_index_latest:
+    path: /article/latest/{count}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findLatestByChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - '!!int $count'
+
+odiseo_sylius_blog_plugin_shop_article_index_by_author:
+    path: /article/by-author/{username}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            template: "@OdiseoSyliusBlogPlugin/Shop/Article/author_index.html.twig"
+            repository:
+                method: findByAuthorAndChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - $username

@@ -1,0 +1,10 @@
+services:
+    odiseo_sylius_blog_plugin.form.extension.type.article:
+        class: Odiseo\SyliusBlogPlugin\Form\Extension\ArticleTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Odiseo\BlogBundle\Form\Type\ArticleType }
+
+    odiseo_sylius_blog_plugin.form.extension.type.article_user_comment:
+        class: Odiseo\SyliusBlogPlugin\Form\Extension\ArticleUserCommentTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Odiseo\BlogBundle\Form\Type\ArticleUserCommentType }

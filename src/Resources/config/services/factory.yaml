@@ -1,0 +1,7 @@
+services:
+    odiseo_sylius_blog_plugin.factory.article_comment:
+        class: Odiseo\SyliusBlogPlugin\Factory\ArticleCommentFactory
+        decorates: odiseo_blog.factory.article_comment
+        arguments:
+            - '@odiseo_sylius_blog_plugin.factory.article_comment.inner'
+            - '@security.token_storage'

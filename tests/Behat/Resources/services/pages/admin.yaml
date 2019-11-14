@@ -1,0 +1,3 @@
+imports:
+    - { resource: admin/article.yaml }
+    - { resource: admin/article_category.yaml }

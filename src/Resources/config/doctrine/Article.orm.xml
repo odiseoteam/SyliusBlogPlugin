@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\Article" table="odiseo_blog_article">
+        <many-to-many field="channels" target-entity="Sylius\Component\Channel\Model\ChannelInterface">
+            <join-table name="odiseo_blog_articles_channels">
+                <join-columns>
+                    <join-column name="article_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="channel_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-one field="author" target-entity="Sylius\Component\Core\Model\AdminUserInterface">
+            <join-column name="author_id" referenced-column-name="id"/>
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>

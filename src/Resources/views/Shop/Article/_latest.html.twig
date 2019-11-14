@@ -1,21 +1,21 @@
 {% if articles|length > 0 %}
-<div class="ui divided items">
-{% for article in articles %}
-    <div class="item">
-        {% if article.images|length > 0 %}
-            <div class="ui tiny image">
-                <img src="{{ article.images[0].path|imagine_filter(filter|default('sylius_small')) }}">
+    <div class="ui divided items">
+        {% for article in articles %}
+            <div class="item">
+                {% if article.images|length > 0 %}
+                    <div class="ui tiny image">
+                        <img src="{{ article.images[0].path|imagine_filter(filter|default('sylius_small')) }}" alt="{{ article.images[0].path }}">
+                    </div>
+                {% endif %}
+                <div class="content">
+                    <a class="header" href="{{ path('odiseo_sylius_blog_plugin_shop_article_show', {'slug' : article.slug}) }}">
+                        {{ article.title }}
+                    </a>
+                    <div class="meta">
+                        <span>{{ article.createdAt|date }}</span>
+                    </div>
+                </div>
             </div>
-        {% endif %}
-        <div class="content">
-            <a class="header" href="{{ path('odiseo_sylius_blog_shop_article_show', {'slug' : article.slug}) }}">
-                {{ article.title }}
-            </a>
-            <div class="meta">
-                <span>{{ article.createdAt|date }}</span>
-            </div>
-        </div>
+        {% endfor %}
     </div>
-{% endfor %}
-</div>
 {% endif %}

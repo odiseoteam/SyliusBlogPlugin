@@ -1,3 +1,0 @@
-imports:
-    - suites/ui/managing_articles.yml
-    - suites/ui/managing_article_categories.yml

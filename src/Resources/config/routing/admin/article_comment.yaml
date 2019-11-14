@@ -1,0 +1,17 @@
+odiseo_sylius_blog_plugin_admin_article_comment:
+    resource: |
+        alias: odiseo_blog.article_comment
+        section: admin
+        templates: OdiseoSyliusBlogPlugin:Admin\Crud
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_article_comment
+        permission: true
+        vars:
+            all:
+                subheader: odiseo_sylius_blog_plugin.ui.manage_article_comments
+                templates:
+                    form: '@OdiseoSyliusBlogPlugin/Admin/ArticleComment/_form.html.twig'
+            index:
+                icon: comment
+    type: sylius.resource

@@ -1,18 +1,18 @@
 <div class="ui secondary segment">
     <h4 class="ui header">
-        {{ 'odiseo_sylius_blog.ui.blog.about.title'|trans }}
+        {{ 'odiseo_sylius_blog_plugin.ui.blog.about.title'|trans }}
     </h4>
     <p>
-        {{ 'odiseo_sylius_blog.ui.blog.about.content'|trans|raw }}
+        {{ 'odiseo_sylius_blog_plugin.ui.blog.about.content'|trans|raw }}
     </p>
 </div>
 <div class="ui segment">
     <h4 class="ui header">
-        {{ 'odiseo_sylius_blog.ui.latest_articles'|trans }}
+        {{ 'odiseo_sylius_blog_plugin.ui.latest_articles'|trans }}
     </h4>
-    {{ render(url('odiseo_sylius_blog_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
+    {{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
 </div>
 <div class="ui basic segment">
-    <h4 class="ui header">{{ 'odiseo_sylius_blog.ui.categories'|trans }}</h4>
-    {{ render(url('odiseo_sylius_blog_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
+    <h4 class="ui header">{{ 'odiseo_sylius_blog_plugin.ui.categories'|trans }}</h4>
+    {{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
 </div>

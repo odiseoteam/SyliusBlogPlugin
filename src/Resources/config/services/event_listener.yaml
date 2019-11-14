@@ -1,0 +1,17 @@
+services:
+    odiseo_sylius_blog_plugin.event_listener.admin.menu_builder:
+        class: Odiseo\SyliusBlogPlugin\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+    #odiseo_sylius_vendor_plugin.block_event_listener.layout.vendor.javascripts:
+    #    class: Odiseo\SyliusVendorPlugin\Block\VendorJsBlockListener
+    #    tags:
+    #        - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.layout.javascripts, method: onBlockEvent }
+
+    odiseo_sylius_blog_plugin.event_listener.set_article_author:
+        class: Odiseo\SyliusBlogPlugin\Doctrine\SetArticleAuthorListener
+        arguments:
+            - '@security.token_storage'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist }

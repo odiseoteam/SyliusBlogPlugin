@@ -6,7 +6,7 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
-use Odiseo\SyliusBlogPlugin\Model\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\CreatePageInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusBlogPlugin\Form\Extension;
 
 use Odiseo\BlogBundle\Form\Type\ArticleType;
@@ -20,7 +22,7 @@ final class ArticleTypeExtension extends AbstractTypeExtension
             ->add('channels', ChannelChoiceType::class, [
                 'multiple' => true,
                 'expanded' => true,
-                'label' => 'odiseo_sylius_blog.form.article.channels',
+                'label' => 'odiseo_sylius_blog_plugin.form.article.channels',
             ])
         ;
     }
@@ -28,15 +30,7 @@ final class ArticleTypeExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function getExtendedType(): string
-    {
-        return ArticleType::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getExtendedTypes(): array
+    public static function getExtendedTypes(): iterable
     {
         return [ArticleType::class];
     }

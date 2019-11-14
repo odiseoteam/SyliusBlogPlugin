@@ -1,0 +1,14 @@
+services:
+    odiseo_sylius_blog_plugin.fixture.blog:
+        class: Odiseo\SyliusBlogPlugin\Fixture\BlogFixture
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@odiseo_blog.factory.article'
+            - '@odiseo_blog.factory.article_category'
+            - '@odiseo_blog.factory.article_image'
+            - '@odiseo_blog.factory.article_comment'
+            - '@sylius.repository.channel'
+            - '@sylius.repository.locale'
+            - '@odiseo_blog.listener.article_image_upload'
+        tags:
+            - { name: sylius_fixtures.fixture }
