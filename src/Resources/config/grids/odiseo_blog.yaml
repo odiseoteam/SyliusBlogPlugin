@@ -11,7 +11,7 @@ sylius_grid:
                     type: twig
                     path: .
                     options:
-                        template: "@OdiseoSyliusBlogPlugin/Admin/Grid/Field/article_parent.html.twig"
+                        template: "@OdiseoSyliusBlogPlugin/Field/_article_parent.html.twig"
                 comment:
                     position: 3
                     label: sylius.ui.comment
@@ -38,7 +38,7 @@ sylius_grid:
                     label: sylius.ui.image
                     path: .
                     options:
-                        template: "@OdiseoSyliusBlogPlugin/Admin/Grid/Field/image.html.twig"
+                        template: "@OdiseoSyliusBlogPlugin/Field/_image.html.twig"
                 title:
                     position: 4
                     label: sylius.ui.title

@@ -4,10 +4,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
 
-    #odiseo_sylius_vendor_plugin.block_event_listener.layout.vendor.javascripts:
-    #    class: Odiseo\SyliusVendorPlugin\Block\VendorJsBlockListener
-    #    tags:
-    #        - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.layout.javascripts, method: onBlockEvent }
+    odiseo_sylius_blog_plugin.block_event_listener.layout.blog.javascripts:
+        class: Odiseo\SyliusBlogPlugin\Block\BlogJsBlockListener
+        tags:
+            - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.layout.javascripts, method: onBlockEvent }
 
     odiseo_sylius_blog_plugin.event_listener.set_article_author:
         class: Odiseo\SyliusBlogPlugin\Doctrine\SetArticleAuthorListener

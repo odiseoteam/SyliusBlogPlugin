@@ -1,4 +1,4 @@
-{% from '@OdiseoSyliusBlogPlugin/Admin/Macro/translationForm.html.twig' import translationFormWithSlug %}
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
 
 {{ form_errors(form) }}
 
@@ -13,6 +13,6 @@
 
 <div class="ui one column stackable grid">
     <div class="column">
-        {{ translationFormWithSlug(form.translations, article_category) }}
+        {{ translationForm(form.translations) }}
     </div>
 </div>

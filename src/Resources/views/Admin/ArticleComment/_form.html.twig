@@ -1,11 +1,11 @@
 {{ form_errors(form) }}
 
 {% if form.vars.data.article or form.vars.data.parent %}
-<div class="ui column stackable grid">
-    <div class="column">
-        <strong>{{ include('@OdiseoSyliusBlogPlugin/Admin/Grid/Field/article_parent.html.twig', {'data': form.vars.data}) }}</strong>
+    <div class="ui column stackable grid">
+        <div class="column">
+            <strong>{% include '@OdiseoSyliusBlogPlugin/Field/_article_parent.html.twig' with {'data': form.vars.data} %}</strong>
+        </div>
     </div>
-</div>
 {% endif %}
 
 <div class="ui column stackable grid">

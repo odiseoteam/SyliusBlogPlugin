@@ -44,6 +44,6 @@
 
 (function($) {
     $(document).ready(function () {
-        $(document).previewUploadedImage('#odiseo-article-image')
+        $(document).previewUploadedImage('#odiseo-image')
     });
 })(jQuery);
