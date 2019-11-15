@@ -1,0 +1,2 @@
+odiseo_sylius_blog_plugin_api_shop_article:
+    resource: shop/article.yaml

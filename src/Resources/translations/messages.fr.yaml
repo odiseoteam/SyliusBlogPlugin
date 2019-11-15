@@ -9,7 +9,7 @@ odiseo_sylius_blog_plugin:
         edit_article: Modification de l'article
         manage_article_categories: Gérer les catégories
         manage_article_comments: Gérer les commentaires
-        categories: Catégories
+        article_categories: Catégories
         latest_articles: Derniers articles
         leave_comment: Laissez un commentaire
         reply: Répondre

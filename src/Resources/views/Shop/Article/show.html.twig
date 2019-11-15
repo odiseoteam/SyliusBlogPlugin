@@ -43,7 +43,7 @@
             </div>
             {% if article.categories|length > 0 %}
                 <div class="extra">
-                    <strong>{{ 'odiseo_sylius_blog_plugin.ui.categories'|trans }}: </strong>
+                    <strong>{{ 'odiseo_sylius_blog_plugin.ui.article_categories'|trans }}: </strong>
                     {% for articleCategory in article.categories %}
                         <div class="ui label"><a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a></div>
                     {% endfor %}

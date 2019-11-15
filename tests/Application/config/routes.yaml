@@ -1,6 +1,10 @@
+odiseo_sylius_blog_plugin_api:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/api.yaml"
+    prefix: /api/blog
+
 odiseo_sylius_blog_plugin_admin:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
-    prefix: /admin
+    prefix: /admin/blog
 
 odiseo_sylius_blog_plugin_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"

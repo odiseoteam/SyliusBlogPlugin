@@ -1,0 +1,23 @@
+odiseo_sylius_blog_plugin_api_shop_article:
+    resource: |
+        identifier: code
+        alias: odiseo_blog.article
+        section: shop_api
+        serialization_version: $version
+        only: ['index', 'show']
+        criteria:
+            code: $code
+    type: sylius.resource_api
+
+odiseo_sylius_blog_plugin_shop_api_article_by_channel:
+    path: /articles/by-channel/{code}
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.article:indexAction
+        _sylius:
+            serialization_version: $version
+            section: shop_api
+            repository:
+                method: findByChannel
+                arguments:
+                    - "expr:service('sylius.repository.channel').findOneByCode($code)"

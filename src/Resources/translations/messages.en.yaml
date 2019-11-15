@@ -9,7 +9,7 @@ odiseo_sylius_blog_plugin:
         edit_article: Edit article
         manage_article_categories: Manage article categories
         manage_article_comments: Manage article comments
-        categories: Categories
+        article_categories: Categories
         latest_articles: Latest articles
         leave_comment: Leave a comment
         reply: Reply
@@ -28,7 +28,7 @@ odiseo_sylius_blog_plugin:
         admin:
             blog:
                 header: Blog
-                article_categories: Article categories
+                article_categories: Categories
                 articles: Articles
                 article_comments: Comments
     form:

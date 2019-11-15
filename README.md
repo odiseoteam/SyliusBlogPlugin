@@ -78,13 +78,21 @@ imports:
 ```yml
 odiseo_sylius_blog_plugin_admin:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
-    prefix: /admin
+    prefix: /admin/blog
     
 odiseo_sylius_blog_plugin_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"
     prefix: /{_locale}/blog
     requirements:
         _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+```
+
+5. This plugin includes an API version. If you want to use it you have to add the route
+
+```yml
+odiseo_sylius_blog_plugin_api:
+    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/api.yaml"
+    prefix: /api/blog
 ```
 
 5. Because this plugin uses FOSCKeditorBundle you need to execute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html)
@@ -111,13 +119,13 @@ Feel free to modify the plugin templates like you want.
 To render a list of latest articles you can do something like this:
 
 ```twig
-{{ render(url('odiseo_sylius_blog_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
+{{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_index_latest', {'count': 4, 'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_latest.html.twig'})) }}
 ``` 
 
 And to render a list of categories:
 
 ```twig
-{{ render(url('odiseo_sylius_blog_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
+{{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
 ``` 
 
 ## Fixtures

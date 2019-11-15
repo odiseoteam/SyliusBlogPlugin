@@ -9,7 +9,7 @@ odiseo_sylius_blog_plugin:
         edit_article: Editar artículo
         manage_article_categories: Administrar categorías
         manage_article_comments: Administrar comentarios
-        categories: Categorías
+        article_categories: Categorías
         latest_articles: Artículos recientes
         leave_comment: Deja un comentario
         reply: Responder
@@ -33,4 +33,4 @@ odiseo_sylius_blog_plugin:
                 article_comments: Comentarios
     form:
         article:
-            channels: Canales
+            channels: Tiendas

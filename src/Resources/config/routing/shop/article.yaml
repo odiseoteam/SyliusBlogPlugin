@@ -1,5 +1,5 @@
 odiseo_sylius_blog_plugin_shop_article_show:
-    path: /article/{slug}
+    path: /articles/{slug}
     methods: [GET]
     defaults:
         _controller: odiseo_blog.controller.article:showAction
@@ -13,7 +13,7 @@ odiseo_sylius_blog_plugin_shop_article_show:
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
 
 odiseo_sylius_blog_plugin_shop_article_index_by_category:
-    path: /category/{slug}
+    path: /articles/category/{slug}
     methods: [GET]
     defaults:
         _controller: odiseo_blog.controller.article:indexAction
@@ -27,7 +27,7 @@ odiseo_sylius_blog_plugin_shop_article_index_by_category:
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
 
 odiseo_sylius_blog_plugin_shop_article_index:
-    path: /
+    path: /articles
     methods: [GET]
     defaults:
         _controller: odiseo_blog.controller.article:indexAction
@@ -39,7 +39,7 @@ odiseo_sylius_blog_plugin_shop_article_index:
                     - "expr:service('sylius.context.channel').getChannel().getCode()"
 
 odiseo_sylius_blog_plugin_shop_partial_article_index_latest:
-    path: /article/latest/{count}
+    path: /articles/latest/{count}
     methods: [GET]
     defaults:
         _controller: odiseo_blog.controller.article:indexAction
@@ -53,7 +53,7 @@ odiseo_sylius_blog_plugin_shop_partial_article_index_latest:
                     - '!!int $count'
 
 odiseo_sylius_blog_plugin_shop_article_index_by_author:
-    path: /article/by-author/{username}
+    path: /articles/by-author/{username}
     methods: [GET]
     defaults:
         _controller: odiseo_blog.controller.article:indexAction

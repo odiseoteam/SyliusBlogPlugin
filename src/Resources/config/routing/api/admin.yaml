@@ -1,0 +1,8 @@
+odiseo_sylius_blog_plugin_api_admin_article:
+    resource: admin/article.yaml
+
+odiseo_sylius_blog_plugin_api_admin_article_category:
+    resource: admin/article_category.yaml
+
+odiseo_sylius_blog_plugin_api_admin_article_comment:
+    resource: admin/article_comment.yaml

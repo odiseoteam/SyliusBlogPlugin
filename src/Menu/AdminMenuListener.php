@@ -33,7 +33,7 @@ final class AdminMenuListener
         ;
 
         $blog
-            ->addChild('comments', ['route' => 'odiseo_blog_admin_article_comment_index'])
+            ->addChild('article_comments', ['route' => 'odiseo_blog_admin_article_comment_index'])
             ->setLabel('odiseo_sylius_blog_plugin.menu.admin.blog.article_comments')
             ->setLabelAttribute('icon', 'comment')
         ;
