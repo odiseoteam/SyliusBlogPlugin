@@ -10,6 +10,9 @@ From the plugin root directory, run the following commands:
     $ (cd tests/Application && yarn run gulp)
     $ (cd tests/Application && bin/console assets:install public -e test)
     
+    $ (cd tests/Application && bin/console ckeditor:install)
+    $ (cd tests/Application && bin/console assets:install public)
+
     $ (cd tests/Application && bin/console doctrine:database:create -e test)
     $ (cd tests/Application && bin/console doctrine:schema:create -e test)
     
