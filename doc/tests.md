@@ -9,7 +9,7 @@ From the plugin root directory, run the following commands:
     $ (cd tests/Application && yarn install)
     $ (cd tests/Application && yarn run gulp)
     $ (cd tests/Application && bin/console assets:install public -e test)
-    
+
     $ (cd tests/Application && bin/console ckeditor:install)
     $ (cd tests/Application && bin/console assets:install public)
 
@@ -39,7 +39,7 @@ To be able to setup a plugin's database, remember to configure you database cred
     ```bash
     $ bin/behat
     ```
-    
+
 ### Opening Sylius with this plugin
 
 - Using `test` environment:
@@ -48,7 +48,7 @@ To be able to setup a plugin's database, remember to configure you database cred
     $ (cd tests/Application && bin/console sylius:fixtures:load -e test)
     $ (cd tests/Application && bin/console server:run -d public -e test)
     ```
-    
+
 - Using `dev` environment:
 
     ```bash

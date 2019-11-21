@@ -48,7 +48,15 @@
                                                 {% endif %}
                                             </div>
                                             <div class="right aligned eight wide column">
-                                                <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_show', {'slug' : article.slug}) }}#blog-comments"><i class="ui comment icon"></i> {{ article.enabledComments|length }} comments</a>
+                                                {% if disqus_shortname() %}
+                                                    <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_show', {'slug' : article.slug}) }}#disqus_thread" data-disqus-identifier="{{ url('odiseo_sylius_blog_plugin_shop_article_show', {'slug' : article.slug}) }}">
+                                                        <div class="ui active inline mini loader"></div>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_show', {'slug' : article.slug}) }}#blog-comments">
+                                                        <i class="ui comment icon"></i> {{ article.enabledComments|length }} comments
+                                                    </a>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="description">
@@ -72,8 +80,14 @@
                 </div>
             </div>
             <div class="sixteen wide mobile four wide computer column">
-                {{ include('@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig') }}
+                {% include '@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig' %}
             </div>
         </div>
     {% endblock %}
+
+    {% if disqus_shortname() %}
+        {% block blog_disqus %}
+            {% include '@OdiseoSyliusBlogPlugin/Shop/Article/_disqus.html.twig' %}
+        {% endblock %}
+    {% endif %}
 {% endblock %}

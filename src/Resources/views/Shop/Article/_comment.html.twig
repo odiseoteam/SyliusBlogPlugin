@@ -32,7 +32,7 @@
     {% if comment.enabledChildren|length > 0 %}
         <div class="comments">
             {% for comment in comment.enabledChildren %}
-                {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig', {'comment': comment, 'withReply': false}) }}
+                {% include '@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig' with {'comment': comment, 'withReply': false} %}
             {% endfor %}
         </div>
     {% endif %}

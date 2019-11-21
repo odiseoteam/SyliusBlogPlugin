@@ -8,7 +8,7 @@
     'redirectParameters': {'slug': form.vars.data.article?form.vars.data.article.slug:form.vars.data.parent.article.slug }
 }), 'method': 'POST', 'attr': {'class': 'ui reply form'}}) }}
     {% if form.vars.data.author %}
-        {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment_author.html.twig', {'author': form.vars.data.author}) }}
+        {% include '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_author.html.twig' with {'author': form.vars.data.author} %}
     {% endif %}
 
     {% if form.name is defined or form.email is defined %}

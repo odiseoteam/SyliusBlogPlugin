@@ -23,6 +23,17 @@ final class Configuration implements ConfigurationInterface
             $rootNode = $treeBuilder->root('odiseo_sylius_blog_plugin');
         }
 
+        $rootNode
+            ->children()
+                ->arrayNode('disqus')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('shortname')->defaultValue(null)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

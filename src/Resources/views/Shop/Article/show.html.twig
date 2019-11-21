@@ -10,65 +10,75 @@
 {% endblock %}
 
 {% block content %}
-<div class="ui breadcrumb">
-    <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
-    <div class="divider"> /</div>
-    <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog_plugin.ui.blog.header'|trans }}</a>
-    <div class="divider"> /</div>
-    <div class="active section">{{ article.title }}</div>
-</div>
+    {% block blog_breadcrumb %}
+        <div class="ui breadcrumb">
+            <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
+            <div class="divider"> /</div>
+            <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index') }}" class="section">{{ 'odiseo_sylius_blog_plugin.ui.blog.header'|trans }}</a>
+            <div class="divider"> /</div>
+            <div class="active section">{{ article.title }}</div>
+        </div>
+    {% endblock %}
 
-<div class="ui grid">
-    <div class="sixteen wide mobile twelve wide computer column">
-        <div class="ui segment">
-            <h1 class="ui dividing header">{{ article.title }}</h1>
-            <div class="ui items">
-                <div class="item">
-                    <div class="content">
-                        <div class="meta ui right">
-                            <span>{{ article.createdAt|date }}</span>
-                            {% if article.author %}
-                                <span>by <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_author', {'username': article.author.username}) }}"><strong>{{ article.author.username }}</strong></a> </span>
-                            {% endif %}
-                        </div>
-                        <div class="description">
-                            {% if article.images|length > 0 %}
-                                <img src="{{ article.images[0].path|imagine_filter(filter|default('sylius_large')) }}" class="ui image centered" alt="{{ article.images[0].path }}">
-                                <div class="ui hidden divider"></div>
-                            {% endif %}
-                            <p>{{ article.content|raw }}</p>
+    {% block blog_article %}
+        <div class="ui grid">
+            <div class="sixteen wide mobile twelve wide computer column">
+                <div class="ui segment">
+                    <h1 class="ui dividing header">{{ article.title }}</h1>
+                    <div class="ui items">
+                        <div class="item">
+                            <div class="content">
+                                <div class="meta ui right">
+                                    <span>{{ article.createdAt|date }}</span>
+                                    {% if article.author %}
+                                        <span>by <a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_author', {'username': article.author.username}) }}"><strong>{{ article.author.username }}</strong></a> </span>
+                                    {% endif %}
+                                </div>
+                                <div class="description">
+                                    {% if article.images|length > 0 %}
+                                        <img src="{{ article.images[0].path|imagine_filter(filter|default('sylius_large')) }}" class="ui image centered" alt="{{ article.images[0].path }}">
+                                        <div class="ui hidden divider"></div>
+                                    {% endif %}
+                                    <p>{{ article.content|raw }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {% if article.categories|length > 0 %}
+                        <div class="extra">
+                            <strong>{{ 'odiseo_sylius_blog_plugin.ui.article_categories'|trans }}: </strong>
+                            {% for articleCategory in article.categories %}
+                                <div class="ui label"><a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if disqus_shortname() %}
+                        {% block blog_disqus %}
+                            {% include '@OdiseoSyliusBlogPlugin/Shop/Article/_disqus.html.twig' %}
+                        {% endblock %}
+                    {% else %}
+                        <div class="ui comments" id="blog-comments">
+                            <h3 class="ui dividing header">{{ 'odiseo_blog.ui.article_comments'|trans }}</h3>
+                            {% for comment in article.enabledComments %}
+                                {% include '@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig' with {'comment': comment, 'withReply': true} %}
+                            {% endfor %}
+
+                            <h4>{{ 'odiseo_sylius_blog_plugin.ui.leave_comment'|trans|raw }}</h4>
+
+                            {{ render(url('odiseo_blog_partial_comment_create', {
+                                'articleId': article.id,
+                                'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
+                                'redirectRoute': 'odiseo_sylius_blog_plugin_shop_article_show',
+                                'redirectParameters': {'slug': article.slug }
+                            })) }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            {% if article.categories|length > 0 %}
-                <div class="extra">
-                    <strong>{{ 'odiseo_sylius_blog_plugin.ui.article_categories'|trans }}: </strong>
-                    {% for articleCategory in article.categories %}
-                        <div class="ui label"><a href="{{ path('odiseo_sylius_blog_plugin_shop_article_index_by_category', {'slug': articleCategory.slug}) }}">{{ articleCategory.title }}</a></div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            <div class="ui comments" id="blog-comments">
-                <h3 class="ui dividing header">{{ 'odiseo_blog.ui.article_comments'|trans }}</h3>
-                {% for comment in article.enabledComments %}
-                    {{ include('@OdiseoSyliusBlogPlugin/Shop/Article/_comment.html.twig', {'comment': comment, 'withReply': true}) }}
-                {% endfor %}
-
-                <h4>{{ 'odiseo_sylius_blog_plugin.ui.leave_comment'|trans|raw }}</h4>
-
-                {{ render(url('odiseo_blog_partial_comment_create', {
-                    'articleId': article.id,
-                    'template': '@OdiseoSyliusBlogPlugin/Shop/Article/_comment_create.html.twig',
-                    'redirectRoute': 'odiseo_sylius_blog_plugin_shop_article_show',
-                    'redirectParameters': {'slug': article.slug }
-                })) }}
+            <div class="sixteen wide mobile four wide computer column">
+                {% include '@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig' %}
             </div>
         </div>
-    </div>
-    <div class="sixteen wide mobile four wide computer column">
-        {{ include('@OdiseoSyliusBlogPlugin/Shop/_sidebar.html.twig') }}
-    </div>
-</div>
+    {% endblock %}
 {% endblock %}
