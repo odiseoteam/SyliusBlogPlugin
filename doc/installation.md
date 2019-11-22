@@ -7,6 +7,7 @@ them too
 
 ```php
 <?php
+// config/bundles.php
 
 return [
     // ...
@@ -20,6 +21,7 @@ return [
 3. Import the plugin configurations
 
 ```yml
+# config/services.yaml
 imports:
     - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yaml" }
 ```
@@ -27,6 +29,7 @@ imports:
 4. Add the shop and admin routes
 
 ```yml
+# config/routes.yaml
 odiseo_sylius_blog_plugin_admin:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
     prefix: /admin/blog
@@ -41,6 +44,7 @@ odiseo_sylius_blog_plugin_shop:
 5. This plugin includes an API version. If you want to use it you have to add the route
 
 ```yml
+# config/routes.yaml
 odiseo_sylius_blog_plugin_api:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/api.yaml"
     prefix: /api/blog

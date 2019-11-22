@@ -22,6 +22,7 @@ For forms use the validation group `odiseo`
 This plugin comes with Disqus support. You can enable it adding the following configuration:
 
 ```yml
+# config/packages/odiseo_sylius_blog.yaml
 odiseo_sylius_blog:
     disqus:
         shortname: EDITME
