@@ -46,7 +46,7 @@ final class ArticleContext implements Context
      * @param array $articleCodes
      * @Given the store has( also) :firstArticleCode and :secondArticleCode articles
      */
-    public function theStoreHasArticles(...$articleCodes)
+    public function theStoreHasArticles(...$articleCodes): void
     {
         foreach ($articleCodes as $key => $articleCode) {
             $this->saveArticle($this->createArticle($articleCode, 'Article '.$key, '<h1>An awesome article '.$key.'</h1>'));
@@ -57,7 +57,6 @@ final class ArticleContext implements Context
      * @param string $code
      * @param string $title
      * @param string $content
-     *
      * @return ArticleInterface
      */
     private function createArticle(string $code, string $title, string $content): ArticleInterface

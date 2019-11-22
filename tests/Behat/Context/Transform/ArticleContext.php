@@ -11,14 +11,9 @@ use Webmozart\Assert\Assert;
 
 final class ArticleContext implements Context
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $articleRepository;
 
-    /**
-     * @param RepositoryInterface $articleRepository
-     */
     public function __construct(
         RepositoryInterface $articleRepository
     ) {

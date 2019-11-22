@@ -11,14 +11,9 @@ use Webmozart\Assert\Assert;
 
 final class ArticleCategoryContext implements Context
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $articleCategoryRepository;
 
-    /**
-     * @param RepositoryInterface $articleCategoryRepository
-     */
     public function __construct(
         RepositoryInterface $articleCategoryRepository
     ) {
@@ -26,12 +21,12 @@ final class ArticleCategoryContext implements Context
     }
 
     /**
-     * @param $code
+     * @param string $code
      * @Transform /^article category "([^"]+)"$/
      * @Transform /^"([^"]+)" article category$/
      * @return ArticleCategoryInterface
      */
-    public function getArticleCategoryByCode($code): ArticleCategoryInterface
+    public function getArticleCategoryByCode(string $code): ArticleCategoryInterface
     {
         /** @var ArticleCategoryInterface $articleCategory */
         $articleCategory = $this->articleCategoryRepository->findOneBy(['code' => $code]);

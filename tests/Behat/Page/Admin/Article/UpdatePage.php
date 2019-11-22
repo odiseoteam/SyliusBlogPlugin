@@ -7,14 +7,14 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Behaviour\ContainsErrorTrait;
 
-class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
+final class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     use ContainsErrorTrait;
 
     /**
      * @inheritdoc
      */
-    public function fillCode($code)
+    public function fillCode(string $code): void
     {
         $this->getDocument()->fillField('Code', $code);
     }
@@ -22,7 +22,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     /**
      * @inheritdoc
      */
-    public function fillSlug($slug)
+    public function fillSlug(string $slug): void
     {
         $this->getDocument()->fillField('Slug', $slug);
     }
@@ -30,7 +30,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     /**
      * @inheritdoc
      */
-    public function fillTitle($title)
+    public function fillTitle(string $title): void
     {
         $this->getDocument()->fillField('Title', $title);
     }
@@ -38,7 +38,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     /**
      * @inheritdoc
      */
-    public function fillContent($content)
+    public function fillContent(string $content): void
     {
         $this->getDocument()->fillField('Content', $content);
     }

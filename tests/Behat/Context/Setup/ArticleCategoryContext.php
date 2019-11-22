@@ -46,7 +46,7 @@ final class ArticleCategoryContext implements Context
      * @param array $articleCategoryCodes
      * @Given the store has( also) :firstArticleCategoryCode and :secondArticleCategoryCode article categories
      */
-    public function theStoreHasArticles(...$articleCategoryCodes)
+    public function theStoreHasArticles(...$articleCategoryCodes): void
     {
         foreach ($articleCategoryCodes as $key => $articleCategoryCode) {
             $this->saveArticleCategory($this->createArticleCategory($articleCategoryCode, 'Article category '.$key));
@@ -56,7 +56,6 @@ final class ArticleCategoryContext implements Context
     /**
      * @param string $code
      * @param string $title
-     *
      * @return ArticleCategoryInterface
      */
     private function createArticleCategory(string $code, string $title): ArticleCategoryInterface

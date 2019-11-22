@@ -31,13 +31,6 @@ final class ManagingArticlesContext implements Context
     /** @var UpdatePageInterface */
     private $updatePage;
 
-    /**
-     * @param CurrentPageResolverInterface $currentPageResolver
-     * @param NotificationCheckerInterface $notificationChecker
-     * @param IndexPageInterface $indexPage
-     * @param CreatePageInterface $createPage
-     * @param UpdatePageInterface $updatePage
-     */
     public function __construct(
         CurrentPageResolverInterface $currentPageResolver,
         NotificationCheckerInterface $notificationChecker,
@@ -56,27 +49,27 @@ final class ManagingArticlesContext implements Context
      * @Given I want to add a new article
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToAddNewArticle()
+    public function iWantToAddNewArticle(): void
     {
         $this->createPage->open(); // This method will send request.
     }
 
     /**
      * @When I fill the code with :articleCode
-     * @param $articleCode
+     * @param string $articleCode
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheCodeWith($articleCode)
+    public function iFillTheCodeWith(string $articleCode): void
     {
         $this->createPage->fillCode($articleCode);
     }
 
     /**
      * @When I fill the slug with :articleSlug
-     * @param $articleSlug
+     * @param string $articleSlug
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheSlugWith($articleSlug)
+    public function iFillTheSlugWith(string $articleSlug): void
     {
         $this->createPage->fillSlug($articleSlug);
     }
@@ -84,20 +77,20 @@ final class ManagingArticlesContext implements Context
     /**
      * @When I fill the title with :articleTitle
      * @When I rename it to :articleTitle
-     * @param $articleTitle
+     * @param string $articleTitle
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheTitleWith($articleTitle)
+    public function iFillTheTitleWith(string $articleTitle): void
     {
         $this->createPage->fillTitle($articleTitle);
     }
 
     /**
      * @When I fill the content with :articleContent
-     * @param $articleContent
+     * @param string $articleContent
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheContentWith($articleContent)
+    public function iFillTheContentWith(string $articleContent): void
     {
         $this->createPage->fillContent($articleContent);
     }
@@ -106,7 +99,7 @@ final class ManagingArticlesContext implements Context
      * @When I add it
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iAddIt()
+    public function iAddIt(): void
     {
         $this->createPage->create();
     }
@@ -116,7 +109,7 @@ final class ManagingArticlesContext implements Context
      * @param ArticleInterface $article
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToModifyArticle(ArticleInterface $article)
+    public function iWantToModifyArticle(ArticleInterface $article): void
     {
         $this->updatePage->open(['id' => $article->getId()]);
     }
@@ -124,7 +117,7 @@ final class ManagingArticlesContext implements Context
     /**
      * @When I save my changes
      */
-    public function iSaveMyChanges()
+    public function iSaveMyChanges(): void
     {
         $this->updatePage->saveChanges();
     }
@@ -133,14 +126,14 @@ final class ManagingArticlesContext implements Context
      * @When I want to browse articles
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToBrowseArticles()
+    public function iWantToBrowseArticles(): void
     {
         $this->indexPage->open();
     }
 
     /**
      * @Then I should see :numberOfArticles articles in the list
-     * @param $numberOfArticles
+     * @param int $numberOfArticles
      */
     public function iShouldSeeArticlesInTheList(int $numberOfArticles = 1): void
     {
@@ -152,7 +145,7 @@ final class ManagingArticlesContext implements Context
      * @param ArticleInterface $article
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function articleShouldAppearInTheAdmin(ArticleInterface $article)
+    public function articleShouldAppearInTheAdmin(ArticleInterface $article): void
     {
         $this->indexPage->open();
 

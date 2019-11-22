@@ -31,13 +31,6 @@ final class ManagingArticleCategoriesContext implements Context
     /** @var UpdatePageInterface */
     private $updatePage;
 
-    /**
-     * @param CurrentPageResolverInterface $currentPageResolver
-     * @param NotificationCheckerInterface $notificationChecker
-     * @param IndexPageInterface $indexPage
-     * @param CreatePageInterface $createPage
-     * @param UpdatePageInterface $updatePage
-     */
     public function __construct(
         CurrentPageResolverInterface $currentPageResolver,
         NotificationCheckerInterface $notificationChecker,
@@ -56,27 +49,27 @@ final class ManagingArticleCategoriesContext implements Context
      * @Given I want to add a new article category
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToAddNewArticleCategory()
+    public function iWantToAddNewArticleCategory(): void
     {
         $this->createPage->open(); // This method will send request.
     }
 
     /**
      * @When I fill the code with :articleCategoryCode
-     * @param $articleCategoryCode
+     * @param string $articleCategoryCode
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheCodeWith($articleCategoryCode)
+    public function iFillTheCodeWith(string $articleCategoryCode): void
     {
         $this->createPage->fillCode($articleCategoryCode);
     }
 
     /**
      * @When I fill the slug with :articleCategorySlug
-     * @param $articleCategorySlug
+     * @param string $articleCategorySlug
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheSlugWith($articleCategorySlug)
+    public function iFillTheSlugWith(string $articleCategorySlug)
     {
         $this->createPage->fillSlug($articleCategorySlug);
     }
@@ -84,20 +77,20 @@ final class ManagingArticleCategoriesContext implements Context
     /**
      * @When I fill the title with :articleCategoryTitle
      * @When I rename it to :reportCategoryTitle
-     * @param $articleCategoryTitle
+     * @param string $articleCategoryTitle
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheTitleWith($articleCategoryTitle)
+    public function iFillTheTitleWith(string $articleCategoryTitle): void
     {
         $this->createPage->fillTitle($articleCategoryTitle);
     }
 
     /**
      * @When I fill the content with :articleCategoryContent
-     * @param $articleCategoryContent
+     * @param string $articleCategoryContent
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheContentWith($articleCategoryContent)
+    public function iFillTheContentWithstring(string $articleCategoryContent): void
     {
         $this->createPage->fillContent($articleCategoryContent);
     }
@@ -106,7 +99,7 @@ final class ManagingArticleCategoriesContext implements Context
      * @When I add it
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iAddIt()
+    public function iAddIt(): void
     {
         $this->createPage->create();
     }
@@ -116,7 +109,7 @@ final class ManagingArticleCategoriesContext implements Context
      * @param ArticleCategoryInterface $articleCategory
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToModifyArticleCategory(ArticleCategoryInterface $articleCategory)
+    public function iWantToModifyArticleCategory(ArticleCategoryInterface $articleCategory): void
     {
         $this->updatePage->open(['id' => $articleCategory->getId()]);
     }
@@ -124,7 +117,7 @@ final class ManagingArticleCategoriesContext implements Context
     /**
      * @When I save my changes
      */
-    public function iSaveMyChanges()
+    public function iSaveMyChanges(): void
     {
         $this->updatePage->saveChanges();
     }
@@ -133,14 +126,14 @@ final class ManagingArticleCategoriesContext implements Context
      * @When I want to browse article categories
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToBrowseArticleCategories()
+    public function iWantToBrowseArticleCategories(): void
     {
         $this->indexPage->open();
     }
 
     /**
      * @Then I should see :numberOfArticleCategories article categories in the list
-     * @param $numberOfArticleCategories
+     * @param int $numberOfArticleCategories
      */
     public function iShouldSeeArticleCategoriesInTheList(int $numberOfArticleCategories = 1): void
     {
@@ -152,7 +145,7 @@ final class ManagingArticleCategoriesContext implements Context
      * @param ArticleCategoryInterface $articleCategory
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function articleCategoryShouldAppearInTheAdmin(ArticleCategoryInterface $articleCategory)
+    public function articleCategoryShouldAppearInTheAdmin(ArticleCategoryInterface $articleCategory): void
     {
         $this->indexPage->open();
 
