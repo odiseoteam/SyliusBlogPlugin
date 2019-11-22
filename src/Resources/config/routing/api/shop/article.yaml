@@ -21,3 +21,23 @@ odiseo_sylius_blog_plugin_shop_api_article_by_channel:
                 method: findByChannel
                 arguments:
                     - "expr:service('sylius.repository.channel').findOneByCode($code)"
+
+odiseo_sylius_blog_plugin_shop_api_article_comment_create:
+    path: /articles/{articleId}/comment/new
+    methods: [GET, POST]
+    defaults:
+        _controller: odiseo_blog.controller.article_comment:createAction
+        _sylius:
+            serialization_version: $version
+            section: shop_api
+            event: article_comment_create
+            form:
+                type: Odiseo\BlogBundle\Form\Type\ArticleUserCommentType
+                options:
+                    validation_groups: [odiseo_user_comment]
+            factory:
+                method: createNewWithArticleOrComment
+                arguments: [$articleId, $commentId]
+            redirect:
+                route: $redirectRoute
+                parameters: $redirectParameters
