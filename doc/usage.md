@@ -17,7 +17,9 @@ And to render a list of categories:
 {{ render(url('odiseo_sylius_blog_plugin_shop_partial_article_category_index', {'template': '@OdiseoSyliusBlogPlugin/Shop/ArticleCategory/_verticalMenu.html.twig'})) }}
 ``` 
 
-For forms use the validation group `odiseo`
+### Form validation group
+
+For forms use the validation group named `odiseo`
 
 This plugin comes with Disqus support. You can enable it adding the following configuration:
 
