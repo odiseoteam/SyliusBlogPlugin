@@ -21,8 +21,10 @@ return [
 3. Import the plugin configurations
 
 ```yml
-# config/services.yaml
+# config/packages/_sylius.yaml
 imports:
+    ...
+
     - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yaml" }
 ```
 
