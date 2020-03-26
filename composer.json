@@ -11,12 +11,12 @@
     "require": {
         "php": "^7.2",
 
-        "sylius/sylius": "^1.3",
-        "odiseoteam/blog-bundle": "^1.1"
+        "sylius/sylius": "^1.6|^1.7",
+        "odiseoteam/blog-bundle": "dev-sylius-1.7"
     },
     "require-dev": {
         "behat/behat": "^3.4",
-        "behat/mink": "^1.7@dev",
+        "behat/mink": "^1.7",
         "behat/mink-browserkit-driver": "^1.3",
         "behat/mink-extension": "^2.2",
         "behat/mink-selenium2-driver": "^1.3",
@@ -32,12 +32,12 @@
         "phpunit/phpunit": "^8.0",
         "sensiolabs/security-checker": "^5.0",
         "sylius-labs/coding-standard": "^3.0",
-        "symfony/browser-kit": "^3.4|^4.3",
-        "symfony/debug-bundle": "^3.4|^4.3",
-        "symfony/dotenv": "^4.3",
-        "symfony/intl": "^3.4|^4.3",
-        "symfony/web-profiler-bundle": "^3.4|^4.3",
-        "symfony/web-server-bundle": "^3.4|^4.3"
+        "symfony/browser-kit": "^4.4",
+        "symfony/debug-bundle": "^4.4",
+        "symfony/dotenv": "^4.4",
+        "symfony/intl": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4",
+        "symfony/web-server-bundle": "^4.4"
     },
     "prefer-stable": true,
     "autoload": {

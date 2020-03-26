@@ -37,7 +37,7 @@ Features:
 
 * [Disqus support](https://disqus.com)
 
-Support Sylius version 1.3+.
+Support Sylius version 1.7+.
 
 ## Screenshots
 
