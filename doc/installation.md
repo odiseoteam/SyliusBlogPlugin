@@ -35,7 +35,7 @@ imports:
 odiseo_sylius_blog_plugin_admin:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
     prefix: /admin/blog
-    
+
 odiseo_sylius_blog_plugin_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"
     prefix: /{_locale}/blog
