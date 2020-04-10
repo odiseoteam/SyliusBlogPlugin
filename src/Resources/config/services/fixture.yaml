@@ -2,6 +2,14 @@ services:
     odiseo_sylius_blog_plugin.fixture.blog:
         class: Odiseo\SyliusBlogPlugin\Fixture\BlogFixture
         arguments:
+            - '@odiseo_blog.manager.article'
+            - '@odiseo_sylius_blog_plugin.fixture.example_factory.blog'
+        tags:
+            - { name: sylius_fixtures.fixture }
+
+    odiseo_sylius_blog_plugin.fixture.example_factory.blog:
+        class: Odiseo\SyliusBlogPlugin\Fixture\Factory\BlogExampleFactory
+        arguments:
             - '@doctrine.orm.entity_manager'
             - '@odiseo_blog.factory.article'
             - '@odiseo_blog.factory.article_category'
@@ -10,5 +18,4 @@ services:
             - '@sylius.repository.channel'
             - '@sylius.repository.locale'
             - '@odiseo_blog.listener.article_image_upload'
-        tags:
-            - { name: sylius_fixtures.fixture }
+            - '@file_locator'

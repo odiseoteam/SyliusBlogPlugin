@@ -21,4 +21,4 @@ sylius_fixtures:
             fixtures:
                 blog:
                     options:
-                        articles_per_channel: 12
+                        random: 12
