@@ -60,7 +60,13 @@
                                             </div>
                                         </div>
                                         <div class="description">
-                                            <p>{{ article.content|striptags|length > 200 ? article.content|striptags|slice(0, 200) ~ '...' : article.content|striptags }}</p>
+                                            <p>
+                                                {% if article.content|striptags|length > 200 %}
+                                                    {{ article.content|striptags|slice(0, 200)|raw }}...
+                                                {% else %}
+                                                    {{ article.content|striptags|raw }}
+                                                {% endif %}
+                                            </p>
                                         </div>
                                         {% if article.categories|length > 0 %}
                                             <div class="extra">
