@@ -1,21 +1,34 @@
 services:
-    odiseo_sylius_blog_plugin.fixture.blog:
-        class: Odiseo\SyliusBlogPlugin\Fixture\BlogFixture
+    odiseo_sylius_blog_plugin.fixture.blog_article:
+        class: Odiseo\SyliusBlogPlugin\Fixture\BlogArticleFixture
         arguments:
             - '@odiseo_blog.manager.article'
-            - '@odiseo_sylius_blog_plugin.fixture.example_factory.blog'
+            - '@odiseo_sylius_blog_plugin.fixture.example_factory.blog_article'
         tags:
             - { name: sylius_fixtures.fixture }
 
-    odiseo_sylius_blog_plugin.fixture.example_factory.blog:
-        class: Odiseo\SyliusBlogPlugin\Fixture\Factory\BlogExampleFactory
+    odiseo_sylius_blog_plugin.fixture.blog_article_category:
+        class: Odiseo\SyliusBlogPlugin\Fixture\BlogArticleCategoryFixture
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@odiseo_blog.manager.article_category'
+            - '@odiseo_sylius_blog_plugin.fixture.example_factory.blog_article_category'
+        tags:
+            - { name: sylius_fixtures.fixture }
+
+    odiseo_sylius_blog_plugin.fixture.example_factory.blog_article:
+        class: Odiseo\SyliusBlogPlugin\Fixture\Factory\BlogArticleExampleFactory
+        arguments:
             - '@odiseo_blog.factory.article'
-            - '@odiseo_blog.factory.article_category'
             - '@odiseo_blog.factory.article_image'
             - '@odiseo_blog.factory.article_comment'
             - '@sylius.repository.channel'
+            - '@odiseo_blog.repository.article_category'
             - '@sylius.repository.locale'
-            - '@odiseo_blog.listener.article_image_upload'
+            - '@odiseo_blog.image_uploader'
             - '@file_locator'
+
+    odiseo_sylius_blog_plugin.fixture.example_factory.blog_article_category:
+        class: Odiseo\SyliusBlogPlugin\Fixture\Factory\BlogArticleCategoryExampleFactory
+        arguments:
+            - '@odiseo_blog.factory.article_category'
+            - '@sylius.repository.locale'

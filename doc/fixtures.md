@@ -12,7 +12,11 @@ sylius_fixtures:
     suites:
         default:
             fixtures:
-                blog:
+                blog_article_category:
+                    options:
+                        random: 5
+
+                blog_article:
                     options:
                         random: 12
 ```

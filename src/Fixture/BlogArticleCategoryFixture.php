@@ -7,7 +7,7 @@ namespace Odiseo\SyliusBlogPlugin\Fixture;
 use Sylius\Bundle\CoreBundle\Fixture\AbstractResourceFixture;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
-final class BlogFixture extends AbstractResourceFixture
+final class BlogArticleCategoryFixture extends AbstractResourceFixture
 {
     /**
      * {@inheritdoc}
@@ -16,8 +16,10 @@ final class BlogFixture extends AbstractResourceFixture
     {
         $resourceNode
             ->children()
-                ->arrayNode('channels')->scalarPrototype()->end()->end()
-                ->scalarNode('image')->end()
+            ->scalarNode('code')->cannotBeEmpty()->end()
+            ->booleanNode('enabled')->end()
+            ->scalarNode('title')->cannotBeEmpty()->end()
+            ->scalarNode('slug')->cannotBeEmpty()->end()
         ;
     }
 
@@ -26,6 +28,6 @@ final class BlogFixture extends AbstractResourceFixture
      */
     public function getName(): string
     {
-        return 'blog';
+        return 'blog_article_category';
     }
 }
