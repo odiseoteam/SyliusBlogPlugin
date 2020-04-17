@@ -87,7 +87,7 @@ final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
             })
             ->setAllowedTypes('enabled', 'bool')
             ->setDefault('title', function (Options $options): string {
-                return $this->faker->words(3, true);
+                return $this->faker->word;
             })
             ->setDefault('slug', function (Options $options): string {
                 return StringInflector::nameToCode((string) $options['title']);
