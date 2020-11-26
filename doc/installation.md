@@ -1,6 +1,6 @@
 ## Installation
 
-1. Run `composer require odiseoteam/sylius-blog-plugin`
+1. Run `composer require odiseoteam/sylius-blog-plugin --no-scripts`
 
 2. Enable the plugin in bundles.php. This plugin need the FOSCKEditorBundle and EWZRecaptchaBundle so make sure to include
 them too
@@ -40,7 +40,7 @@ odiseo_sylius_blog_plugin_shop:
     resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"
     prefix: /{_locale}/blog
     requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 ```
 
 5. This plugin includes an API version. If you want to use it you have to add the route
@@ -64,4 +64,5 @@ php bin/console assets:install public
 ```
 php bin/console doctrine:schema:update --force
 php bin/console sylius:theme:assets:install
+php bin/console cache:clear
 ```
