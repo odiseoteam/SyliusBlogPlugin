@@ -1,1 +1,3 @@
-
+odiseo_sylius_blog:
+    disqus:
+        shortname: odiseo-team
