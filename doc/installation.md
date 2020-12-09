@@ -3,7 +3,7 @@
 1. Run `composer require odiseoteam/sylius-blog-plugin --no-scripts`
 
 2. Enable the plugin in bundles.php. This plugin need the FOSCKEditorBundle and EWZRecaptchaBundle so make sure to include
-them too
+them too. The bundle must be enabled before SyliusResourceBundle (i.e. before `Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],`).
 
 ```php
 <?php
@@ -15,6 +15,7 @@ return [
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class => ['all' => true],
     Odiseo\SyliusBlogPlugin\OdiseoSyliusBlogPlugin::class => ['all' => true],
+    // ...
 ];
 ```
 
