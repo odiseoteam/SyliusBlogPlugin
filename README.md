@@ -9,9 +9,6 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-blog-plugin" title="Version" target="_blank">
         <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-blog-plugin.svg" />
     </a>
-    <a href="http://travis-ci.org/odiseoteam/SyliusBlogPlugin" title="Build status" target="_blank">
-        <img src="https://img.shields.io/travis/odiseoteam/SyliusBlogPlugin/master.svg" />
-    </a>
     <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusBlogPlugin/" title="Scrutinizer" target="_blank">
         <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusBlogPlugin.svg" />
     </a>
@@ -37,7 +34,7 @@ Features:
 
 * [Disqus support](https://disqus.com)
 
-Support Sylius version 1.3+.
+Support Sylius version 1.7+.
 
 ## Screenshots
 

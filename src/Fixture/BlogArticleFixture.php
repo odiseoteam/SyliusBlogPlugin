@@ -14,17 +14,16 @@ final class BlogArticleFixture extends AbstractResourceFixture
      */
     protected function configureResourceNode(ArrayNodeDefinition $resourceNode): void
     {
-        $resourceNode
-            ->children()
-            ->scalarNode('code')->cannotBeEmpty()->end()
-            ->booleanNode('enabled')->end()
-            ->arrayNode('channels')->scalarPrototype()->end()->end()
-            ->arrayNode('categories')->scalarPrototype()->end()->end()
-            ->scalarNode('title')->cannotBeEmpty()->end()
-            ->scalarNode('content')->cannotBeEmpty()->end()
-            ->scalarNode('slug')->cannotBeEmpty()->end()
-            ->scalarNode('image')->end()
-        ;
+        $node = $resourceNode->children();
+
+        $node->scalarNode('code')->cannotBeEmpty();
+        $node->booleanNode('enabled');
+        $node->arrayNode('channels')->scalarPrototype();
+        $node->arrayNode('categories')->scalarPrototype();
+        $node->scalarNode('title')->cannotBeEmpty();
+        $node->scalarNode('content')->cannotBeEmpty();
+        $node->scalarNode('slug')->cannotBeEmpty();
+        $node->scalarNode('image');
     }
 
     /**

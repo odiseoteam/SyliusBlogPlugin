@@ -7,7 +7,7 @@ namespace Odiseo\SyliusBlogPlugin\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-final class BlogExtension extends AbstractExtension
+final class     BlogExtension extends AbstractExtension
 {
     /** @var string|null */
     private $disqusShortname;
@@ -19,7 +19,7 @@ final class BlogExtension extends AbstractExtension
     }
 
     /**
-     * @return array|TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
