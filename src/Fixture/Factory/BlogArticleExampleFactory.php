@@ -176,7 +176,7 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
             ->setAllowedTypes('categories', 'array')
             ->setNormalizer('categories', LazyOption::findBy($this->articleCategoryRepository, 'code'))
             ->setDefault('title', function (Options $options): string {
-                return $this->faker->word;
+                return $this->faker->text(20);
             })
             ->setDefault('content', function (Options $options): string {
                 return $this->faker->text;

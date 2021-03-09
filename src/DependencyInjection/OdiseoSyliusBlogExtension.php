@@ -15,9 +15,9 @@ final class OdiseoSyliusBlogExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $config, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
 
         /** @var array $disqus */
         $disqus = $config['disqus'];
