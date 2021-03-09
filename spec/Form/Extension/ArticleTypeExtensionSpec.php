@@ -34,6 +34,6 @@ final class ArticleTypeExtensionSpec extends ObjectBehavior
 
     function it_has_extended_type()
     {
-        $this->getExtendedType()->shouldReturn(ArticleType::class);
+        $this->getExtendedTypes()->shouldReturn([ArticleType::class]);
     }
 }
