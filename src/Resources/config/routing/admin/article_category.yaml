@@ -2,7 +2,7 @@ odiseo_sylius_blog_plugin_admin_article_category:
     resource: |
         alias: odiseo_blog.article_category
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin/Crud"
         except: ['show']
         redirect: update
         grid: odiseo_blog_article_category

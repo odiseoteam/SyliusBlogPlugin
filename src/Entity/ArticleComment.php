@@ -34,7 +34,7 @@ class ArticleComment extends BaseArticleComment implements ArticleCommentInterfa
     public function getUsername(): ?string
     {
         $author = $this->getAuthor();
-        if ($author) {
+        if ($author instanceof ShopUserInterface) {
             return $author->getUsername();
         }
 

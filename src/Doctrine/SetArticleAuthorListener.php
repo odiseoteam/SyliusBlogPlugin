@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class SetArticleAuthorListener
 {
@@ -28,7 +29,7 @@ final class SetArticleAuthorListener
         $entity = $args->getEntity();
         $token = $this->tokenStorage->getToken();
 
-        if ($entity instanceof ArticleInterface && $token) {
+        if ($entity instanceof ArticleInterface && $token instanceof TokenInterface) {
             $user = $token->getUser();
 
             if ($user instanceof AdminUserInterface) {
