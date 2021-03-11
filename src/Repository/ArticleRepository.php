@@ -15,7 +15,7 @@ final class ArticleRepository extends BaseArticleRepository implements ArticleRe
     /**
      * @inheritdoc
      */
-    public function createByChannelQueryBuilder(string $channelCode): QueryBuilder
+    public function createByChannelQueryBuilder(?string $channelCode): QueryBuilder
     {
         return $this->createQueryBuilder('o')
             ->innerJoin('o.channels', 'channels')

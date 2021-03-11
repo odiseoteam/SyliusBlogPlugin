@@ -24,7 +24,7 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
         $this->decoratedFactory = $decoratedFactory;
 
         $token = $tokenStorage->getToken();
-        $this->shopUser = $token ? $token->getUser() : null;
+        $this->shopUser = $token !== null ? $token->getUser() : null;
     }
 
     /**

@@ -6,6 +6,7 @@ namespace Odiseo\SyliusBlogPlugin\Form\Extension;
 
 use Odiseo\BlogBundle\Form\Type\ArticleUserCommentType;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -21,7 +22,7 @@ final class ArticleUserCommentTypeExtension extends AbstractTypeExtension
         /** @var ArticleCommentInterface $articleComment */
         $articleComment = $builder->getData();
 
-        if ($articleComment->getAuthor()) {
+        if ($articleComment->getAuthor() instanceof ShopUserInterface) {
             $builder
                 ->remove('name')
                 ->remove('email')
