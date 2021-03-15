@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 class ArticleComment extends BaseArticleComment implements ArticleCommentInterface
 {
     /** @var ShopUserInterface|null */
-    private $author;
+    protected $author;
 
     /**
      * {@inheritdoc}
