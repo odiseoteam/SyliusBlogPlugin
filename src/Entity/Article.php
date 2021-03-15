@@ -13,14 +13,14 @@ use Sylius\Component\Core\Model\AdminUserInterface;
 class Article extends BaseArticle implements ArticleInterface
 {
     /** @var AdminUserInterface|null */
-    private $author;
+    protected $author;
 
     /**
      * @var Collection|ChannelInterface[]
      *
      * @psalm-var Collection<array-key, ChannelInterface>
      */
-    private $channels;
+    protected $channels;
 
     public function __construct()
     {
