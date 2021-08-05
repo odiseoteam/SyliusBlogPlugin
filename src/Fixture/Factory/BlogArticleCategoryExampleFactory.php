@@ -82,11 +82,11 @@ final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
             ->setDefault('code', function (Options $options): string {
                 return StringInflector::nameToCode((string) $options['title']);
             })
-            ->setDefault('enabled', function (Options $options): bool {
+            ->setDefault('enabled', function (Options $_options): bool {
                 return $this->faker->boolean(90);
             })
             ->setAllowedTypes('enabled', 'bool')
-            ->setDefault('title', function (Options $options): string {
+            ->setDefault('title', function (Options $_options): string {
                 return $this->faker->text(20);
             })
             ->setDefault('slug', function (Options $options): string {

@@ -35,7 +35,7 @@ class ArticleComment extends BaseArticleComment implements ArticleCommentInterfa
     {
         $author = $this->getAuthor();
         if ($author instanceof ShopUserInterface) {
-            return $author->getUsername();
+            return $author->getUserIdentifier();
         }
 
         return $this->getEmail();

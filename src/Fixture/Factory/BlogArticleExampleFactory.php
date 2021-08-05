@@ -120,6 +120,7 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
     private function createImages(ArticleInterface $article, array $options): void
     {
         foreach ($options['images'] as $imagePath) {
+            /** @var string $imagePath */
             $imagePath = null === $this->fileLocator ? $imagePath : $this->fileLocator->locate($imagePath);
             $uploadedImage = new UploadedFile($imagePath, basename($imagePath));
 
@@ -138,9 +139,9 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
         for ($i = 0; $i < 8; ++$i) {
             /** @var ArticleCommentInterface $comment */
             $comment = $this->articleCommentFactory->createNew();
-            $comment->setName($this->faker->name);
-            $comment->setEmail($this->faker->email);
-            $comment->setComment($this->faker->text);
+            $comment->setName($this->faker->name());
+            $comment->setEmail($this->faker->email());
+            $comment->setComment($this->faker->text());
             $comment->setEnabled($this->faker->boolean(70));
 
             $article->addComment($comment);
@@ -165,7 +166,7 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
             ->setDefault('code', function (Options $options): string {
                 return StringInflector::nameToCode((string) $options['title']);
             })
-            ->setDefault('enabled', function (Options $options): bool {
+            ->setDefault('enabled', function (Options $_options): bool {
                 return $this->faker->boolean(90);
             })
             ->setAllowedTypes('enabled', 'bool')
@@ -175,16 +176,16 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
             ->setDefault('categories', LazyOption::randomOnes($this->articleCategoryRepository, 1))
             ->setAllowedTypes('categories', 'array')
             ->setNormalizer('categories', LazyOption::findBy($this->articleCategoryRepository, 'code'))
-            ->setDefault('title', function (Options $options): string {
+            ->setDefault('title', function (Options $_options): string {
                 return $this->faker->text(20);
             })
-            ->setDefault('content', function (Options $options): string {
-                return $this->faker->text;
+            ->setDefault('content', function (Options $_options): string {
+                return $this->faker->text();
             })
             ->setDefault('slug', function (Options $options): string {
                 return StringInflector::nameToCode((string) $options['title']);
             })
-            ->setDefault('images', function (Options $options): array {
+            ->setDefault('images', function (Options $_options): array {
                 return [
                     __DIR__.'/../../Resources/fixtures/article/images/0'.rand(1, 6).'.jpg',
                 ];
