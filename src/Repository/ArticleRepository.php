@@ -10,7 +10,7 @@ use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Core\Model\ChannelInterface;
 
-final class ArticleRepository extends BaseArticleRepository implements ArticleRepositoryInterface
+class ArticleRepository extends BaseArticleRepository implements ArticleRepositoryInterface
 {
     /**
      * @inheritdoc
