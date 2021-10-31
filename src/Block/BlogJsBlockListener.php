@@ -9,9 +9,6 @@ use Sonata\BlockBundle\Model\Block;
 
 final class BlogJsBlockListener
 {
-    /**
-     * @param BlockEvent $event
-     */
     public function onBlockEvent(BlockEvent $event): void
     {
         $template = '@OdiseoSyliusBlogPlugin/Admin/_blog_js.html.twig';

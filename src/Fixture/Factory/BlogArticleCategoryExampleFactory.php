@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Fixture\Factory;
 
 use Faker\Factory;
+use Faker\Generator as FakerGenerator;
+use Generator;
 use Odiseo\BlogBundle\Model\ArticleCategoryInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
 use Sylius\Component\Core\Formatter\StringInflector;
@@ -16,17 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
 {
-    /** @var FactoryInterface */
-    private $articleCategoryFactory;
-
-    /** @var RepositoryInterface */
-    private $localeRepository;
-
-    /** @var \Faker\Generator */
-    private $faker;
-
-    /** @var OptionsResolver */
-    private $optionsResolver;
+    private FactoryInterface $articleCategoryFactory;
+    private RepositoryInterface $localeRepository;
+    private FakerGenerator $faker;
+    private OptionsResolver $optionsResolver;
 
     public function __construct(
         FactoryInterface $articleCategoryFactory,
@@ -41,9 +36,6 @@ final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
         $this->configureOptions($this->optionsResolver);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $options = []): ArticleCategoryInterface
     {
         $options = $this->optionsResolver->resolve($options);
@@ -64,7 +56,7 @@ final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
         return $articleCategory;
     }
 
-    private function getLocales(): \Generator
+    private function getLocales(): Generator
     {
         /** @var LocaleInterface[] $locales */
         $locales = $this->localeRepository->findAll();
@@ -73,9 +65,6 @@ final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver

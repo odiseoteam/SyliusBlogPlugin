@@ -7,10 +7,9 @@ namespace Odiseo\SyliusBlogPlugin\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-final class     BlogExtension extends AbstractExtension
+final class BlogExtension extends AbstractExtension
 {
-    /** @var string|null */
-    private $disqusShortname;
+    private ?string $disqusShortname;
 
     public function __construct(
         ?string $disqusShortname
@@ -18,9 +17,6 @@ final class     BlogExtension extends AbstractExtension
         $this->disqusShortname = $disqusShortname;
     }
 
-    /**
-     * @return TwigFunction[]
-     */
     public function getFunctions(): array
     {
         return [
@@ -28,17 +24,11 @@ final class     BlogExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return string|null
-     */
     public function getDisqusShortname(): ?string
     {
         return $this->disqusShortname;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return 'blog';

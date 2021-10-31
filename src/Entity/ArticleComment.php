@@ -9,28 +9,18 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 
 class ArticleComment extends BaseArticleComment implements ArticleCommentInterface
 {
-    /** @var ShopUserInterface|null */
-    protected $author;
+    protected ?ShopUserInterface $author = null;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthor(): ?ShopUserInterface
     {
         return $this->author;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setAuthor(?ShopUserInterface $author): void
     {
         $this->author = $author;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUsername(): ?string
     {
         $author = $this->getAuthor();

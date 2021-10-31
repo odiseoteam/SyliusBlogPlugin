@@ -9,9 +9,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class BlogArticleCategoryFixture extends AbstractResourceFixture
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configureResourceNode(ArrayNodeDefinition $resourceNode): void
     {
         $node = $resourceNode->children();
@@ -22,9 +19,6 @@ final class BlogArticleCategoryFixture extends AbstractResourceFixture
         $node->scalarNode('slug')->cannotBeEmpty();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'blog_article_category';

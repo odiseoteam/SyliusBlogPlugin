@@ -9,9 +9,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class BlogArticleFixture extends AbstractResourceFixture
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configureResourceNode(ArrayNodeDefinition $resourceNode): void
     {
         $node = $resourceNode->children();
@@ -26,9 +23,6 @@ final class BlogArticleFixture extends AbstractResourceFixture
         $node->scalarNode('image');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'blog_article';

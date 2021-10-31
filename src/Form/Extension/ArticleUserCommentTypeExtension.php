@@ -12,9 +12,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class ArticleUserCommentTypeExtension extends AbstractTypeExtension
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
@@ -31,9 +28,6 @@ final class ArticleUserCommentTypeExtension extends AbstractTypeExtension
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getExtendedTypes(): iterable
     {
         return [ArticleUserCommentType::class];

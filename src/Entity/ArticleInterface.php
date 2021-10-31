@@ -10,13 +10,7 @@ use Sylius\Component\Core\Model\AdminUserInterface;
 
 interface ArticleInterface extends BaseArticleInterface, ChannelsAwareInterface
 {
-    /**
-     * @return AdminUserInterface|null
-     */
     public function getAuthor(): ?AdminUserInterface;
 
-    /**
-     * @param AdminUserInterface|null $author
-     */
     public function setAuthor(?AdminUserInterface $author): void;
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Fixture\Factory;
 
 use Faker\Factory;
+use Faker\Generator as FakerGenerator;
+use Generator;
 use Odiseo\BlogBundle\Model\ImageInterface;
 use Odiseo\BlogBundle\Uploader\ImageUploaderInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface;
@@ -23,35 +25,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class BlogArticleExampleFactory extends AbstractExampleFactory
 {
-    /** @var FactoryInterface */
-    private $articleFactory;
-
-    /** @var FactoryInterface */
-    private $articleImageFactory;
-
-    /** @var FactoryInterface */
-    private $articleCommentFactory;
-
-    /** @var ChannelRepositoryInterface */
-    private $channelRepository;
-
-    /** @var RepositoryInterface */
-    private $articleCategoryRepository;
-
-    /** @var RepositoryInterface */
-    private $localeRepository;
-
-    /** @var ImageUploaderInterface */
-    private $imageUploader;
-
-    /** @var FileLocatorInterface|null */
-    private $fileLocator;
-
-    /** @var \Faker\Generator */
-    private $faker;
-
-    /** @var OptionsResolver */
-    private $optionsResolver;
+    private FactoryInterface $articleFactory;
+    private FactoryInterface $articleImageFactory;
+    private FactoryInterface $articleCommentFactory;
+    private ChannelRepositoryInterface $channelRepository;
+    private RepositoryInterface $articleCategoryRepository;
+    private RepositoryInterface $localeRepository;
+    private ImageUploaderInterface $imageUploader;
+    private ?FileLocatorInterface $fileLocator;
+    private FakerGenerator $faker;
+    private OptionsResolver $optionsResolver;
 
     public function __construct(
         FactoryInterface $articleFactory,
@@ -78,9 +61,6 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
         $this->configureOptions($this->optionsResolver);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $options = []): ArticleInterface
     {
         $options = $this->optionsResolver->resolve($options);
@@ -148,7 +128,7 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
         }
     }
 
-    private function getLocales(): \Generator
+    private function getLocales(): Generator
     {
         /** @var LocaleInterface[] $locales */
         $locales = $this->localeRepository->findAll();
@@ -157,9 +137,6 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -187,7 +164,7 @@ final class BlogArticleExampleFactory extends AbstractExampleFactory
             })
             ->setDefault('images', function (Options $_options): array {
                 return [
-                    __DIR__.'/../../Resources/fixtures/article/images/0'.rand(1, 6).'.jpg',
+                    __DIR__ . '/../../Resources/fixtures/article/images/0' . rand(1, 6) . '.jpg',
                 ];
             })
             ->setAllowedTypes('images', 'array')

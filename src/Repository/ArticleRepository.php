@@ -12,9 +12,6 @@ use Sylius\Component\Core\Model\ChannelInterface;
 
 class ArticleRepository extends BaseArticleRepository implements ArticleRepositoryInterface
 {
-    /**
-     * @inheritdoc
-     */
     public function createByChannelQueryBuilder(?string $channelCode): QueryBuilder
     {
         return $this->createQueryBuilder('o')
@@ -26,11 +23,11 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
         ;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function createByCategoryAndChannelQueryBuilder(string $categorySlug, ?string $localeCode, string $channelCode): QueryBuilder
-    {
+    public function createByCategoryAndChannelQueryBuilder(
+        string $categorySlug,
+        ?string $localeCode,
+        string $channelCode
+    ): QueryBuilder {
         return $this->createByChannelQueryBuilder($channelCode)
             ->leftJoin('o.categories', 'category')
             ->leftJoin('category.translations', 'categoryTranslation')
@@ -41,11 +38,11 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createByAuthorAndChannelQueryBuilder(ChannelInterface $channel, string $locale, string $authorUsername): QueryBuilder
-    {
+    public function createByAuthorAndChannelQueryBuilder(
+        ChannelInterface $channel,
+        string $locale,
+        string $authorUsername
+    ): QueryBuilder {
         return $this->createByChannelQueryBuilder($channel->getCode())
             ->addSelect('translation')
             ->addSelect('author')
@@ -58,9 +55,6 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
         ;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function findOneBySlugAndChannel(string $slug, ?string $localeCode, string $channelCode): ?ArticleInterface
     {
         return $this->createByChannelQueryBuilder($channelCode)
@@ -74,33 +68,30 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
         ;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function findByChannel(string $channelCode): Pagerfanta
     {
         return $this->getPaginator($this->createByChannelQueryBuilder($channelCode));
     }
 
-    /**
-     * @inheritdoc
-     */
     public function findByCategoryAndChannel(string $categorySlug, ?string $localeCode, string $channelCode): Pagerfanta
     {
-        return $this->getPaginator($this->createByCategoryAndChannelQueryBuilder($categorySlug, $localeCode, $channelCode));
+        return $this->getPaginator(
+            $this->createByCategoryAndChannelQueryBuilder(
+                $categorySlug,
+                $localeCode,
+                $channelCode
+            )
+        );
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function findByAuthorAndChannel(ChannelInterface $channel, string $locale, string $authorUsername): Pagerfanta
-    {
+    public function findByAuthorAndChannel(
+        ChannelInterface $channel,
+        string $locale,
+        string $authorUsername
+    ): Pagerfanta {
         return $this->getPaginator($this->createByAuthorAndChannelQueryBuilder($channel, $locale, $authorUsername));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findLatestByChannel(ChannelInterface $channel, string $locale, int $count): array
     {
         return $this->createByChannelQueryBuilder($channel->getCode())

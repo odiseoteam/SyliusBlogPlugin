@@ -44,15 +44,6 @@ odiseo_sylius_blog_plugin_shop:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 ```
 
-5. This plugin includes an API version. If you want to use it you have to add the route
-
-```yml
-# config/routes.yaml
-odiseo_sylius_blog_plugin_api:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/api.yaml"
-    prefix: /api/blog
-```
-
 5. Because this plugin uses FOSCKeditorBundle you need to execute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html)
 
 ```
@@ -63,7 +54,7 @@ php bin/console assets:install public
 6. Finish the installation updating the database schema and installing assets
 
 ```
-php bin/console doctrine:schema:update --force
+php bin/console doctrine:migrations:migrate
 php bin/console sylius:theme:assets:install
 php bin/console cache:clear
 ```

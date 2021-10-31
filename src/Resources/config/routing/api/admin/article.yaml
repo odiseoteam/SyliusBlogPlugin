@@ -1,9 +1,0 @@
-odiseo_sylius_blog_plugin_api_admin_article:
-    resource: |
-        identifier: code
-        alias: odiseo_blog.article
-        section: admin_api
-        serialization_version: $version
-        criteria:
-            code: $code
-    type: sylius.resource_api

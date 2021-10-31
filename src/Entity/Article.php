@@ -12,15 +12,12 @@ use Sylius\Component\Core\Model\AdminUserInterface;
 
 class Article extends BaseArticle implements ArticleInterface
 {
-    /** @var AdminUserInterface|null */
-    protected $author;
+    protected ?AdminUserInterface $author = null;
 
     /**
-     * @var Collection|ChannelInterface[]
-     *
      * @psalm-var Collection<array-key, ChannelInterface>
      */
-    protected $channels;
+    protected Collection $channels;
 
     public function __construct()
     {
@@ -29,41 +26,26 @@ class Article extends BaseArticle implements ArticleInterface
         $this->channels = new ArrayCollection();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getAuthor(): ?AdminUserInterface
     {
         return $this->author;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setAuthor(?AdminUserInterface $author): void
     {
         $this->author = $author;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getChannels(): Collection
     {
         return $this->channels;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function hasChannel(ChannelInterface $channel): bool
     {
         return $this->channels->contains($channel);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function addChannel(ChannelInterface $channel): void
     {
         if (!$this->hasChannel($channel)) {
@@ -71,9 +53,6 @@ class Article extends BaseArticle implements ArticleInterface
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function removeChannel(ChannelInterface $channel): void
     {
         if ($this->hasChannel($channel)) {

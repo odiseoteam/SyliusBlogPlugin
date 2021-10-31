@@ -12,8 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class SetArticleAuthorListener
 {
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TokenStorageInterface $tokenStorage
@@ -21,9 +20,6 @@ final class SetArticleAuthorListener
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @param LifecycleEventArgs $args
-     */
     public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();

@@ -5,46 +5,45 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Factory;
 
 use Odiseo\BlogBundle\Factory\ArticleCommentFactoryInterface;
-use Odiseo\BlogBundle\Model\ArticleCommentInterface;
+use Odiseo\BlogBundle\Model\ArticleCommentInterface as BaseArticleCommentInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class ArticleCommentFactory implements ArticleCommentFactoryInterface
 {
-    /** @var ArticleCommentFactoryInterface  */
-    private $decoratedFactory;
-
-    /** @var ShopUserInterface|object|string|null */
-    private $shopUser;
+    private ArticleCommentFactoryInterface $decoratedFactory;
+    private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         ArticleCommentFactoryInterface $decoratedFactory,
         TokenStorageInterface $tokenStorage
     ) {
         $this->decoratedFactory = $decoratedFactory;
-
-        $token = $tokenStorage->getToken();
-        $this->shopUser = $token !== null ? $token->getUser() : null;
+        $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createNew(): object
     {
         return $this->decoratedFactory->createNew();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createNewWithArticleOrComment(string $articleId, string $commentId = null): ArticleCommentInterface
-    {
-        /** @var \Odiseo\SyliusBlogPlugin\Entity\ArticleCommentInterface $articleComment */
+    public function createNewWithArticleOrComment(
+        string $articleId,
+        string $commentId = null
+    ): BaseArticleCommentInterface {
+        /** @var ArticleCommentInterface $articleComment */
         $articleComment = $this->decoratedFactory->createNewWithArticleOrComment($articleId, $commentId);
 
-        if ($this->shopUser instanceof ShopUserInterface) {
-            $articleComment->setAuthor($this->shopUser);
+        $token = $this->tokenStorage->getToken();
+
+        if ($token instanceof TokenInterface) {
+            $shopUser = $token->getUser();
+
+            if ($shopUser instanceof ShopUserInterface) {
+                $articleComment->setAuthor($shopUser);
+            }
         }
 
         return $articleComment;
