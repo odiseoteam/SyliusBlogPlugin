@@ -2,7 +2,7 @@ odiseo_sylius_blog_plugin_shop_article_show:
     path: /articles/{slug}
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article:showAction
+        _controller: odiseo_blog.controller.article::showAction
         _sylius:
             template: "@OdiseoSyliusBlogPlugin/Shop/Article/show.html.twig"
             repository:
@@ -16,7 +16,7 @@ odiseo_sylius_blog_plugin_shop_article_index_by_category:
     path: /articles/category/{slug}
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article:indexAction
+        _controller: odiseo_blog.controller.article::indexAction
         _sylius:
             template: "@OdiseoSyliusBlogPlugin/Shop/Article/category_index.html.twig"
             repository:
@@ -30,7 +30,7 @@ odiseo_sylius_blog_plugin_shop_article_index:
     path: /articles
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article:indexAction
+        _controller: odiseo_blog.controller.article::indexAction
         _sylius:
             template: "@OdiseoSyliusBlogPlugin/Shop/Article/index.html.twig"
             repository:
@@ -42,7 +42,7 @@ odiseo_sylius_blog_plugin_shop_partial_article_index_latest:
     path: /articles/latest/{count}
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article:indexAction
+        _controller: odiseo_blog.controller.article::indexAction
         _sylius:
             template: $template
             repository:
@@ -56,7 +56,7 @@ odiseo_sylius_blog_plugin_shop_article_index_by_author:
     path: /articles/by-author/{username}
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article:indexAction
+        _controller: odiseo_blog.controller.article::indexAction
         _sylius:
             template: "@OdiseoSyliusBlogPlugin/Shop/Article/author_index.html.twig"
             repository:
