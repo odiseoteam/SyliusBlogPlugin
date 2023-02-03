@@ -2,7 +2,7 @@ odiseo_sylius_blog_plugin_shop_partial_article_category_index:
     path: /article-categories/partial
     methods: [GET]
     defaults:
-        _controller: odiseo_blog.controller.article_category:indexAction
+        _controller: odiseo_blog.controller.article_category::indexAction
         _sylius:
             template: $template
             repository:
