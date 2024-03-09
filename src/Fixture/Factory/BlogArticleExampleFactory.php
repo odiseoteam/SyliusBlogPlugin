@@ -25,36 +25,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class BlogArticleExampleFactory extends AbstractExampleFactory
 {
-    private FactoryInterface $articleFactory;
-    private FactoryInterface $articleImageFactory;
-    private FactoryInterface $articleCommentFactory;
-    private ChannelRepositoryInterface $channelRepository;
-    private RepositoryInterface $articleCategoryRepository;
-    private RepositoryInterface $localeRepository;
-    private ImageUploaderInterface $imageUploader;
-    private ?FileLocatorInterface $fileLocator;
     private FakerGenerator $faker;
+
     private OptionsResolver $optionsResolver;
 
     public function __construct(
-        FactoryInterface $articleFactory,
-        FactoryInterface $articleImageFactory,
-        FactoryInterface $articleCommentFactory,
-        ChannelRepositoryInterface $channelRepository,
-        RepositoryInterface $articleCategoryRepository,
-        RepositoryInterface $localeRepository,
-        ImageUploaderInterface $imageUploader,
-        ?FileLocatorInterface $fileLocator = null
+        private FactoryInterface $articleFactory,
+        private FactoryInterface $articleImageFactory,
+        private FactoryInterface $articleCommentFactory,
+        private ChannelRepositoryInterface $channelRepository,
+        private RepositoryInterface $articleCategoryRepository,
+        private RepositoryInterface $localeRepository,
+        private ImageUploaderInterface $imageUploader,
+        private ?FileLocatorInterface $fileLocator = null,
     ) {
-        $this->articleFactory = $articleFactory;
-        $this->articleImageFactory = $articleImageFactory;
-        $this->articleCommentFactory = $articleCommentFactory;
-        $this->channelRepository = $channelRepository;
-        $this->articleCategoryRepository = $articleCategoryRepository;
-        $this->localeRepository = $localeRepository;
-        $this->imageUploader = $imageUploader;
-        $this->fileLocator = $fileLocator;
-
         $this->faker = Factory::create();
         $this->optionsResolver = new OptionsResolver();
 

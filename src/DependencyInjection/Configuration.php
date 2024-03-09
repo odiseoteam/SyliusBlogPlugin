@@ -9,6 +9,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
+    /**
+     * @psalm-suppress UndefinedMethod
+     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('odiseo_sylius_blog_plugin');

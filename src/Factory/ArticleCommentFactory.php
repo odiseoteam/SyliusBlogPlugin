@@ -13,15 +13,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class ArticleCommentFactory implements ArticleCommentFactoryInterface
 {
-    private ArticleCommentFactoryInterface $decoratedFactory;
-    private TokenStorageInterface $tokenStorage;
-
     public function __construct(
-        ArticleCommentFactoryInterface $decoratedFactory,
-        TokenStorageInterface $tokenStorage
+        private ArticleCommentFactoryInterface $decoratedFactory,
+        private TokenStorageInterface $tokenStorage,
     ) {
-        $this->decoratedFactory = $decoratedFactory;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function createNew(): object
@@ -31,7 +26,7 @@ final class ArticleCommentFactory implements ArticleCommentFactoryInterface
 
     public function createNewWithArticleOrComment(
         string $articleId,
-        string $commentId = null
+        string $commentId = null,
     ): BaseArticleCommentInterface {
         /** @var ArticleCommentInterface $articleComment */
         $articleComment = $this->decoratedFactory->createNewWithArticleOrComment($articleId, $commentId);
