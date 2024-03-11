@@ -26,7 +26,7 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     public function createByCategoryAndChannelQueryBuilder(
         string $categorySlug,
         ?string $localeCode,
-        string $channelCode
+        string $channelCode,
     ): QueryBuilder {
         return $this->createByChannelQueryBuilder($channelCode)
             ->leftJoin('o.categories', 'category')
@@ -41,7 +41,7 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
     public function createByAuthorAndChannelQueryBuilder(
         ChannelInterface $channel,
         string $locale,
-        string $authorUsername
+        string $authorUsername,
     ): QueryBuilder {
         return $this->createByChannelQueryBuilder($channel->getCode())
             ->addSelect('translation')
@@ -79,15 +79,15 @@ class ArticleRepository extends BaseArticleRepository implements ArticleReposito
             $this->createByCategoryAndChannelQueryBuilder(
                 $categorySlug,
                 $localeCode,
-                $channelCode
-            )
+                $channelCode,
+            ),
         );
     }
 
     public function findByAuthorAndChannel(
         ChannelInterface $channel,
         string $locale,
-        string $authorUsername
+        string $authorUsername,
     ): Pagerfanta {
         return $this->getPaginator($this->createByAuthorAndChannelQueryBuilder($channel, $locale, $authorUsername));
     }

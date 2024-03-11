@@ -14,9 +14,7 @@ class Article extends BaseArticle implements ArticleInterface
 {
     protected ?AdminUserInterface $author = null;
 
-    /**
-     * @psalm-var Collection<array-key, ChannelInterface>
-     */
+    /** @psalm-var Collection<array-key, ChannelInterface> */
     protected Collection $channels;
 
     public function __construct()

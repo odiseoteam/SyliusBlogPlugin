@@ -18,18 +18,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class BlogArticleCategoryExampleFactory extends AbstractExampleFactory
 {
-    private FactoryInterface $articleCategoryFactory;
-    private RepositoryInterface $localeRepository;
     private FakerGenerator $faker;
+
     private OptionsResolver $optionsResolver;
 
     public function __construct(
-        FactoryInterface $articleCategoryFactory,
-        RepositoryInterface $localeRepository
+        private FactoryInterface $articleCategoryFactory,
+        private RepositoryInterface $localeRepository,
     ) {
-        $this->articleCategoryFactory = $articleCategoryFactory;
-        $this->localeRepository = $localeRepository;
-
         $this->faker = Factory::create();
         $this->optionsResolver = new OptionsResolver();
 

@@ -17,13 +17,13 @@ interface ArticleRepositoryInterface extends BaseArticleRepositoryInterface
     public function createByCategoryAndChannelQueryBuilder(
         string $categorySlug,
         ?string $localeCode,
-        string $channelCode
+        string $channelCode,
     ): QueryBuilder;
 
     public function createByAuthorAndChannelQueryBuilder(
         ChannelInterface $channel,
         string $locale,
-        string $authorUsername
+        string $authorUsername,
     ): QueryBuilder;
 
     public function findOneBySlugAndChannel(string $slug, ?string $localeCode, string $channelCode): ?ArticleInterface;
@@ -33,13 +33,13 @@ interface ArticleRepositoryInterface extends BaseArticleRepositoryInterface
     public function findByCategoryAndChannel(
         string $categorySlug,
         ?string $localeCode,
-        string $channelCode
+        string $channelCode,
     ): Pagerfanta;
 
     public function findByAuthorAndChannel(
         ChannelInterface $channel,
         string $locale,
-        string $authorUsername
+        string $authorUsername,
     ): Pagerfanta;
 
     public function findLatestByChannel(ChannelInterface $channel, string $locale, int $count): array;

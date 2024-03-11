@@ -9,18 +9,15 @@ use Twig\TwigFunction;
 
 final class BlogExtension extends AbstractExtension
 {
-    private ?string $disqusShortname;
-
     public function __construct(
-        ?string $disqusShortname
+        private ?string $disqusShortname,
     ) {
-        $this->disqusShortname = $disqusShortname;
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('disqus_shortname', [$this, 'getDisqusShortname'])
+            new TwigFunction('disqus_shortname', [$this, 'getDisqusShortname']),
         ];
     }
 
