@@ -10,7 +10,7 @@
         <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-blog-plugin.svg" />
     </a>
     <a href="https://github.com/odiseoteam/SyliusBlogPlugin/actions" title="Build Status" target="_blank">
-        <img src="https://img.shields.io/github/workflow/status/odiseoteam/SyliusBlogPlugin/Build" />
+        <img src="https://img.shields.io/github/actions/workflow/status/odiseoteam/SyliusBlogPlugin/build.yml" />
     </a>
     <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusBlogPlugin/" title="Scrutinizer" target="_blank">
         <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusBlogPlugin.svg" />
