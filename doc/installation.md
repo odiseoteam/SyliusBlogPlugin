@@ -24,8 +24,7 @@ return [
 ```yml
 # config/packages/_sylius.yaml
 imports:
-    ...
-
+    # ...
     - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yaml" }
 ```
 
