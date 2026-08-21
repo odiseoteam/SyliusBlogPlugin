@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://odiseo.io/" target="_blank" title="Odiseo">
+    <a href="https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin" target="_blank" title="Odiseo">
         <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/sylius-blog-plugin.png" alt="Sylius Blog Plugin" />
     </a>
     <br />
@@ -20,9 +20,6 @@
     </a>
     <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
         <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
-    </a>
-    <a href="https://odiseo.io/contact-us" title="Support" target="_blank">
-        <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
 
