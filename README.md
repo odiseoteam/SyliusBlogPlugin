@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin" target="_blank" title="Odiseo">
+    <a href="https://odiseo.io/en?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin" target="_blank" title="Odiseo">
         <img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/sylius-blog-plugin.png" alt="Sylius Blog Plugin" />
     </a>
     <br />
