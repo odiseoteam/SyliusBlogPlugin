@@ -25,7 +25,6 @@
         <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
-<p align="center"><a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusBlogPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a></p>
 
 ## Description
 
@@ -57,10 +56,7 @@ Support Sylius version 1.9+.
 
 ## Demo
 
-You can see this plugin in action in our Sylius Demo application.
-
-- Frontend: [sylius-demo.odiseo.com.ar](https://sylius-demo.odiseo.com.ar).
-- Administration: [sylius-demo.odiseo.com.ar/admin](https://sylius-demo.odiseo.com.ar/admin) with `odiseo: odiseo` credentials.
+Want a live walkthrough of this plugin? [Get in touch](https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin) — or browse all our Sylius plugins at [odiseo.io](https://odiseo.io/en/products/sylius-plugins?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin).
 
 ## Documentation
 
@@ -72,4 +68,4 @@ You can see this plugin in action in our Sylius Demo application.
 
 ## Credits
 
-This plugin is maintained by <a href="https://odiseo.io">Odiseo</a>. Want us to help you with this plugin or any Sylius project? Contact us on <a href="mailto:team@odiseo.com.ar">team@odiseo.com.ar</a>.
+This plugin is maintained by [Odiseo](https://odiseo.io/en?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin). Want us to help you with this plugin or any Sylius project? [Get in touch](https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-blog-plugin).
