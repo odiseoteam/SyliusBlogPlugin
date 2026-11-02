@@ -1,24 +1,4 @@
 parameters:
     level: max
-    reportUnmatchedIgnoredErrors: false
     paths:
         - src
-        - tests/Behat
-
-    excludePaths:
-        # Makes PHPStan crash
-        - 'src/DependencyInjection/Configuration.php'
-
-        # Test dependencies
-        - 'tests/Application/app/**.php'
-        - 'tests/Application/src/**.php'
-
-    ignoreErrors:
-        - identifier: missingType.iterableValue
-        - identifier: missingType.generics
-        - '/Parameter #1 \$configuration of method Symfony\\Component\\DependencyInjection\\Extension\\Extension::processConfiguration\(\) expects Symfony\\Component\\Config\\Definition\\ConfigurationInterface, Symfony\\Component\\Config\\Definition\\ConfigurationInterface\|null given\./'
-        - '/Cannot cast mixed to int./'
-        - '/Cannot cast mixed to string./'
-        -
-            message: '/but returns mixed./'
-            path: src/Repository

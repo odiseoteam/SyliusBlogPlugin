@@ -1,5 +1,0 @@
-imports:
-    - { resource: "@OdiseoBlogBundle/Resources/config/config.yml" }
-
-    - { resource: grids.yaml }
-    - { resource: resources.yaml }

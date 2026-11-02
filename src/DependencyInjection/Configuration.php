@@ -9,26 +9,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @psalm-suppress UndefinedMethod
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('odiseo_sylius_blog_plugin');
-
-        $rootNode = $treeBuilder->getRootNode();
-
-        $rootNode
-            ->children()
-                ->arrayNode('disqus')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('shortname')->defaultValue(null)->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-
-        return $treeBuilder;
+        return new TreeBuilder('odiseo_sylius_blog');
     }
 }
