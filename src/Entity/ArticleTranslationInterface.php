@@ -32,4 +32,8 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
     public function getMetaDescription(): ?string;
 
     public function setMetaDescription(?string $metaDescription): void;
+
+    public function getImageAlt(): ?string;
+
+    public function setImageAlt(?string $imageAlt): void;
 }

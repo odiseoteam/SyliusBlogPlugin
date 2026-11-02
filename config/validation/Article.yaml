@@ -25,3 +25,5 @@ Odiseo\SyliusBlogPlugin\Entity\Article:
             - Valid: ~
         articleAuthors:
             - Valid: ~
+        image:
+            - Valid: ~

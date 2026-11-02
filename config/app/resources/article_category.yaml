@@ -11,3 +11,9 @@ sylius_resource:
                 classes:
                     model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslation
                     interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslationInterface
+
+        odiseo_blog.article_category_image:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImage
+                interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImageInterface

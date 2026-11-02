@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Entity;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
+use Sylius\Component\Core\Model\ImageAwareInterface;
 use Sylius\Resource\Model\CodeAwareInterface;
 use Sylius\Resource\Model\ResourceInterface;
 use Sylius\Resource\Model\SlugAwareInterface;
@@ -17,7 +18,8 @@ interface AuthorInterface extends
     CodeAwareInterface,
     ToggleableInterface,
     TranslatableInterface,
-    SlugAwareInterface
+    SlugAwareInterface,
+    ImageAwareInterface
 {
     public function getId(): ?int;
 

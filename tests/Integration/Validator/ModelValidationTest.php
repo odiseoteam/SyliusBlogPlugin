@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Odiseo\SyliusBlogPlugin\Integration\Validator;
 
+use Odiseo\SyliusBlogPlugin\Entity\ArticleImage;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Integration\DatabaseTestCase;
 
@@ -69,6 +71,24 @@ final class ModelValidationTest extends DatabaseTestCase
             ['mainCategory' => 'odiseo_blog.article.main_category.not_in_categories'],
             $this->violations($article),
         );
+    }
+
+    public function testImagesOnlyTakeTheImageTypesSyliusAllows(): void
+    {
+        $image = new ArticleImage();
+        $image->setFile(new File(\dirname(__DIR__, 3) . '/public/images/placeholder.svg'));
+        $article = $this->article('post');
+        $article->setImage($image);
+
+        self::assertSame('sylius.image.file.allowed_mime_types', $this->violations($article)['image.file'] ?? null);
+    }
+
+    public function testTheImageAltIsAtMost255Characters(): void
+    {
+        $article = $this->article('post');
+        $article->setImageAlt(str_repeat('a', 256));
+
+        self::assertArrayHasKey('translations[en_US].imageAlt', $this->violations($article));
     }
 
     /** @return array<string, string> Message templates by property path. */

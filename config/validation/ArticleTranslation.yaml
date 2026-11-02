@@ -26,3 +26,7 @@ Odiseo\SyliusBlogPlugin\Entity\ArticleTranslation:
             - Length:
                 max: 255
                 groups: ['odiseo_blog']
+        imageAlt:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']

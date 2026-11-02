@@ -6,6 +6,7 @@ namespace Odiseo\SyliusBlogPlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelsAwareInterface;
+use Sylius\Component\Core\Model\ImageAwareInterface;
 use Sylius\Resource\Model\CodeAwareInterface;
 use Sylius\Resource\Model\ResourceInterface;
 use Sylius\Resource\Model\SlugAwareInterface;
@@ -19,7 +20,8 @@ interface ArticleInterface extends
     TimestampableInterface,
     TranslatableInterface,
     ChannelsAwareInterface,
-    SlugAwareInterface
+    SlugAwareInterface,
+    ImageAwareInterface
 {
     public const STATE_DRAFT = 'draft';
 
@@ -99,6 +101,10 @@ interface ArticleInterface extends
     public function getMetaDescription(): ?string;
 
     public function setMetaDescription(?string $metaDescription): void;
+
+    public function getImageAlt(): ?string;
+
+    public function setImageAlt(?string $imageAlt): void;
 
     /** @return ArticleTranslationInterface */
     public function getTranslation(?string $locale = null): TranslationInterface;

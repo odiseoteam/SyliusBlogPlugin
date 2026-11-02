@@ -16,6 +16,7 @@
         <field name="content" type="text" nullable="true"/>
         <field name="metaTitle" column="meta_title" type="string" nullable="true"/>
         <field name="metaDescription" column="meta_description" type="string" nullable="true"/>
+        <field name="imageAlt" column="image_alt" type="string" nullable="true"/>
 
         <unique-constraints>
             <unique-constraint columns="locale,slug" name="odiseo_blog_article_translation_slug_uidx"/>

@@ -6,6 +6,7 @@ namespace Odiseo\SyliusBlogPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Resource\Model\TranslatableTrait;
 use Sylius\Resource\Model\TranslationInterface;
 
@@ -34,6 +35,8 @@ class ArticleCategory implements ArticleCategoryInterface
     protected ?int $level = null;
 
     protected ?int $position = null;
+
+    protected ?ImageInterface $image = null;
 
     public function __construct()
     {
@@ -135,6 +138,17 @@ class ArticleCategory implements ArticleCategoryInterface
     public function setPosition(?int $position): void
     {
         $this->position = $position;
+    }
+
+    public function getImage(): ?ImageInterface
+    {
+        return $this->image;
+    }
+
+    public function setImage(?ImageInterface $image): void
+    {
+        $image?->setOwner($this);
+        $this->image = $image;
     }
 
     public function getName(): ?string

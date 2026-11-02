@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Entity;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
+use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Resource\Model\ToggleableTrait;
 use Sylius\Resource\Model\TranslatableTrait;
 use Sylius\Resource\Model\TranslationInterface;
@@ -29,6 +30,9 @@ class Author implements AuthorInterface
     protected array $socialLinks = [];
 
     protected ?AdminUserInterface $adminUser = null;
+
+    /** The avatar. */
+    protected ?ImageInterface $image = null;
 
     public function __construct()
     {
@@ -88,6 +92,17 @@ class Author implements AuthorInterface
     public function setAdminUser(?AdminUserInterface $adminUser): void
     {
         $this->adminUser = $adminUser;
+    }
+
+    public function getImage(): ?ImageInterface
+    {
+        return $this->image;
+    }
+
+    public function setImage(?ImageInterface $image): void
+    {
+        $image?->setOwner($this);
+        $this->image = $image;
     }
 
     public function getJobTitle(): ?string

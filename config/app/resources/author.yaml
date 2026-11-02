@@ -11,3 +11,9 @@ sylius_resource:
                 classes:
                     model: Odiseo\SyliusBlogPlugin\Entity\AuthorTranslation
                     interface: Odiseo\SyliusBlogPlugin\Entity\AuthorTranslationInterface
+
+        odiseo_blog.author_image:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\AuthorImage
+                interface: Odiseo\SyliusBlogPlugin\Entity\AuthorImageInterface

@@ -22,6 +22,8 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     protected ?string $metaDescription = null;
 
+    protected ?string $imageAlt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,5 +87,15 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(?string $imageAlt): void
+    {
+        $this->imageAlt = $imageAlt;
     }
 }

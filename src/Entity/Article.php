@@ -7,6 +7,7 @@ namespace Odiseo\SyliusBlogPlugin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Resource\Model\TimestampableTrait;
 use Sylius\Resource\Model\TranslatableTrait;
 use Sylius\Resource\Model\TranslationInterface;
@@ -32,6 +33,8 @@ class Article implements ArticleInterface
     protected bool $commentsEnabled = true;
 
     protected ?ArticleCategoryInterface $mainCategory = null;
+
+    protected ?ImageInterface $image = null;
 
     /** @var Collection<array-key, ChannelInterface> */
     protected Collection $channels;
@@ -118,6 +121,17 @@ class Article implements ArticleInterface
     public function setMainCategory(?ArticleCategoryInterface $mainCategory): void
     {
         $this->mainCategory = $mainCategory;
+    }
+
+    public function getImage(): ?ImageInterface
+    {
+        return $this->image;
+    }
+
+    public function setImage(?ImageInterface $image): void
+    {
+        $image?->setOwner($this);
+        $this->image = $image;
     }
 
     public function getChannels(): Collection
@@ -288,6 +302,16 @@ class Article implements ArticleInterface
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->getTranslation()->setMetaDescription($metaDescription);
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->getTranslation()->getImageAlt();
+    }
+
+    public function setImageAlt(?string $imageAlt): void
+    {
+        $this->getTranslation()->setImageAlt($imageAlt);
     }
 
     public function getTranslation(?string $locale = null): TranslationInterface

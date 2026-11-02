@@ -19,5 +19,12 @@
         <one-to-one field="adminUser" target-entity="Sylius\Component\Core\Model\AdminUserInterface">
             <join-column name="admin_user_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
         </one-to-one>
+
+        <one-to-one field="image" target-entity="Odiseo\SyliusBlogPlugin\Entity\AuthorImageInterface" inversed-by="owner" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="image_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
+        </one-to-one>
     </mapped-superclass>
 </doctrine-mapping>

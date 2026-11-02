@@ -17,3 +17,9 @@ sylius_resource:
             classes:
                 model: Odiseo\SyliusBlogPlugin\Entity\ArticleAuthor
                 interface: Odiseo\SyliusBlogPlugin\Entity\ArticleAuthorInterface
+
+        odiseo_blog.article_image:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleImage
+                interface: Odiseo\SyliusBlogPlugin\Entity\ArticleImageInterface

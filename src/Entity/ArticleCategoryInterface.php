@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ImageAwareInterface;
 use Sylius\Resource\Model\CodeAwareInterface;
 use Sylius\Resource\Model\ResourceInterface;
 use Sylius\Resource\Model\SlugAwareInterface;
@@ -16,7 +17,8 @@ interface ArticleCategoryInterface extends
     ResourceInterface,
     CodeAwareInterface,
     TranslatableInterface,
-    SlugAwareInterface
+    SlugAwareInterface,
+    ImageAwareInterface
 {
     public function getId(): ?int;
 

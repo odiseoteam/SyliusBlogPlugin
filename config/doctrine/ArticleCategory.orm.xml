@@ -44,6 +44,13 @@
             <gedmo:sortable-position/>
         </field>
 
+        <one-to-one field="image" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImageInterface" inversed-by="owner" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="image_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
+        </one-to-one>
+
         <gedmo:tree type="nested"/>
     </mapped-superclass>
 </doctrine-mapping>

@@ -1,0 +1,11 @@
+services:
+    odiseo_blog.twig.extension.image:
+        class: Odiseo\SyliusBlogPlugin\Twig\ImageExtension
+        tags: ['twig.extension']
+
+    odiseo_blog.twig.runtime.image:
+        class: Odiseo\SyliusBlogPlugin\Twig\ImageRuntime
+        arguments:
+            - '@liip_imagine.cache.manager'
+            - '@assets.packages'
+        tags: ['twig.runtime']

@@ -33,3 +33,5 @@ Odiseo\SyliusBlogPlugin\Entity\Author:
                 groups: ['odiseo_blog']
         translations:
             - Valid: ~
+        image:
+            - Valid: ~

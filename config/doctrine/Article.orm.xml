@@ -26,6 +26,14 @@
             <join-column name="main_category_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
         </many-to-one>
 
+        <!-- Owned here, not by the image: an inverse one-to-one would cost a query for every article loaded. -->
+        <one-to-one field="image" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleImageInterface" inversed-by="owner" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="image_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
+        </one-to-one>
+
         <one-to-many field="articleAuthors" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleAuthorInterface" mapped-by="article" orphan-removal="true">
             <cascade>
                 <cascade-all/>

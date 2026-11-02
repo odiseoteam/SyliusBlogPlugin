@@ -10,6 +10,7 @@ Version 2.0 is a rewrite for Sylius 2.0–2.3, developed on `master`. 1.x stays 
 - Data model, as Sylius resources: articles (translations, channels, categories with a main one, tags and ordered authors), a category tree, tags and authors (optionally linked to an admin user). Article content is stored as Tiptap JSON, exactly as sent.
 - MySQL and PostgreSQL migrations. Coming from 1.x, they rename the old tables to `odiseo_blog_legacy_*`, which Doctrine's schema tools ignore.
 - Validation: unique codes, slugs unique per locale, and a main category that is one of the article's categories. Messages in English and Spanish.
+- Images: a featured image per article, with its alt text per locale, a category image and an author avatar. They are stored with Sylius' image uploader and storage, and come with their own LiipImagine filter sets, a local placeholder, and the `odiseo_blog_image_url` and `odiseo_blog_image_alt` Twig functions.
 - Installation guide in `doc/`.
 
 ### Changed

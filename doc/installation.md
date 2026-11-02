@@ -49,7 +49,7 @@ doctrine_migrations:
 
 The migrations keep the 1.x data: they rename its tables to `odiseo_blog_legacy_*` before creating
 the new ones. Doctrine's schema tools ignore those tables, so `doctrine:migrations:diff` never drops
-them.
+them. The 1.x images are already in Sylius' image storage, `public/media/image`, and stay there.
 
 Doctrine warns that the 1.x migration is executed but no longer exists. Remove it from the
 migrations table:

@@ -6,6 +6,7 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Unit\Entity;
 
 use Odiseo\SyliusBlogPlugin\Entity\Article;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleAuthor;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleImage;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\Author;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -55,6 +56,20 @@ final class ArticleTest extends TestCase
 
         self::assertSame('Hola', $article->getTranslation('es_AR')->getTitle());
         self::assertSame('{"type":"doc","content":[]}', $article->getTranslation('es_AR')->getContent());
+    }
+
+    public function testTheImageBelongsToTheArticleAndItsAltToTheLocale(): void
+    {
+        $article = new Article();
+        $article->setCurrentLocale('es_AR');
+        $article->setFallbackLocale('en_US');
+        $image = new ArticleImage();
+
+        $article->setImage($image);
+        $article->setImageAlt('Una taza de café');
+
+        self::assertSame($article, $image->getOwner());
+        self::assertSame('Una taza de café', $article->getTranslation('es_AR')->getImageAlt());
     }
 
     private function byline(string $code, int $position): ArticleAuthor
