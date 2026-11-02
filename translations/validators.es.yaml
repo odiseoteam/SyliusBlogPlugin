@@ -1,0 +1,9 @@
+odiseo_blog:
+    article:
+        main_category:
+            not_in_categories: 'La categoría principal tiene que ser una de las categorías del artículo.'
+    code:
+        regex: 'El código sólo puede tener letras, números, guiones y guiones bajos.'
+        unique: 'Este código ya está en uso.'
+    slug:
+        unique: 'Este slug ya está en uso.'

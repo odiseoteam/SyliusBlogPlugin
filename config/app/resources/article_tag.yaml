@@ -1,0 +1,13 @@
+sylius_resource:
+    resources:
+        odiseo_blog.article_tag:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleTag
+                interface: Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface
+                repository: Odiseo\SyliusBlogPlugin\Repository\ArticleTagRepository
+                factory: Sylius\Resource\Factory\TranslatableFactory
+            translation:
+                classes:
+                    model: Odiseo\SyliusBlogPlugin\Entity\ArticleTagTranslation
+                    interface: Odiseo\SyliusBlogPlugin\Entity\ArticleTagTranslationInterface

@@ -93,6 +93,15 @@ jobs:
                 run: vendor/bin/console lint:container
 
             -
+                # Only the blog tables: the test application's own schema may drift.
+                name: Check the migrations match the mapping
+                run: |
+                    if vendor/bin/console doctrine:schema:update --dump-sql | grep -i 'odiseo_blog'; then
+                        echo "The migrations don't match the mapping." >&2
+                        exit 1
+                    fi
+
+            -
                 name: Run PHPStan
                 run: vendor/bin/phpstan analyse -c phpstan.neon
 

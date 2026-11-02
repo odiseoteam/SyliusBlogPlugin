@@ -1,1 +1,2 @@
-services: ~
+imports:
+    - { resource: "services/*.yaml" }

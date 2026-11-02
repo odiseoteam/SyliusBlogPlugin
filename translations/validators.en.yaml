@@ -1,0 +1,9 @@
+odiseo_blog:
+    article:
+        main_category:
+            not_in_categories: 'The main category must be one of the article categories.'
+    code:
+        regex: 'The code can only contain letters, numbers, dashes and underscores.'
+        unique: 'This code is already used.'
+    slug:
+        unique: 'This slug is already used.'

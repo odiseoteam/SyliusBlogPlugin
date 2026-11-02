@@ -1,0 +1,2 @@
+imports:
+    - { resource: "@OdiseoSyliusBlogPlugin/config/app/resources/*.yaml" }

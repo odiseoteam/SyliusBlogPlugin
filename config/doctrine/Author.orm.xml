@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\Author" table="odiseo_blog_author">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="code" type="string" unique="true"/>
+        <field name="name" type="string"/>
+        <field name="slug" type="string" unique="true"/>
+        <field name="socialLinks" column="social_links" type="json"/>
+        <field name="enabled" type="boolean"/>
+
+        <one-to-one field="adminUser" target-entity="Sylius\Component\Core\Model\AdminUserInterface">
+            <join-column name="admin_user_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
+        </one-to-one>
+    </mapped-superclass>
+</doctrine-mapping>

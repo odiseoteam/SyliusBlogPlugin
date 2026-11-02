@@ -1,0 +1,4 @@
+services:
+    odiseo_blog.legacy.doctrine.schema_filter:
+        class: Odiseo\SyliusBlogPlugin\Legacy\Doctrine\LegacyTablesSchemaFilter
+        tags: ['doctrine.dbal.schema_filter']

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\Article" table="odiseo_blog_article">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="code" type="string" unique="true"/>
+        <field name="state" type="string"/>
+        <field name="publishedAt" column="published_at" type="datetime" nullable="true"/>
+        <field name="featured" type="boolean"/>
+        <field name="commentsEnabled" column="comments_enabled" type="boolean"/>
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+        <many-to-one field="mainCategory" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface">
+            <join-column name="main_category_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </many-to-one>
+
+        <one-to-many field="articleAuthors" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleAuthorInterface" mapped-by="article" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <order-by>
+                <order-by-field name="position"/>
+            </order-by>
+        </one-to-many>
+
+        <many-to-many field="channels" target-entity="Sylius\Component\Channel\Model\ChannelInterface">
+            <join-table name="odiseo_blog_article_channels">
+                <join-columns>
+                    <join-column name="article_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="channel_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many field="categories" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface">
+            <join-table name="odiseo_blog_article_categories">
+                <join-columns>
+                    <join-column name="article_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="category_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many field="tags" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface">
+            <join-table name="odiseo_blog_article_tags">
+                <join-columns>
+                    <join-column name="article_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="tag_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -1,0 +1,14 @@
+Odiseo\SyliusBlogPlugin\Entity\AuthorTranslation:
+    properties:
+        jobTitle:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        metaTitle:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        metaDescription:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
