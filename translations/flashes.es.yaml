@@ -1,3 +1,8 @@
 odiseo_blog:
+    article_tag:
+        bulk_delete: 'Los tags se han eliminado con éxito.'
+        create: 'El tag se ha creado con éxito.'
+        delete: 'El tag se ha eliminado con éxito.'
+        update: 'El tag se ha actualizado con éxito.'
     channel_configuration:
         update: 'La configuración del blog se ha actualizado con éxito.'

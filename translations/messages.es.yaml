@@ -7,12 +7,18 @@ odiseo_blog:
             posts_per_page: 'Artículos por página'
             title: 'Título'
             title_help: 'Si queda vacío, se llama "Blog".'
+        meta_description: 'Meta descripción'
+        meta_title: 'Meta título'
     menu:
         admin:
             configuration: 'Configuración'
             header: 'Blog'
+            tags: 'Tags'
     ui:
+        article_tag: 'Tag'
+        article_tags: 'Tags'
         blog_enabled: 'Blog'
         channel_configuration: 'Configuración del blog'
         channel_configurations: 'Configuración del blog'
+        generate_slug: 'Generar el slug a partir del nombre'
         posts_per_page: 'Artículos por página'

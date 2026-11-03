@@ -22,7 +22,7 @@ final class AdminMenuListenerTest extends TestCase
         (new AdminMenuListener())->addAdminMenuItems(new MenuBuilderEvent($this->factory(), $menu));
 
         self::assertSame(['catalog', 'marketing', 'blog', 'configuration'], array_keys($menu->getChildren()));
-        self::assertSame(['configuration'], array_keys($menu->getChild('blog')?->getChildren() ?? []));
+        self::assertSame(['tags', 'configuration'], array_keys($menu->getChild('blog')?->getChildren() ?? []));
     }
 
     public function testTheBlogGoesLastWithoutMarketing(): void

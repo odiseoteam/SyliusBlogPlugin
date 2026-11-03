@@ -1,2 +1,3 @@
 imports:
     - suites/ui/managing_blog_configuration.yaml
+    - suites/ui/managing_tags.yaml

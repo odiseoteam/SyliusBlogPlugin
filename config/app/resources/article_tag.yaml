@@ -7,7 +7,9 @@ sylius_resource:
                 interface: Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface
                 repository: Odiseo\SyliusBlogPlugin\Repository\ArticleTagRepository
                 factory: Sylius\Resource\Factory\TranslatableFactory
+                form: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagType
             translation:
                 classes:
                     model: Odiseo\SyliusBlogPlugin\Entity\ArticleTagTranslation
                     interface: Odiseo\SyliusBlogPlugin\Entity\ArticleTagTranslationInterface
+                    form: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagTranslationType

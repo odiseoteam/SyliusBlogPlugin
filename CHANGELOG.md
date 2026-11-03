@@ -12,6 +12,7 @@ Version 2.0 is a rewrite for Sylius 2.0–2.3, developed on `master`. 1.x stays 
 - Validation: unique codes, slugs unique per locale, and a main category that is one of the article's categories. Messages in English and Spanish.
 - Images: a featured image per article, with its alt text per locale, a category image and an author avatar. They are stored with Sylius' image uploader and storage, and come with their own LiipImagine filter sets, a local placeholder, and the `odiseo_blog_image_url` and `odiseo_blog_image_alt` Twig functions.
 - Blog configuration per channel, in the admin under Blog › Configuration: whether the blog is shown, articles per page, and a title and description per locale. Channels without one use the defaults in `odiseo_sylius_blog.channel_defaults`.
+- Tags admin, under Blog › Tags: tags with a name, slug and meta per locale. A button generates the slug from the name.
 - Installation guide in `doc/`.
 
 ### Changed

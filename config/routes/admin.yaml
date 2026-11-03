@@ -1,3 +1,18 @@
+odiseo_blog_admin_article_tag:
+    resource: |
+        alias: odiseo_blog.article_tag
+        section: admin
+        path: blog/tags
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_admin_article_tag
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'odiseo_blog.admin.article_tag'
+    type: sylius.resource
+
 odiseo_blog_admin_channel_configuration_index:
     path: /blog/configuration
     methods: [GET]

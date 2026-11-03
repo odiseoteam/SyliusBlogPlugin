@@ -20,6 +20,15 @@ final class AdminMenuListener
         ;
 
         $blog
+            ->addChild('tags', ['route' => 'odiseo_blog_admin_article_tag_index', 'extras' => ['routes' => [
+                ['route' => 'odiseo_blog_admin_article_tag_create'],
+                ['route' => 'odiseo_blog_admin_article_tag_update'],
+            ]]])
+            ->setLabel('odiseo_blog.menu.admin.tags')
+            ->setLabelAttribute('icon', 'tabler:tags')
+        ;
+
+        $blog
             ->addChild('configuration', ['route' => 'odiseo_blog_admin_channel_configuration_index', 'extras' => ['routes' => [
                 ['route' => 'odiseo_blog_admin_channel_configuration_update'],
             ]]])
