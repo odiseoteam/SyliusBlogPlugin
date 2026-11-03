@@ -1,3 +1,0 @@
-imports:
-    - suites/ui/managing_articles.yaml
-    - suites/ui/managing_article_categories.yaml

@@ -1,0 +1,19 @@
+sylius_resource:
+    resources:
+        odiseo_blog.author:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\Author
+                interface: Odiseo\SyliusBlogPlugin\Entity\AuthorInterface
+                repository: Odiseo\SyliusBlogPlugin\Repository\AuthorRepository
+                factory: Sylius\Resource\Factory\TranslatableFactory
+            translation:
+                classes:
+                    model: Odiseo\SyliusBlogPlugin\Entity\AuthorTranslation
+                    interface: Odiseo\SyliusBlogPlugin\Entity\AuthorTranslationInterface
+
+        odiseo_blog.author_image:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\AuthorImage
+                interface: Odiseo\SyliusBlogPlugin\Entity\AuthorImageInterface

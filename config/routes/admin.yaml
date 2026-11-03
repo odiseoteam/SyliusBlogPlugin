@@ -1,0 +1,33 @@
+odiseo_blog_admin_channel_configuration_index:
+    path: /blog/configuration
+    methods: [GET]
+    defaults:
+        _controller: odiseo_blog.controller.channel_configuration::indexAction
+        _sylius:
+            section: admin
+            permission: true
+            grid: odiseo_blog_admin_channel_configuration
+            template: '@SyliusAdmin/shared/crud/index.html.twig'
+            vars:
+                hook_prefix: odiseo_blog.admin.channel_configuration
+
+# Any channel can be edited: without a stored configuration, the form starts from the defaults.
+odiseo_blog_admin_channel_configuration_update:
+    path: /blog/configuration/{channelCode}/edit
+    methods: [GET, PUT]
+    defaults:
+        _controller: odiseo_blog.controller.channel_configuration::updateAction
+        _sylius:
+            section: admin
+            permission: true
+            template: '@SyliusAdmin/shared/crud/update.html.twig'
+            repository:
+                method: ['expr:service("odiseo_blog.provider.channel_configuration")', 'getConfiguration']
+                arguments:
+                    - 'expr:notFoundOnNull(service("sylius.repository.channel").findOneByCode($channelCode))'
+            redirect:
+                route: odiseo_blog_admin_channel_configuration_update
+                parameters:
+                    channelCode: $channelCode
+            vars:
+                hook_prefix: odiseo_blog.admin.channel_configuration

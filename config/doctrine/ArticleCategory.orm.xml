@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\ArticleCategory" table="odiseo_blog_article_category">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="root" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface">
+            <join-column name="tree_root" referenced-column-name="id" nullable="true" on-delete="CASCADE"/>
+            <gedmo:tree-root/>
+        </many-to-one>
+        <many-to-one field="parent" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface" inversed-by="children">
+            <join-column name="parent_id" referenced-column-name="id" nullable="true" on-delete="CASCADE"/>
+            <gedmo:tree-parent/>
+            <gedmo:sortable-group/>
+        </many-to-one>
+
+        <one-to-many field="children" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface" mapped-by="parent">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="position"/>
+                <order-by-field name="id"/>
+            </order-by>
+        </one-to-many>
+
+        <field name="code" type="string" unique="true"/>
+        <field name="left" column="tree_left" type="integer">
+            <gedmo:tree-left/>
+        </field>
+        <field name="right" column="tree_right" type="integer">
+            <gedmo:tree-right/>
+        </field>
+        <field name="level" column="tree_level" type="integer">
+            <gedmo:tree-level/>
+        </field>
+        <field name="position" type="integer">
+            <gedmo:sortable-position/>
+        </field>
+
+        <one-to-one field="image" target-entity="Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImageInterface" inversed-by="owner" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="image_id" referenced-column-name="id" nullable="true" unique="true" on-delete="SET NULL"/>
+        </one-to-one>
+
+        <gedmo:tree type="nested"/>
+    </mapped-superclass>
+</doctrine-mapping>

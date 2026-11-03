@@ -1,0 +1,6 @@
+Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfigurationTranslation:
+    properties:
+        title:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']

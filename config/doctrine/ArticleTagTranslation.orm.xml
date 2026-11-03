@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\ArticleTagTranslation" table="odiseo_blog_article_tag_translation">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string"/>
+        <field name="slug" type="string"/>
+        <field name="metaTitle" column="meta_title" type="string" nullable="true"/>
+        <field name="metaDescription" column="meta_description" type="string" nullable="true"/>
+
+        <unique-constraints>
+            <unique-constraint columns="locale,slug" name="odiseo_blog_article_tag_translation_slug_uidx"/>
+        </unique-constraints>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -9,21 +9,18 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @psalm-suppress UndefinedMethod
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('odiseo_sylius_blog_plugin');
+        $treeBuilder = new TreeBuilder('odiseo_sylius_blog');
 
-        $rootNode = $treeBuilder->getRootNode();
-
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
-                ->arrayNode('disqus')
+                ->arrayNode('channel_defaults')
+                    ->info('Settings of the channels the admin has not configured yet.')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('shortname')->defaultValue(null)->end()
+                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->integerNode('posts_per_page')->defaultValue(9)->min(1)->max(100)->end()
                     ->end()
                 ->end()
             ->end()

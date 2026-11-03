@@ -1,0 +1,5 @@
+Odiseo\SyliusBlogPlugin\Entity\ArticleAuthor:
+    properties:
+        author:
+            - NotNull:
+                groups: ['odiseo_blog']

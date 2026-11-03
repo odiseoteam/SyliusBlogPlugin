@@ -1,0 +1,19 @@
+sylius_resource:
+    resources:
+        odiseo_blog.article_category:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategory
+                interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface
+                repository: Odiseo\SyliusBlogPlugin\Repository\ArticleCategoryRepository
+                factory: Sylius\Resource\Factory\TranslatableFactory
+            translation:
+                classes:
+                    model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslation
+                    interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslationInterface
+
+        odiseo_blog.article_category_image:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImage
+                interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImageInterface

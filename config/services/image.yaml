@@ -1,0 +1,14 @@
+services:
+    # Files go through Sylius' uploader and storage. Sylius also deletes them, and their cached
+    # thumbnails, when an image is removed.
+    odiseo_blog.listener.image_upload:
+        class: Odiseo\SyliusBlogPlugin\EventListener\ImageUploadListener
+        arguments:
+            - '@sylius.uploader.image'
+        tags:
+            - { name: kernel.event_listener, event: odiseo_blog.article.pre_create, method: uploadImage }
+            - { name: kernel.event_listener, event: odiseo_blog.article.pre_update, method: uploadImage }
+            - { name: kernel.event_listener, event: odiseo_blog.article_category.pre_create, method: uploadImage }
+            - { name: kernel.event_listener, event: odiseo_blog.article_category.pre_update, method: uploadImage }
+            - { name: kernel.event_listener, event: odiseo_blog.author.pre_create, method: uploadImage }
+            - { name: kernel.event_listener, event: odiseo_blog.author.pre_update, method: uploadImage }

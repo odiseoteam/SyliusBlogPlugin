@@ -1,0 +1,26 @@
+# Code for upgrading from 1.x stays isolated so it can be deleted in one go.
+deptrac:
+    paths:
+        - ./src
+
+    layers:
+        - name: Legacy
+          collectors:
+              - type: directory
+                value: src/Legacy/.*
+
+        - name: Plugin
+          collectors:
+              - type: bool
+                must:
+                    - type: directory
+                      value: src/.*
+                must_not:
+                    - type: directory
+                      value: src/Legacy/.*
+
+    ruleset:
+        # Nothing may depend on Legacy.
+        Plugin: ~
+        Legacy:
+            - Plugin

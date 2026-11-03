@@ -1,0 +1,8 @@
+Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryImage:
+    properties:
+        file:
+            - Image:
+                maxSize: 10M
+                groups: ['odiseo_blog']
+            - Sylius\Bundle\CoreBundle\Validator\Constraints\AllowedImageMimeTypes:
+                groups: ['odiseo_blog']

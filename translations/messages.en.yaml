@@ -1,0 +1,18 @@
+odiseo_blog:
+    form:
+        channel_configuration:
+            description: 'Description'
+            description_help: 'A short text about the blog, shown next to the articles.'
+            enabled: 'Show the blog in this channel'
+            posts_per_page: 'Articles per page'
+            title: 'Title'
+            title_help: 'Leave it empty to call it "Blog".'
+    menu:
+        admin:
+            configuration: 'Configuration'
+            header: 'Blog'
+    ui:
+        blog_enabled: 'Blog'
+        channel_configuration: 'Blog configuration'
+        channel_configurations: 'Blog configuration'
+        posts_per_page: 'Articles per page'

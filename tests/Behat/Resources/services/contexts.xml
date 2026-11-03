@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <!-- Setup contexts -->
+        <service id="odiseo_blog.behat.context.setup.blog_configuration" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup\BlogConfigurationContext">
+            <argument type="service" id="odiseo_blog.provider.channel_configuration" />
+            <argument type="service" id="odiseo_blog.manager.channel_configuration" />
+            <tag name="fob.context_service" />
+        </service>
+
+        <!-- UI admin contexts -->
+        <service id="odiseo_blog.behat.context.ui.admin.managing_blog_configuration" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingBlogConfigurationContext">
+            <argument type="service" id="odiseo_blog.behat.page.admin.channel_configuration.index" />
+            <argument type="service" id="odiseo_blog.behat.page.admin.channel_configuration.update" />
+            <argument type="service" id="odiseo_blog.repository.channel_configuration" />
+            <argument type="service" id="odiseo_blog.manager.channel_configuration" />
+            <tag name="fob.context_service" />
+        </service>
+    </services>
+</container>

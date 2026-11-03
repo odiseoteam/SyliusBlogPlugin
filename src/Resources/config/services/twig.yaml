@@ -1,7 +1,0 @@
-services:
-    odiseo_sylius_blog_plugin.twig_extension.blog:
-        class: Odiseo\SyliusBlogPlugin\Twig\BlogExtension
-        arguments:
-            - '%odiseo_sylius_blog_plugin.disqus.shortname%'
-        tags:
-            - { name: twig.extension }

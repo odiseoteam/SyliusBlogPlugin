@@ -1,24 +1,23 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
 parameters:
     level: max
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
-        - tests/Behat
+        - tests
 
     excludePaths:
-        # Makes PHPStan crash
-        - 'src/DependencyInjection/Configuration.php'
-
-        # Test dependencies
-        - 'tests/Application/app/**.php'
-        - 'tests/Application/src/**.php'
+        - 'tests/TestApplication/**'
 
     ignoreErrors:
-        - identifier: missingType.iterableValue
-        - identifier: missingType.generics
-        - '/Parameter #1 \$configuration of method Symfony\\Component\\DependencyInjection\\Extension\\Extension::processConfiguration\(\) expects Symfony\\Component\\Config\\Definition\\ConfigurationInterface, Symfony\\Component\\Config\\Definition\\ConfigurationInterface\|null given\./'
-        - '/Cannot cast mixed to int./'
-        - '/Cannot cast mixed to string./'
+        # Symfony 6.4 types the config tree builder loosely (fine on 7.4).
         -
-            message: '/but returns mixed./'
-            path: src/Repository
+            identifier: method.notFound
+            path: src/DependencyInjection/Configuration.php
+        -
+            identifier: method.nonObject
+            path: src/DependencyInjection/Configuration.php

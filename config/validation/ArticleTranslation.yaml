@@ -1,0 +1,32 @@
+Odiseo\SyliusBlogPlugin\Entity\ArticleTranslation:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [locale, slug]
+            errorPath: slug
+            message: 'odiseo_blog.slug.unique'
+            groups: ['odiseo_blog']
+    properties:
+        title:
+            - NotBlank:
+                groups: ['odiseo_blog']
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        slug:
+            - NotBlank:
+                groups: ['odiseo_blog']
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        metaTitle:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        metaDescription:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+        imageAlt:
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']

@@ -5,34 +5,26 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\DependencyInjection;
 
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-final class OdiseoSyliusBlogExtension extends Extension implements PrependExtensionInterface
+final class OdiseoSyliusBlogExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
     use PrependDoctrineMigrationsTrait;
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
+        /** @var array{channel_defaults: array{enabled: bool, posts_per_page: int}} $config */
+        $config = $this->processConfiguration(new Configuration(), $configs);
 
-        /** @var array $disqus */
-        $disqus = $config['disqus'];
+        $container->setParameter('odiseo_blog.channel_defaults.enabled', $config['channel_defaults']['enabled']);
+        $container->setParameter('odiseo_blog.channel_defaults.posts_per_page', $config['channel_defaults']['posts_per_page']);
 
-        $container->setParameter('odiseo_sylius_blog_plugin.disqus.shortname', $disqus['shortname']);
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yaml');
-    }
-
-    public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
-    {
-        return new Configuration();
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -47,13 +39,12 @@ final class OdiseoSyliusBlogExtension extends Extension implements PrependExtens
 
     protected function getMigrationsDirectory(): string
     {
-        return '@OdiseoSyliusBlogPlugin/Migrations';
+        return '@OdiseoSyliusBlogPlugin/src/Migrations';
     }
 
+    /** @return string[] */
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
-        return [
-            'Sylius\Bundle\CoreBundle\Migrations',
-        ];
+        return ['Sylius\Bundle\CoreBundle\Migrations'];
     }
 }

@@ -1,0 +1,30 @@
+# "fixed" always returns the exact size, so templates can rely on the dimensions. Unlike "thumbnail",
+# it also enlarges small images.
+liip_imagine:
+    filter_sets:
+        odiseo_blog_admin_thumbnail:
+            format: webp
+            quality: 80
+            filters:
+                fixed: { width: 200, height: 200 }
+        odiseo_blog_avatar:
+            format: webp
+            quality: 80
+            filters:
+                fixed: { width: 240, height: 240 }
+        odiseo_blog_card:
+            format: webp
+            quality: 80
+            filters:
+                fixed: { width: 800, height: 450 }
+        odiseo_blog_hero:
+            format: webp
+            quality: 80
+            filters:
+                fixed: { width: 1600, height: 900 }
+        # Not every social network shows WebP previews.
+        odiseo_blog_og:
+            format: jpg
+            quality: 80
+            filters:
+                fixed: { width: 1200, height: 630 }

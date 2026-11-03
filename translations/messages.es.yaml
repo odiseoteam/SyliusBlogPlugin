@@ -1,0 +1,18 @@
+odiseo_blog:
+    form:
+        channel_configuration:
+            description: 'Descripción'
+            description_help: 'Un texto corto sobre el blog, que se muestra junto a los artículos.'
+            enabled: 'Mostrar el blog en este canal'
+            posts_per_page: 'Artículos por página'
+            title: 'Título'
+            title_help: 'Si queda vacío, se llama "Blog".'
+    menu:
+        admin:
+            configuration: 'Configuración'
+            header: 'Blog'
+    ui:
+        blog_enabled: 'Blog'
+        channel_configuration: 'Configuración del blog'
+        channel_configurations: 'Configuración del blog'
+        posts_per_page: 'Artículos por página'

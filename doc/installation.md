@@ -1,59 +1,68 @@
-## Installation
+[Docs index](README.md)
 
-1. Run `composer require odiseoteam/sylius-blog-plugin --no-scripts`
+# Installation
 
-2. Enable the plugin in bundles.php. This plugin need the FOSCKEditorBundle and EWZRecaptchaBundle so make sure to include
-them too. The bundle must be enabled before SyliusResourceBundle (i.e. before `Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],`).
+## 1. Require the plugin
+
+```bash
+composer require odiseoteam/sylius-blog-plugin
+```
+
+## 2. Enable it
 
 ```php
-<?php
 // config/bundles.php
-
 return [
     // ...
-    Odiseo\BlogBundle\OdiseoBlogBundle::class => ['all' => true],
-    FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
-    EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class => ['all' => true],
     Odiseo\SyliusBlogPlugin\OdiseoSyliusBlogPlugin::class => ['all' => true],
-    // ...
 ];
 ```
 
-3. Import the plugin configurations
+## 3. Import the configuration
 
-```yml
+```yaml
 # config/packages/_sylius.yaml
 imports:
     # ...
-    - { resource: "@OdiseoSyliusBlogPlugin/Resources/config/config.yaml" }
+    - { resource: "@OdiseoSyliusBlogPlugin/config/config.yaml" }
 ```
 
-4. Add the shop and admin routes
+## 4. Import the routes
 
-```yml
-# config/routes.yaml
-odiseo_sylius_blog_plugin_admin:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/admin.yaml"
-    prefix: /admin/blog
-
-odiseo_sylius_blog_plugin_shop:
-    resource: "@OdiseoSyliusBlogPlugin/Resources/config/routing/shop.yaml"
-    prefix: /{_locale}/blog
-    requirements:
-        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
+```yaml
+# config/routes/odiseo_sylius_blog.yaml
+odiseo_blog_admin:
+    resource: "@OdiseoSyliusBlogPlugin/config/routes/admin.yaml"
+    prefix: '/%sylius_admin.path_name%'
 ```
 
-5. Because this plugin uses FOSCKeditorBundle you need to execute the following commands according to the bundle [installation](https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html)
+## 5. Run the migrations
 
-```
-php bin/console ckeditor:install
-php bin/console assets:install public
+```bash
+bin/console doctrine:migrations:migrate
 ```
 
-6. Finish the installation updating the database schema and installing assets
+The plugin registers its own migrations, for MySQL and PostgreSQL, so there is nothing to
+configure. If your application does not use `sylius-labs/doctrine-migrations-extra-bundle`,
+register them yourself:
 
+```yaml
+# config/packages/doctrine_migrations.yaml
+doctrine_migrations:
+    migrations_paths:
+        # ...
+        'Odiseo\SyliusBlogPlugin\Migrations': '%kernel.project_dir%/vendor/odiseoteam/sylius-blog-plugin/src/Migrations'
 ```
-php bin/console doctrine:migrations:migrate
-php bin/console sylius:theme:assets:install
-php bin/console cache:clear
+
+## Coming from 1.x
+
+The migrations keep the 1.x data: they rename its tables to `odiseo_blog_legacy_*` before creating
+the new ones. Doctrine's schema tools ignore those tables, so `doctrine:migrations:diff` never drops
+them. The 1.x images are already in Sylius' image storage, `public/media/image`, and stay there.
+
+Doctrine warns that the 1.x migration is executed but no longer exists. Remove it from the
+migrations table:
+
+```bash
+bin/console doctrine:migrations:version 'Odiseo\SyliusBlogPlugin\Migrations\Version20240309220727' --delete
 ```

@@ -1,0 +1,29 @@
+Odiseo\SyliusBlogPlugin\Entity\Article:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code]
+            message: 'odiseo_blog.code.unique'
+            groups: ['odiseo_blog']
+        - Odiseo\SyliusBlogPlugin\Validator\Constraints\MainCategoryInCategories:
+            groups: ['odiseo_blog']
+    properties:
+        code:
+            - NotBlank:
+                groups: ['odiseo_blog']
+            - Length:
+                max: 255
+                groups: ['odiseo_blog']
+            - Regex:
+                pattern: '/^[\w-]*$/'
+                message: 'odiseo_blog.code.regex'
+                groups: ['odiseo_blog']
+        state:
+            - Choice:
+                choices: ['draft', 'published', 'archived']
+                groups: ['odiseo_blog']
+        translations:
+            - Valid: ~
+        articleAuthors:
+            - Valid: ~
+        image:
+            - Valid: ~
