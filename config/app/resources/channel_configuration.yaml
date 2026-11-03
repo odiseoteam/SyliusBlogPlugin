@@ -1,0 +1,15 @@
+sylius_resource:
+    resources:
+        odiseo_blog.channel_configuration:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfiguration
+                interface: Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfigurationInterface
+                repository: Odiseo\SyliusBlogPlugin\Repository\BlogChannelConfigurationRepository
+                factory: Sylius\Resource\Factory\TranslatableFactory
+                form: Odiseo\SyliusBlogPlugin\Form\Type\BlogChannelConfigurationType
+            translation:
+                classes:
+                    model: Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfigurationTranslation
+                    interface: Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfigurationTranslationInterface
+                    form: Odiseo\SyliusBlogPlugin\Form\Type\BlogChannelConfigurationTranslationType

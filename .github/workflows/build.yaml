@@ -122,9 +122,8 @@ jobs:
                 run: vendor/bin/phpunit --colors=always --testsuite=non-unit
 
             -
-                # No --strict yet: it fails when there are no scenarios.
                 name: Run Behat
-                run: vendor/bin/behat --colors -vvv --no-interaction -f progress || vendor/bin/behat --colors -vvv --no-interaction -f progress --rerun
+                run: vendor/bin/behat --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun
 
             -
                 name: Upload Behat logs

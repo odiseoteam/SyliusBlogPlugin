@@ -1,3 +1,5 @@
 imports:
     - { resource: "@OdiseoSyliusBlogPlugin/config/app/resources/*.yaml" }
+    - { resource: "@OdiseoSyliusBlogPlugin/config/app/grids/admin/*.yaml" }
+    - { resource: "@OdiseoSyliusBlogPlugin/config/app/twig_hooks/admin/*.yaml" }
     - { resource: "@OdiseoSyliusBlogPlugin/config/app/liip_imagine.yaml" }

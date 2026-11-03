@@ -1,0 +1,37 @@
+services:
+    odiseo_blog.custom_factory.channel_configuration:
+        class: Odiseo\SyliusBlogPlugin\Configuration\BlogChannelConfigurationFactory
+        decorates: odiseo_blog.factory.channel_configuration
+        arguments:
+            - '@.inner'
+            - '%odiseo_blog.channel_defaults.enabled%'
+            - '%odiseo_blog.channel_defaults.posts_per_page%'
+
+    # Public: the admin update route gets the configuration from it.
+    odiseo_blog.provider.channel_configuration:
+        class: Odiseo\SyliusBlogPlugin\Configuration\BlogChannelConfigurationProvider
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.channel_configuration'
+            - '@odiseo_blog.factory.channel_configuration'
+
+    odiseo_blog.listener.channel_configuration_persist:
+        class: Odiseo\SyliusBlogPlugin\EventListener\ChannelConfigurationPersistListener
+        arguments:
+            - '@odiseo_blog.manager.channel_configuration'
+        tags:
+            - { name: kernel.event_listener, event: odiseo_blog.channel_configuration.pre_update, method: persist }
+
+    odiseo_blog.form.type.channel_configuration:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\BlogChannelConfigurationType
+        arguments:
+            - '%odiseo_blog.model.channel_configuration.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.channel_configuration_translation:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\BlogChannelConfigurationTranslationType
+        arguments:
+            - '%odiseo_blog.model.channel_configuration_translation.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']

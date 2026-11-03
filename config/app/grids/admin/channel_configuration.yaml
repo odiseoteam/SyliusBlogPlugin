@@ -1,0 +1,43 @@
+# One row per channel, with the settings it uses: its own or the defaults.
+sylius_grid:
+    grids:
+        odiseo_blog_admin_channel_configuration:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.channel.class%"
+            sorting:
+                channel: asc
+            fields:
+                channel:
+                    type: twig
+                    label: sylius.ui.channel
+                    path: .
+                    sortable: name
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/channel.html.twig"
+                enabled:
+                    type: twig
+                    label: odiseo_blog.ui.blog_enabled
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/admin/channel_configuration/grid/field/enabled.html.twig"
+                        vars:
+                            th_class: "w-1 text-center"
+                postsPerPage:
+                    type: twig
+                    label: odiseo_blog.ui.posts_per_page
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/admin/channel_configuration/grid/field/posts_per_page.html.twig"
+                        vars:
+                            th_class: "w-1 text-center"
+            actions:
+                item:
+                    update:
+                        type: update
+                        options:
+                            link:
+                                route: odiseo_blog_admin_channel_configuration_update
+                                parameters:
+                                    channelCode: resource.code

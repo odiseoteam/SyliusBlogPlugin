@@ -5,9 +5,19 @@ includes:
 
 parameters:
     level: max
+    reportUnmatchedIgnoredErrors: false
     paths:
         - src
         - tests
 
     excludePaths:
         - 'tests/TestApplication/**'
+
+    ignoreErrors:
+        # Symfony 6.4 types the config tree builder loosely (fine on 7.4).
+        -
+            identifier: method.notFound
+            path: src/DependencyInjection/Configuration.php
+        -
+            identifier: method.nonObject
+            path: src/DependencyInjection/Configuration.php

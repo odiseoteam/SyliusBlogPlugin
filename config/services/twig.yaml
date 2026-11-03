@@ -1,4 +1,14 @@
 services:
+    odiseo_blog.twig.extension.channel_configuration:
+        class: Odiseo\SyliusBlogPlugin\Twig\ChannelConfigurationExtension
+        tags: ['twig.extension']
+
+    odiseo_blog.twig.runtime.channel_configuration:
+        class: Odiseo\SyliusBlogPlugin\Twig\ChannelConfigurationRuntime
+        arguments:
+            - '@odiseo_blog.provider.channel_configuration'
+        tags: ['twig.runtime']
+
     odiseo_blog.twig.extension.image:
         class: Odiseo\SyliusBlogPlugin\Twig\ImageExtension
         tags: ['twig.extension']

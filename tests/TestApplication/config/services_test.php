@@ -10,5 +10,6 @@ return function (ContainerConfigurator $container) {
         // The test application ships this import but never loads it. Located through a class so it
         // resolves from any vendor directory.
         $container->import(\dirname((string) (new \ReflectionClass(SharedStorageInterface::class))->getFileName(), 2) . '/Resources/config/services.xml');
+        $container->import('@OdiseoSyliusBlogPlugin/tests/Behat/Resources/services.xml');
     }
 };

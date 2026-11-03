@@ -27,7 +27,16 @@ imports:
     - { resource: "@OdiseoSyliusBlogPlugin/config/config.yaml" }
 ```
 
-## 4. Run the migrations
+## 4. Import the routes
+
+```yaml
+# config/routes/odiseo_sylius_blog.yaml
+odiseo_blog_admin:
+    resource: "@OdiseoSyliusBlogPlugin/config/routes/admin.yaml"
+    prefix: '/%sylius_admin.path_name%'
+```
+
+## 5. Run the migrations
 
 ```bash
 bin/console doctrine:migrations:migrate

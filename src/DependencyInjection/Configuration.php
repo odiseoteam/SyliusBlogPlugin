@@ -11,6 +11,21 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        return new TreeBuilder('odiseo_sylius_blog');
+        $treeBuilder = new TreeBuilder('odiseo_sylius_blog');
+
+        $treeBuilder->getRootNode()
+            ->children()
+                ->arrayNode('channel_defaults')
+                    ->info('Settings of the channels the admin has not configured yet.')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->integerNode('posts_per_page')->defaultValue(9)->min(1)->max(100)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+        return $treeBuilder;
     }
 }

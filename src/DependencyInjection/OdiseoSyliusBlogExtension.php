@@ -17,7 +17,11 @@ final class OdiseoSyliusBlogExtension extends AbstractResourceExtension implemen
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $this->processConfiguration(new Configuration(), $configs);
+        /** @var array{channel_defaults: array{enabled: bool, posts_per_page: int}} $config */
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->setParameter('odiseo_blog.channel_defaults.enabled', $config['channel_defaults']['enabled']);
+        $container->setParameter('odiseo_blog.channel_defaults.posts_per_page', $config['channel_defaults']['posts_per_page']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yaml');

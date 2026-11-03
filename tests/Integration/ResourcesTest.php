@@ -6,10 +6,12 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Integration;
 
 use Odiseo\SyliusBlogPlugin\Entity\ArticleAuthorInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfigurationInterface;
 use Odiseo\SyliusBlogPlugin\Repository\ArticleCategoryRepositoryInterface;
 use Odiseo\SyliusBlogPlugin\Repository\ArticleRepositoryInterface;
 use Odiseo\SyliusBlogPlugin\Repository\ArticleTagRepositoryInterface;
 use Odiseo\SyliusBlogPlugin\Repository\AuthorRepositoryInterface;
+use Odiseo\SyliusBlogPlugin\Repository\BlogChannelConfigurationRepositoryInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sylius\Resource\Factory\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -30,6 +32,7 @@ final class ResourcesTest extends KernelTestCase
         yield ['article_category', ArticleCategoryRepositoryInterface::class];
         yield ['article_tag', ArticleTagRepositoryInterface::class];
         yield ['author', AuthorRepositoryInterface::class];
+        yield ['channel_configuration', BlogChannelConfigurationRepositoryInterface::class];
     }
 
     public function testANewArticleIsReadyToTranslate(): void
@@ -50,5 +53,18 @@ final class ResourcesTest extends KernelTestCase
         self::assertInstanceOf(FactoryInterface::class, $factory);
 
         self::assertInstanceOf(ArticleAuthorInterface::class, $factory->createNew());
+    }
+
+    public function testANewChannelConfigurationStartsWithTheDefaults(): void
+    {
+        $factory = self::getContainer()->get('odiseo_blog.factory.channel_configuration');
+        self::assertInstanceOf(FactoryInterface::class, $factory);
+
+        $configuration = $factory->createNew();
+        self::assertInstanceOf(BlogChannelConfigurationInterface::class, $configuration);
+
+        self::assertTrue($configuration->isEnabled());
+        self::assertSame(9, $configuration->getPostsPerPage());
+        self::assertSame('en_US', $configuration->getTranslation()->getLocale());
     }
 }

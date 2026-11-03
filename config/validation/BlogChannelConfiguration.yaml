@@ -1,0 +1,18 @@
+Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfiguration:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [channel]
+            groups: ['odiseo_blog']
+    properties:
+        channel:
+            - NotBlank:
+                groups: ['odiseo_blog']
+        postsPerPage:
+            - NotBlank:
+                groups: ['odiseo_blog']
+            - Range:
+                min: 1
+                max: 100
+                groups: ['odiseo_blog']
+        translations:
+            - Valid: ~

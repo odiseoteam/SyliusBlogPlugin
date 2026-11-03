@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfiguration" table="odiseo_blog_channel_configuration">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <one-to-one field="channel" target-entity="Sylius\Component\Channel\Model\ChannelInterface">
+            <join-column name="channel_id" referenced-column-name="id" nullable="false" unique="true" on-delete="CASCADE"/>
+        </one-to-one>
+
+        <field name="enabled" type="boolean"/>
+        <field name="postsPerPage" column="posts_per_page" type="integer"/>
+    </mapped-superclass>
+</doctrine-mapping>

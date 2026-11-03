@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusBlogPlugin\Integration\Validator;
 
 use Odiseo\SyliusBlogPlugin\Entity\ArticleImage;
+use Odiseo\SyliusBlogPlugin\Entity\BlogChannelConfiguration;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Integration\DatabaseTestCase;
@@ -89,6 +90,38 @@ final class ModelValidationTest extends DatabaseTestCase
         $article->setImageAlt(str_repeat('a', 256));
 
         self::assertArrayHasKey('translations[en_US].imageAlt', $this->violations($article));
+    }
+
+    public function testAPageHasBetweenOneAndAHundredArticles(): void
+    {
+        $configuration = new BlogChannelConfiguration();
+        $configuration->setCurrentLocale('en_US');
+        $configuration->setFallbackLocale('en_US');
+        $configuration->setChannel($this->channel('WEB'));
+
+        $configuration->setPostsPerPage(9);
+        self::assertSame([], $this->violations($configuration));
+
+        $configuration->setPostsPerPage(0);
+        self::assertArrayHasKey('postsPerPage', $this->violations($configuration));
+
+        $configuration->setPostsPerPage(101);
+        self::assertArrayHasKey('postsPerPage', $this->violations($configuration));
+
+        $configuration->setPostsPerPage(null);
+        self::assertArrayHasKey('postsPerPage', $this->violations($configuration));
+    }
+
+    public function testTheBlogTitleIsAtMost255Characters(): void
+    {
+        $configuration = new BlogChannelConfiguration();
+        $configuration->setCurrentLocale('en_US');
+        $configuration->setFallbackLocale('en_US');
+        $configuration->setChannel($this->channel('WEB'));
+        $configuration->setPostsPerPage(9);
+        $configuration->setTitle(str_repeat('a', 256));
+
+        self::assertArrayHasKey('translations[en_US].title', $this->violations($configuration));
     }
 
     /** @return array<string, string> Message templates by property path. */
