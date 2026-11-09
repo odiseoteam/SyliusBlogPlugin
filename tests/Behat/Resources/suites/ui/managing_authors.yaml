@@ -1,0 +1,17 @@
+default:
+    suites:
+        ui_managing_authors:
+            contexts:
+                - sylius.behat.context.hook.doctrine_orm
+
+                - sylius.behat.context.transform.shared_storage
+                - odiseo_blog.behat.context.transform.author
+
+                - sylius.behat.context.setup.channel
+                - sylius.behat.context.setup.admin_security
+                - odiseo_blog.behat.context.setup.author
+
+                - odiseo_blog.behat.context.ui.admin.managing_authors
+                - sylius.behat.context.ui.admin.notification
+            filters:
+                tags: "@managing_authors&&@ui"

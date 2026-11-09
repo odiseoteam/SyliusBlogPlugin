@@ -16,16 +16,32 @@ final class ConfigurationTest extends TestCase
     public function testTheBlogIsEnabledWithNineArticlesPerPageByDefault(): void
     {
         self::assertSame(
-            ['channel_defaults' => ['enabled' => true, 'posts_per_page' => 9]],
-            $this->process([]),
+            ['enabled' => true, 'posts_per_page' => 9],
+            $this->process([])['channel_defaults'],
         );
     }
 
     public function testTheDefaultsCanBeChanged(): void
     {
         self::assertSame(
-            ['channel_defaults' => ['enabled' => false, 'posts_per_page' => 12]],
-            $this->process([['channel_defaults' => ['enabled' => false, 'posts_per_page' => 12]]]),
+            ['enabled' => false, 'posts_per_page' => 12],
+            $this->process([['channel_defaults' => ['enabled' => false, 'posts_per_page' => 12]]])['channel_defaults'],
+        );
+    }
+
+    public function testAuthorsCanLinkToEightNetworksByDefault(): void
+    {
+        self::assertSame(
+            ['x', 'linkedin', 'facebook', 'instagram', 'youtube', 'tiktok', 'github', 'website'],
+            $this->process([])['social_networks'],
+        );
+    }
+
+    public function testTheNetworksCanBeReplaced(): void
+    {
+        self::assertSame(
+            ['mastodon'],
+            $this->process([['social_networks' => ['mastodon']]])['social_networks'],
         );
     }
 

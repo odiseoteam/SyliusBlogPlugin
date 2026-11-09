@@ -1,3 +1,24 @@
+odiseo_blog_admin_author:
+    resource: |
+        alias: odiseo_blog.author
+        section: admin
+        path: blog/authors
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_admin_author
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'odiseo_blog.admin.author'
+    type: sylius.resource
+
+odiseo_blog_admin_author_remove_image:
+    path: /blog/authors/{id}/remove-image
+    methods: [PUT]
+    defaults:
+        _controller: odiseo_blog.controller.admin.remove_author_image
+
 odiseo_blog_admin_article_category:
     resource: |
         alias: odiseo_blog.article_category

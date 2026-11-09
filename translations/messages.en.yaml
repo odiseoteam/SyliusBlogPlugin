@@ -1,5 +1,14 @@
 odiseo_blog:
     form:
+        author:
+            add_social_link: 'Add a link'
+            admin_user: 'Administrator'
+            admin_user_help: 'Links this author to an administrator, who is then preselected as the author of their articles.'
+            bio: 'Bio'
+            choose_network: 'Choose a network'
+            job_title: 'Job title'
+            network: 'Network'
+            url: 'URL'
         channel_configuration:
             description: 'Description'
             description_help: 'A short text about the blog, shown next to the articles.'
@@ -11,15 +20,28 @@ odiseo_blog:
         meta_title: 'Meta title'
     menu:
         admin:
+            authors: 'Authors'
             categories: 'Categories'
             configuration: 'Configuration'
             header: 'Blog'
             tags: 'Tags'
+    social_network:
+        facebook: 'Facebook'
+        github: 'GitHub'
+        instagram: 'Instagram'
+        linkedin: 'LinkedIn'
+        tiktok: 'TikTok'
+        website: 'Website'
+        x: 'X (Twitter)'
+        youtube: 'YouTube'
     ui:
+        admin_user: 'Administrator'
         article_categories: 'Categories'
         article_category: 'Category'
         article_tag: 'Tag'
         article_tags: 'Tags'
+        author: 'Author'
+        authors: 'Authors'
         blog_enabled: 'Blog'
         channel_configuration: 'Blog configuration'
         channel_configurations: 'Blog configuration'
@@ -27,3 +49,4 @@ odiseo_blog:
         generate_slug: 'Generate the slug from the name'
         posts_per_page: 'Articles per page'
         remove_image: 'Remove image'
+        social_links: 'Social links'

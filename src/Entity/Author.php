@@ -79,9 +79,11 @@ class Author implements AuthorInterface
         return $this->socialLinks;
     }
 
+    /** @param array<int, array{network: string, url: string}> $socialLinks */
     public function setSocialLinks(array $socialLinks): void
     {
-        $this->socialLinks = $socialLinks;
+        // The order is the display order, and the form can leave gaps in the keys.
+        $this->socialLinks = array_values($socialLinks);
     }
 
     public function getAdminUser(): ?AdminUserInterface

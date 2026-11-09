@@ -109,6 +109,31 @@ final class ModelValidationTest extends DatabaseTestCase
         );
     }
 
+    public function testAnAdministratorIsTheAuthorOfOnePerson(): void
+    {
+        $adminUser = $this->adminUser('shared_admin');
+        $first = $this->author('first_author');
+        $first->setAdminUser($adminUser);
+        $this->entityManager->persist($first);
+        $this->entityManager->flush();
+
+        $second = $this->author('second_author');
+        $second->setAdminUser($adminUser);
+
+        self::assertSame(['adminUser' => 'odiseo_blog.author.admin_user.unique'], $this->violations($second));
+    }
+
+    public function testTheLinksOfAnAuthorNeedANetworkAndAUrl(): void
+    {
+        $author = $this->author('linked');
+        $author->setSocialLinks([['network' => 'github', 'url' => 'https://github.com/jane']]);
+        self::assertSame([], $this->violations($author));
+
+        $author->setSocialLinks([['network' => 'github', 'url' => 'not a url'], ['network' => '', 'url' => 'https://example.com']]);
+        self::assertArrayHasKey('socialLinks[0][url]', $this->violations($author));
+        self::assertArrayHasKey('socialLinks[1][network]', $this->violations($author));
+    }
+
     public function testAPageHasBetweenOneAndAHundredArticles(): void
     {
         $configuration = new BlogChannelConfiguration();
