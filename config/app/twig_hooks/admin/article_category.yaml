@@ -1,0 +1,204 @@
+sylius_twig_hooks:
+    hooks:
+        'odiseo_blog.admin.article_category.create.content':
+            form:
+                enabled: false
+            sections:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections#left':
+            tree:
+                component: 'odiseo_blog_admin:article_category:tree'
+                props:
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections#right':
+            form:
+                component: 'odiseo_blog_admin:article_category:form'
+                props:
+                    form: '@=_context.form'
+                    resource: '@=_context.resource'
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/form.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.tree':
+            actions:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.tree.actions':
+            edit:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/edit.html.twig'
+                priority: 100
+            dropdown:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.tree.actions.dropdown':
+            create_child:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/create_child.html.twig'
+                priority: 300
+            delete:
+                component: 'odiseo_blog_admin:article_category:delete'
+                props:
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/delete.html.twig'
+                priority: 200
+            move_up:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/move_up.html.twig'
+                priority: 100
+            move_down:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/move_down.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.form':
+            sections:
+                template: '@SyliusAdmin/shared/crud/common/content/form/sections.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.form.sections':
+            general:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general.html.twig'
+                priority: 200
+            translations:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations.html.twig'
+                priority: 100
+            image:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/image.html.twig'
+                configuration:
+                    remove_route: odiseo_blog_admin_article_category_remove_image
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general/code.html.twig'
+                priority: 100
+            parent:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/form/sections/general/parent.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.create.content.sections.form.sections.translations':
+            name:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/name.html.twig'
+                priority: 400
+            slug:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/slug.html.twig'
+                priority: 300
+            description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/description.html.twig'
+                priority: 200
+            meta_title:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
+                priority: 100
+            meta_description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_description.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content':
+            form:
+                enabled: false
+            sections:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.header':
+            breadcrumbs:
+                template: '@SyliusAdmin/shared/crud/update/content/header/breadcrumbs.html.twig'
+                configuration:
+                    rendered_field: name
+                priority: 100
+
+        'odiseo_blog.admin.article_category.update.content.sections#left':
+            tree:
+                component: 'odiseo_blog_admin:article_category:tree'
+                props:
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections#right':
+            form:
+                component: 'odiseo_blog_admin:article_category:form'
+                props:
+                    form: '@=_context.form'
+                    resource: '@=_context.resource'
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/form.html.twig'
+                configuration:
+                    method: 'PUT'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.tree':
+            actions:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.tree.actions':
+            edit:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/edit.html.twig'
+                priority: 100
+            dropdown:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.tree.actions.dropdown':
+            create_child:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/create_child.html.twig'
+                priority: 300
+            delete:
+                component: 'odiseo_blog_admin:article_category:delete'
+                props:
+                    template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/delete.html.twig'
+                priority: 200
+            move_up:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/move_up.html.twig'
+                priority: 100
+            move_down:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/tree/actions/dropdown/move_down.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.form':
+            sections:
+                template: '@SyliusAdmin/shared/crud/common/content/form/sections.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.form.sections':
+            general:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general.html.twig'
+                priority: 200
+            translations:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations.html.twig'
+                priority: 100
+            image:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/image.html.twig'
+                configuration:
+                    remove_route: odiseo_blog_admin_article_category_remove_image
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general/code.html.twig'
+                priority: 100
+            parent:
+                template: '@OdiseoSyliusBlogPlugin/admin/article_category/sections/form/sections/general/parent.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article_category.update.content.sections.form.sections.translations':
+            name:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/name.html.twig'
+                priority: 400
+            slug:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/slug.html.twig'
+                priority: 300
+            description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/description.html.twig'
+                priority: 200
+            meta_title:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
+                priority: 100
+            meta_description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_description.html.twig'
+                priority: 0

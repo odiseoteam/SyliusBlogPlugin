@@ -13,4 +13,10 @@ use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
  */
 interface ArticleCategoryRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Every category, deepest first and by position, named in the locale or else in the fallback one.
+     *
+     * @return list<array{id: int, parentId: int|null, name: string}>
+     */
+    public function findAllForTree(string $localeCode, string $fallbackLocaleCode): array;
 }

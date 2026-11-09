@@ -11,14 +11,19 @@ odiseo_blog:
         meta_title: 'Meta title'
     menu:
         admin:
+            categories: 'Categories'
             configuration: 'Configuration'
             header: 'Blog'
             tags: 'Tags'
     ui:
+        article_categories: 'Categories'
+        article_category: 'Category'
         article_tag: 'Tag'
         article_tags: 'Tags'
         blog_enabled: 'Blog'
         channel_configuration: 'Blog configuration'
         channel_configurations: 'Blog configuration'
+        delete_category_and_subcategories: 'Delete this category and its subcategories?'
         generate_slug: 'Generate the slug from the name'
         posts_per_page: 'Articles per page'
+        remove_image: 'Remove image'

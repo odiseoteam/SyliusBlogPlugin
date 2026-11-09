@@ -7,10 +7,12 @@ sylius_resource:
                 interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface
                 repository: Odiseo\SyliusBlogPlugin\Repository\ArticleCategoryRepository
                 factory: Sylius\Resource\Factory\TranslatableFactory
+                form: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryType
             translation:
                 classes:
                     model: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslation
                     interface: Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryTranslationInterface
+                    form: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryTranslationType
 
         odiseo_blog.article_category_image:
             driver: doctrine/orm

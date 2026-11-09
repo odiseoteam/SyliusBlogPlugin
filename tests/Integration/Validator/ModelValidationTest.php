@@ -92,6 +92,23 @@ final class ModelValidationTest extends DatabaseTestCase
         self::assertArrayHasKey('translations[en_US].imageAlt', $this->violations($article));
     }
 
+    public function testACategoryCannotBeItsOwnAncestor(): void
+    {
+        $parent = $this->category('parent_cat');
+        $child = $this->category('child_cat', $parent);
+        $this->entityManager->persist($parent);
+        $this->entityManager->persist($child);
+        $this->entityManager->flush();
+
+        self::assertSame([], $this->violations($child));
+
+        $parent->setParent($child);
+        self::assertSame(
+            ['parent' => 'odiseo_blog.article_category.parent.invalid_relation'],
+            $this->violations($parent),
+        );
+    }
+
     public function testAPageHasBetweenOneAndAHundredArticles(): void
     {
         $configuration = new BlogChannelConfiguration();
