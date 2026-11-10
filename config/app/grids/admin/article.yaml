@@ -11,6 +11,14 @@ sylius_grid:
             sorting:
                 publishedAt: desc
             fields:
+                image:
+                    type: twig
+                    label: sylius.ui.image
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/admin/article/grid/field/image.html.twig"
+                        vars:
+                            th_class: "w-1"
                 title:
                     type: twig
                     label: odiseo_blog.ui.title

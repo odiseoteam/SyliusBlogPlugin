@@ -78,6 +78,10 @@ final class ArticleType extends AbstractResourceType
                 'multiple' => true,
                 'required' => false,
             ])
+            ->add('image', ArticleImageType::class, [
+                'label' => false,
+                'required' => false,
+            ])
             ->add('translations', ResourceTranslationsType::class, [
                 'entry_type' => ArticleTranslationType::class,
                 'label' => 'sylius.ui.translations',

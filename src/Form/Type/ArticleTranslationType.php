@@ -31,6 +31,11 @@ final class ArticleTranslationType extends AbstractResourceType
                 'required' => false,
                 'attr' => ['rows' => 12, 'class' => 'font-monospace'],
             ])
+            ->add('imageAlt', TextType::class, [
+                'label' => 'odiseo_blog.form.article.image_alt',
+                'help' => 'odiseo_blog.form.article.image_alt_help',
+                'required' => false,
+            ])
             ->add('metaTitle', TextType::class, [
                 'label' => 'odiseo_blog.form.meta_title',
                 'required' => false,

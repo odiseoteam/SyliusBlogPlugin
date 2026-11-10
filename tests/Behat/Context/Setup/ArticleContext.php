@@ -8,13 +8,16 @@ use Behat\Behat\Context\Context;
 use Behat\Step\Given;
 use Doctrine\Persistence\ObjectManager;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ArticleImage;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Odiseo\SyliusBlogPlugin\Repository\AuthorRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Factory\FactoryInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
 
 final class ArticleContext implements Context
@@ -22,6 +25,7 @@ final class ArticleContext implements Context
     /**
      * @param FactoryInterface<ArticleInterface> $articleFactory
      * @param AuthorRepositoryInterface<AuthorInterface> $authorRepository
+     * @param array<string, mixed>|\ArrayAccess<string, mixed> $minkParameters
      */
     public function __construct(
         private readonly FactoryInterface $articleFactory,
@@ -29,6 +33,8 @@ final class ArticleContext implements Context
         private readonly SlugGeneratorInterface $slugGenerator,
         private readonly SharedStorageInterface $sharedStorage,
         private readonly AuthorRepositoryInterface $authorRepository,
+        private readonly ImageUploaderInterface $imageUploader,
+        private readonly array|\ArrayAccess $minkParameters,
     ) {
     }
 
@@ -90,6 +96,21 @@ final class ArticleContext implements Context
 
             return $author;
         }, array_values($names)));
+
+        $this->save($article);
+    }
+
+    #[Given('the blog has an article :title with the :file image')]
+    public function theBlogHasAnArticleWithTheImage(string $title, string $file): void
+    {
+        $article = $this->article($title);
+
+        $filesPath = $this->minkParameters['files_path'];
+        Assert::string($filesPath);
+        $image = new ArticleImage();
+        $image->setFile(new UploadedFile($filesPath . $file, $file, null, null, true));
+        $this->imageUploader->upload($image);
+        $article->setImage($image);
 
         $this->save($article);
     }

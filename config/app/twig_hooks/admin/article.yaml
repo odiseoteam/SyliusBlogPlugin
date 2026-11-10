@@ -26,6 +26,11 @@ sylius_twig_hooks:
                 priority: 0
 
         'odiseo_blog.admin.article.create.content.form.sections#right':
+            image:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/image.html.twig'
+                configuration:
+                    remove_route: odiseo_blog_admin_article_remove_image
+                priority: 300
             authors:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/authors.html.twig'
                 priority: 200
@@ -49,6 +54,11 @@ sylius_twig_hooks:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/featured.html.twig'
                 priority: 0
 
+        'odiseo_blog.admin.article.create.content.form.sections.image':
+            missing_alt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/image/missing_alt.html.twig'
+                priority: 0
+
         'odiseo_blog.admin.article.create.content.form.sections.translations':
             title:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/title.html.twig'
@@ -64,6 +74,9 @@ sylius_twig_hooks:
             content:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/content.html.twig'
                 priority: 200
+            image_alt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/image_alt.html.twig'
+                priority: 150
             meta_title:
                 template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
                 priority: 100
@@ -115,6 +128,11 @@ sylius_twig_hooks:
                 priority: 0
 
         'odiseo_blog.admin.article.update.content.form.sections#right':
+            image:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/image.html.twig'
+                configuration:
+                    remove_route: odiseo_blog_admin_article_remove_image
+                priority: 300
             authors:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/authors.html.twig'
                 priority: 200
@@ -138,6 +156,11 @@ sylius_twig_hooks:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/featured.html.twig'
                 priority: 0
 
+        'odiseo_blog.admin.article.update.content.form.sections.image':
+            missing_alt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/image/missing_alt.html.twig'
+                priority: 0
+
         'odiseo_blog.admin.article.update.content.form.sections.translations':
             title:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/title.html.twig'
@@ -153,6 +176,9 @@ sylius_twig_hooks:
             content:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/content.html.twig'
                 priority: 200
+            image_alt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/image_alt.html.twig'
+                priority: 150
             meta_title:
                 template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
                 priority: 100

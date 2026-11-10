@@ -115,6 +115,24 @@ final class ManagingArticlesContext implements Context
         $this->resolveCurrentPage()->addTag((string) $tag->getName());
     }
 
+    #[When('I attach the :file image')]
+    public function iAttachTheImage(string $file): void
+    {
+        $this->resolveCurrentPage()->attachImage($file);
+    }
+
+    #[When('I describe the image as :alt in :localeCode')]
+    public function iDescribeTheImageAsIn(string $alt, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->describeImage($alt, $localeCode);
+    }
+
+    #[When('I remove its image')]
+    public function iRemoveItsImage(): void
+    {
+        $this->updatePage->removeImage();
+    }
+
     #[When('I add the author :name')]
     public function iAddTheAuthor(string $name): void
     {
@@ -307,6 +325,36 @@ final class ManagingArticlesContext implements Context
         $authors = array_map(static fn (AuthorInterface $author): ?string => $author->getName(), $article->getAuthors());
 
         Assert::same($authors, array_values($names), sprintf('The article is signed by "%s".', implode('", "', $authors)));
+    }
+
+    #[Then('the :article article should have an image')]
+    public function theArticleShouldHaveAnImage(ArticleInterface $article): void
+    {
+        Assert::notNull($this->reload($article)->getImage()?->getPath());
+    }
+
+    #[Then('the :article article should have no image')]
+    public function theArticleShouldHaveNoImage(ArticleInterface $article): void
+    {
+        Assert::null($this->reload($article)->getImage());
+    }
+
+    #[Then('the image of the :article article should be described as :alt in :localeCode')]
+    public function theImageOfTheArticleShouldBeDescribedAsIn(ArticleInterface $article, string $alt, string $localeCode): void
+    {
+        Assert::same($this->reload($article)->getTranslation($localeCode)->getImageAlt(), $alt);
+    }
+
+    #[Then('I should be warned that the image has no alt text in :localeName')]
+    public function iShouldBeWarnedThatTheImageHasNoAltTextIn(string $localeName): void
+    {
+        Assert::contains($this->resolveCurrentPage()->getLocalesWithoutAlt(), $localeName);
+    }
+
+    #[Then('I should not be warned that the image has no alt text')]
+    public function iShouldNotBeWarnedThatTheImageHasNoAltText(): void
+    {
+        Assert::false($this->resolveCurrentPage()->hasMissingAltWarning());
     }
 
     #[Then('I should not be able to edit its code')]

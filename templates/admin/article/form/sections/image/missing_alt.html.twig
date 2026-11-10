@@ -1,0 +1,18 @@
+{# Only languages the article is written in, read from the form so it follows the latest changes. #}
+{% set form = hookable_metadata.context.form %}
+{% set resource = hookable_metadata.context.resource %}
+
+{% if resource.image is not null and resource.image.path is not empty %}
+    {% set missing = [] %}
+    {% for translation in form.translations %}
+        {% if translation.title.vars.value is not empty and translation.imageAlt.vars.value is empty %}
+            {% set missing = missing|merge([translation.vars.name|sylius_locale_name]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if missing is not empty %}
+        <div class="alert alert-warning mt-3 mb-0" role="alert" {{ sylius_test_html_attribute('missing-image-alt') }}>
+            {{ 'odiseo_blog.ui.missing_image_alt'|trans({'%locales%': missing|join(', ')}) }}
+        </div>
+    {% endif %}
+{% endif %}

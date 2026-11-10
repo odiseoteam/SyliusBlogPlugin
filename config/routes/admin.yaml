@@ -13,6 +13,12 @@ odiseo_blog_admin_article:
                 hook_prefix: 'odiseo_blog.admin.article'
     type: sylius.resource
 
+odiseo_blog_admin_article_remove_image:
+    path: /blog/articles/{id}/remove-image
+    methods: [PUT]
+    defaults:
+        _controller: odiseo_blog.controller.admin.remove_article_image
+
 odiseo_blog_admin_author:
     resource: |
         alias: odiseo_blog.author

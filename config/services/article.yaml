@@ -16,6 +16,13 @@ services:
             - ['odiseo_blog']
         tags: ['form.type']
 
+    odiseo_blog.form.type.article_image:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleImageType
+        arguments:
+            - '%odiseo_blog.model.article_image.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
     odiseo_blog.form.type.article_tag_autocomplete:
         class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagAutocompleteType
         arguments: ['%odiseo_blog.model.article_tag.class%']
@@ -37,3 +44,13 @@ services:
             - title
         tags:
             - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article:form' }
+
+    odiseo_blog.controller.admin.remove_article_image:
+        class: Odiseo\SyliusBlogPlugin\Controller\Admin\RemoveImageAction
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.article'
+            - '@odiseo_blog.manager.article'
+            - '@router'
+            - '@?security.csrf.token_manager'
+            - odiseo_blog_admin_article_update

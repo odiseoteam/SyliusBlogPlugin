@@ -1,4 +1,4 @@
-{# The remove button posts the form to the route set as "remove_route" in the hook configuration. #}
+{# The remove button posts the form to the route set as "remove_route" in the hook configuration. The "image" hook adds content below. #}
 {% set form = hookable_metadata.context.form %}
 {% set resource = hookable_metadata.context.resource %}
 {% set has_image = resource.image is not null and resource.image.path is not empty %}
@@ -31,6 +31,7 @@
                     {% endif %}
                 </div>
             </div>
+            {% hook 'image' %}
         </div>
     </div>
 </div>

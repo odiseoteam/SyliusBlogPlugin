@@ -7,6 +7,7 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\AutocompleteTrait;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\TranslatableSlugFormTrait;
+use Webmozart\Assert\Assert;
 
 /** The article form; categories and tags are autocompletes, so they need JavaScript. */
 trait ArticleFormTrait
@@ -61,6 +62,29 @@ trait ArticleFormTrait
         $this->selectInAutocomplete($this->getElement('tags'), $name);
     }
 
+    public function attachImage(string $path): void
+    {
+        $filesPath = $this->getParameter('files_path');
+        Assert::string($filesPath);
+
+        $this->getElement('image_file')->attachFile($filesPath . $path);
+    }
+
+    public function describeImage(string $alt, string $localeCode): void
+    {
+        $this->getElement('image_alt', ['%locale%' => $localeCode])->setValue($alt);
+    }
+
+    public function hasMissingAltWarning(): bool
+    {
+        return $this->hasElement('missing_alt');
+    }
+
+    public function getLocalesWithoutAlt(): string
+    {
+        return $this->getElement('missing_alt')->getText();
+    }
+
     public function addAuthor(string $name): void
     {
         $this->selectInAutocomplete($this->getElement('authors'), $name);
@@ -112,6 +136,10 @@ trait ArticleFormTrait
             'content' => '[data-test-content="%locale%"]',
             'excerpt' => '[data-test-excerpt="%locale%"]',
             'featured' => '[data-test-featured]',
+            'image_alt' => '[data-test-image-alt="%locale%"]',
+            'image_file' => '[data-test-image-file]',
+            'missing_alt' => '[data-test-missing-image-alt]',
+            'remove_image' => '[data-test-remove-image]',
             'main_category' => '[data-test-main-category]',
             'tags' => '[data-test-tags]',
             'title' => '[data-test-title="%locale%"]',

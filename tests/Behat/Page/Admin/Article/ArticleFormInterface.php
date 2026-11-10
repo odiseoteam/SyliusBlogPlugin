@@ -28,6 +28,14 @@ interface ArticleFormInterface
 
     public function addTag(string $name): void;
 
+    public function attachImage(string $path): void;
+
+    public function describeImage(string $alt, string $localeCode): void;
+
+    public function hasMissingAltWarning(): bool;
+
+    public function getLocalesWithoutAlt(): string;
+
     public function addAuthor(string $name): void;
 
     public function removeAuthor(string $name): void;

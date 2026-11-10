@@ -9,4 +9,6 @@ use Sylius\Behat\Page\Admin\Crud\UpdatePageInterface as BaseUpdatePageInterface;
 interface UpdatePageInterface extends BaseUpdatePageInterface, ArticleFormInterface
 {
     public function isCodeDisabled(): bool;
+
+    public function removeImage(): void;
 }

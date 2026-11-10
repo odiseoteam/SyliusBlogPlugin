@@ -213,3 +213,28 @@ Feature: Managing articles
         And I filter
         Then I should see 1 article in the list
         And I should see the article "Brewing guide" signed by "Jane Doe" in the list
+
+    @ui
+    Scenario: Adding an image with its alt text
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I attach the "mugs.jpg" image
+        And I describe the image as "Two mugs of coffee" in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have an image
+        And the image of the "Brewing guide" article should be described as "Two mugs of coffee" in "English (United States)"
+        And I should not be warned that the image has no alt text
+
+    @ui
+    Scenario: Being warned that the image has no alt text
+        Given the blog has an article "Brewing guide" with the "mugs.jpg" image
+        When I want to modify the "Brewing guide" article
+        Then I should be warned that the image has no alt text in "English (United States)"
+
+    @ui
+    Scenario: Removing the image of an article
+        Given the blog has an article "Brewing guide" with the "mugs.jpg" image
+        When I want to modify the "Brewing guide" article
+        And I remove its image
+        Then the "Brewing guide" article should have no image
