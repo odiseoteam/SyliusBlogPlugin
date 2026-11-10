@@ -11,6 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface;
+use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\ArticleFormInterface;
@@ -114,6 +115,24 @@ final class ManagingArticlesContext implements Context
         $this->resolveCurrentPage()->addTag((string) $tag->getName());
     }
 
+    #[When('I add the author :name')]
+    public function iAddTheAuthor(string $name): void
+    {
+        $this->resolveCurrentPage()->addAuthor($name);
+    }
+
+    #[When('I remove the author :name')]
+    public function iRemoveTheAuthor(string $name): void
+    {
+        $this->resolveCurrentPage()->removeAuthor($name);
+    }
+
+    #[When('I choose to see articles of the author :name')]
+    public function iChooseToSeeArticlesOfTheAuthor(string $name): void
+    {
+        $this->indexPage->chooseAuthorFilter($name);
+    }
+
     #[When('I add it')]
     #[When('I try to add it')]
     public function iAddIt(): void
@@ -180,6 +199,12 @@ final class ManagingArticlesContext implements Context
         }
 
         Assert::true($this->indexPage->isSingleResourceOnPage(['title' => $title]));
+    }
+
+    #[Then('I should see the article :title signed by :author in the list')]
+    public function iShouldSeeTheArticleSignedByInTheList(string $title, string $author): void
+    {
+        Assert::true($this->indexPage->isSingleResourceOnPage(['title' => $title, 'authors' => $author]));
     }
 
     #[Then('the article :title should not appear in the list')]
@@ -271,6 +296,17 @@ final class ManagingArticlesContext implements Context
         $codes = array_map(static fn (ArticleTagInterface $tag): ?string => $tag->getCode(), $article->getTags()->toArray());
 
         Assert::inArray($tag->getCode(), $codes);
+    }
+
+    #[Then('the :article article should be signed by :first and :second')]
+    #[Then('the :article article should be signed by :first')]
+    public function theArticleShouldBeSignedBy(ArticleInterface $article, string ...$names): void
+    {
+        $article = $this->reload($article);
+
+        $authors = array_map(static fn (AuthorInterface $author): ?string => $author->getName(), $article->getAuthors());
+
+        Assert::same($authors, array_values($names), sprintf('The article is signed by "%s".', implode('", "', $authors)));
     }
 
     #[Then('I should not be able to edit its code')]

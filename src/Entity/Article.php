@@ -244,6 +244,33 @@ class Article implements ArticleInterface
         return $authors;
     }
 
+    public function setAuthors(array $authors): void
+    {
+        $bylines = [];
+        foreach ($this->articleAuthors->toArray() as $articleAuthor) {
+            $author = $articleAuthor->getAuthor();
+            if (null === $author || !in_array($author, $authors, true)) {
+                $this->removeArticleAuthor($articleAuthor);
+
+                continue;
+            }
+
+            $bylines[spl_object_id($author)] = $articleAuthor;
+        }
+
+        foreach ($authors as $position => $author) {
+            $articleAuthor = $bylines[spl_object_id($author)] ?? null;
+            if (null === $articleAuthor) {
+                $articleAuthor = $this->createArticleAuthor();
+                $articleAuthor->setAuthor($author);
+                $this->addArticleAuthor($articleAuthor);
+                $bylines[spl_object_id($author)] = $articleAuthor;
+            }
+
+            $articleAuthor->setPosition($position);
+        }
+    }
+
     public function getTitle(): ?string
     {
         return $this->getTranslation()->getTitle();
@@ -325,5 +352,10 @@ class Article implements ArticleInterface
     protected function createTranslation(): ArticleTranslationInterface
     {
         return new ArticleTranslation();
+    }
+
+    protected function createArticleAuthor(): ArticleAuthorInterface
+    {
+        return new ArticleAuthor();
     }
 }

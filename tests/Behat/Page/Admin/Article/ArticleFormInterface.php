@@ -28,6 +28,10 @@ interface ArticleFormInterface
 
     public function addTag(string $name): void;
 
+    public function addAuthor(string $name): void;
+
+    public function removeAuthor(string $name): void;
+
     public function getCodeValidationMessage(): string;
 
     public function getSlugValidationMessage(string $localeCode): string;

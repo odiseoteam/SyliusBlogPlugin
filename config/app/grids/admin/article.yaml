@@ -37,6 +37,12 @@ sylius_grid:
                     sortable: ~
                     options:
                         template: "@SyliusAdmin/shared/grid/field/date.html.twig"
+                authors:
+                    type: twig
+                    label: odiseo_blog.ui.authors
+                    path: .
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/admin/article/grid/field/authors.html.twig"
                 channels:
                     type: twig
                     label: sylius.ui.channels
@@ -76,6 +82,15 @@ sylius_grid:
                             choice_label: name
                     options:
                         fields: [categories.id]
+                author:
+                    type: ux_autocomplete
+                    label: odiseo_blog.ui.author
+                    form_options:
+                        extra_options:
+                            class: "%odiseo_blog.model.author.class%"
+                            choice_label: name
+                    options:
+                        fields: [articleAuthors.author.id]
                 published_at:
                     type: date
                     label: odiseo_blog.ui.published_at

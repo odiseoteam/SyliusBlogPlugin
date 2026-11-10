@@ -61,6 +61,16 @@ trait ArticleFormTrait
         $this->selectInAutocomplete($this->getElement('tags'), $name);
     }
 
+    public function addAuthor(string $name): void
+    {
+        $this->selectInAutocomplete($this->getElement('authors'), $name);
+    }
+
+    public function removeAuthor(string $name): void
+    {
+        $this->removeFromAutocomplete($this->getElement('authors'), $name);
+    }
+
     public function getCodeValidationMessage(): string
     {
         return $this->validationMessageOf('code');
@@ -96,6 +106,7 @@ trait ArticleFormTrait
     protected function getDefinedElements(): array
     {
         return array_merge($this->getSlugFormElements(), [
+            'authors' => '[data-test-authors]',
             'categories' => '[data-test-categories]',
             'channels' => '[data-test-channels]',
             'content' => '[data-test-content="%locale%"]',

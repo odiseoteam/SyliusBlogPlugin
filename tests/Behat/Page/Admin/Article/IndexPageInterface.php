@@ -17,4 +17,6 @@ interface IndexPageInterface extends BaseIndexPageInterface
     public function choosePublishedBetween(string $from, string $to): void;
 
     public function chooseCategoryFilter(string $categoryName): void;
+
+    public function chooseAuthorFilter(string $authorName): void;
 }

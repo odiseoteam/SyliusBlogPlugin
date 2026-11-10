@@ -6,6 +6,7 @@ odiseo_blog:
             published: 'Published'
     form:
         article:
+            authors_help: 'In byline order: the order they are added in. To move one, remove it and add it again.'
             comments_enabled: 'Comments enabled'
             content: 'Content'
             content_help: 'Tiptap JSON. The editor replaces this field.'

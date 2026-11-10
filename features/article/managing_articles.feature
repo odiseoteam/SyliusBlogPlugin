@@ -167,3 +167,49 @@ Feature: Managing articles
         And I filter
         Then I should see 1 article in the list
         And I should see the article "Brewing guide" in the list
+
+    @ui
+    Scenario: The author linked to me signs my new article
+        Given the blog has an author "Jane Doe" linked to my account
+        When I want to write a new article
+        And I specify its code as "BREWING_GUIDE"
+        And I title it "Brewing guide" in "English (United States)"
+        And I set its slug to "brewing-guide" in "English (United States)"
+        And I add it
+        Then I should be notified that it has been successfully created
+        And the "Brewing guide" article should be signed by "Jane Doe"
+
+    @ui @javascript
+    Scenario: Signing an article with several authors
+        Given the blog has an author "Jane Doe"
+        And the blog has an author "John Smith"
+        And the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I add the author "John Smith"
+        And I add the author "Jane Doe"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should be signed by "John Smith" and "Jane Doe"
+
+    @ui @javascript
+    Scenario: Changing the order of the authors
+        Given the blog has an author "Jane Doe"
+        And the blog has an author "John Smith"
+        And the blog has an article "Brewing guide" signed by "Jane Doe" and "John Smith"
+        When I want to modify the "Brewing guide" article
+        And I remove the author "Jane Doe"
+        And I add the author "Jane Doe"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should be signed by "John Smith" and "Jane Doe"
+
+    @ui @javascript
+    Scenario: Filtering articles by author
+        Given the blog has an author "Jane Doe"
+        And the blog has an article "Brewing guide" signed by "Jane Doe"
+        And the blog has an article "Tea time"
+        When I browse articles
+        And I choose to see articles of the author "Jane Doe"
+        And I filter
+        Then I should see 1 article in the list
+        And I should see the article "Brewing guide" signed by "Jane Doe" in the list

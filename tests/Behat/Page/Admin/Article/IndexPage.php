@@ -42,11 +42,21 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
         $this->selectInAutocomplete($this->getElement('category_filter'), $categoryName);
     }
 
+    public function chooseAuthorFilter(string $authorName): void
+    {
+        if (!$this->areFiltersVisible()) {
+            $this->toggleFilters();
+        }
+
+        $this->selectInAutocomplete($this->getElement('author_filter'), $authorName);
+    }
+
     /** @return array<string, string> */
     protected function getDefinedElements(): array
     {
         /** @var array<string, string> $elements */
         $elements = array_merge(parent::getDefinedElements(), [
+            'author_filter' => '#criteria_author',
             'category_filter' => '#criteria_category',
             'channel_filter' => '#criteria_channel',
             'search_filter' => '#criteria_search_value',

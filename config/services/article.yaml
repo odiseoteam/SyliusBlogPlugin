@@ -5,6 +5,8 @@ services:
             - '%odiseo_blog.model.article.class%'
             - ['odiseo_blog']
             - '@sylius.repository.channel'
+            - '@odiseo_blog.repository.author'
+            - '@security.token_storage'
         tags: ['form.type']
 
     odiseo_blog.form.type.article_translation:
@@ -17,6 +19,11 @@ services:
     odiseo_blog.form.type.article_tag_autocomplete:
         class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagAutocompleteType
         arguments: ['%odiseo_blog.model.article_tag.class%']
+        tags: ['form.type', 'ux.entity_autocomplete_field']
+
+    odiseo_blog.form.type.author_autocomplete:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\AuthorAutocompleteType
+        arguments: ['%odiseo_blog.model.author.class%']
         tags: ['form.type', 'ux.entity_autocomplete_field']
 
     odiseo_blog.twig.component.admin.article.form:

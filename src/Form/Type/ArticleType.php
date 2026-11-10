@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusBlogPlugin\Form\Type;
 
+use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Odiseo\SyliusBlogPlugin\Form\EventSubscriber\AddMainCategoryToCategoriesSubscriber;
 use Odiseo\SyliusBlogPlugin\Form\EventSubscriber\PreselectChannelsSubscriber;
+use Odiseo\SyliusBlogPlugin\Form\EventSubscriber\PreselectCurrentAuthorSubscriber;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
@@ -14,6 +16,7 @@ use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class ArticleType extends AbstractResourceType
 {
@@ -21,11 +24,14 @@ final class ArticleType extends AbstractResourceType
      * @param class-string $dataClass
      * @param string[] $validationGroups
      * @param RepositoryInterface<ChannelInterface> $channelRepository
+     * @param RepositoryInterface<AuthorInterface> $authorRepository
      */
     public function __construct(
         string $dataClass,
         array $validationGroups,
         private readonly RepositoryInterface $channelRepository,
+        private readonly RepositoryInterface $authorRepository,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -35,6 +41,7 @@ final class ArticleType extends AbstractResourceType
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
             ->addEventSubscriber(new PreselectChannelsSubscriber($this->channelRepository))
+            ->addEventSubscriber(new PreselectCurrentAuthorSubscriber($this->authorRepository, $this->tokenStorage))
             ->addEventSubscriber(new AddMainCategoryToCategoriesSubscriber())
             ->add('channels', ChannelChoiceType::class, [
                 'label' => 'sylius.ui.channels',
@@ -48,6 +55,12 @@ final class ArticleType extends AbstractResourceType
             ])
             ->add('commentsEnabled', CheckboxType::class, [
                 'label' => 'odiseo_blog.form.article.comments_enabled',
+                'required' => false,
+            ])
+            ->add('authors', AuthorAutocompleteType::class, [
+                'label' => 'odiseo_blog.ui.authors',
+                'help' => 'odiseo_blog.form.article.authors_help',
+                'multiple' => true,
                 'required' => false,
             ])
             ->add('mainCategory', ArticleCategoryAutocompleteType::class, [

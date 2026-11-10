@@ -3,14 +3,15 @@
 # Articles
 
 Articles are managed in the admin, under **Blog › Articles**. The list shows each article's title, code, state,
-publication date and channels. It can be searched by code and title, and filtered by state, channel, category and
-publication date.
+publication date, authors and channels. It can be searched by code and title, and filtered by state, channel,
+category, author and publication date.
 
 | Field | | Notes |
 | --- | --- | --- |
 | Code | Required | Unique. Letters, numbers, dashes and underscores. It can't be changed later. |
 | Featured | | |
 | Comments enabled | | On by default. |
+| Authors | Optional | Enabled [authors](authors.md), in byline order: the order they are added in. To move one, remove it and add it again. A new article starts signed by the author linked to the administrator writing it. |
 | Channels | Optional | All of them are checked on a new article. Without channels, the article isn't shown anywhere. |
 | Main category | Optional | It is added to the categories when saving. |
 | Categories and tags | Optional | |

@@ -59,6 +59,24 @@ final class ArticleMappingTest extends DatabaseTestCase
         self::assertSame($content, $article->getTranslation('en_US')->getContent());
     }
 
+    public function testReorderingTheAuthorsKeepsTheirBylines(): void
+    {
+        $jane = $this->author('order_jane');
+        $john = $this->author('order_john');
+        $article = $this->article('reorder');
+        $article->setAuthors([$jane, $john]);
+        $this->entityManager->persist($jane);
+        $this->entityManager->persist($john);
+        $this->entityManager->persist($article);
+        $this->entityManager->flush();
+
+        $article->setAuthors([$john, $jane]);
+        $this->entityManager->flush();
+        $article = $this->reload(Article::class, $article->getId());
+
+        self::assertSame(['order_john', 'order_jane'], array_map(static fn ($author) => $author->getCode(), $article->getAuthors()));
+    }
+
     public function testRemovingABylineDeletesIt(): void
     {
         $byline = new ArticleAuthor();

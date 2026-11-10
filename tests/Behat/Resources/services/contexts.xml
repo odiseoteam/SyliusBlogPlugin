@@ -31,6 +31,7 @@
             <argument type="service" id="odiseo_blog.manager.article" />
             <argument type="service" id="sylius.generator.slug" />
             <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="odiseo_blog.repository.author" />
             <tag name="fob.context_service" />
         </service>
 
@@ -41,6 +42,7 @@
             <argument type="service" id="sylius.generator.slug" />
             <argument type="service" id="sylius.uploader.image" />
             <argument type="service" id="behat.mink.parameters" />
+            <argument type="service" id="sylius.behat.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 

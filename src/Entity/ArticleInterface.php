@@ -81,6 +81,13 @@ interface ArticleInterface extends
     /** @return list<AuthorInterface> In byline order. */
     public function getAuthors(): array;
 
+    /**
+     * Keeps the bylines of the authors that stay, so only their position changes.
+     *
+     * @param list<AuthorInterface> $authors In byline order.
+     */
+    public function setAuthors(array $authors): void;
+
     public function getTitle(): ?string;
 
     public function setTitle(?string $title): void;

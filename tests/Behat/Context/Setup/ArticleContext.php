@@ -9,19 +9,26 @@ use Behat\Step\Given;
 use Doctrine\Persistence\ObjectManager;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
+use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
+use Odiseo\SyliusBlogPlugin\Repository\AuthorRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Factory\FactoryInterface;
+use Webmozart\Assert\Assert;
 
 final class ArticleContext implements Context
 {
-    /** @param FactoryInterface<ArticleInterface> $articleFactory */
+    /**
+     * @param FactoryInterface<ArticleInterface> $articleFactory
+     * @param AuthorRepositoryInterface<AuthorInterface> $authorRepository
+     */
     public function __construct(
         private readonly FactoryInterface $articleFactory,
         private readonly ObjectManager $manager,
         private readonly SlugGeneratorInterface $slugGenerator,
         private readonly SharedStorageInterface $sharedStorage,
+        private readonly AuthorRepositoryInterface $authorRepository,
     ) {
     }
 
@@ -68,6 +75,21 @@ final class ArticleContext implements Context
     {
         $article = $this->article($title);
         $article->addCategory($category);
+
+        $this->save($article);
+    }
+
+    #[Given('the blog has an article :title signed by :first and :second')]
+    #[Given('the blog has an article :title signed by :first')]
+    public function theBlogHasAnArticleSignedBy(string $title, string ...$names): void
+    {
+        $article = $this->article($title);
+        $article->setAuthors(array_map(function (string $name): AuthorInterface {
+            $author = $this->authorRepository->findOneBy(['name' => $name]);
+            Assert::isInstanceOf($author, AuthorInterface::class, sprintf('Author "%s" does not exist.', $name));
+
+            return $author;
+        }, array_values($names)));
 
         $this->save($article);
     }

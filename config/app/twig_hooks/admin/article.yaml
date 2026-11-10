@@ -26,6 +26,9 @@ sylius_twig_hooks:
                 priority: 0
 
         'odiseo_blog.admin.article.create.content.form.sections#right':
+            authors:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/authors.html.twig'
+                priority: 200
             channels:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/channels.html.twig'
                 priority: 100
@@ -112,6 +115,9 @@ sylius_twig_hooks:
                 priority: 0
 
         'odiseo_blog.admin.article.update.content.form.sections#right':
+            authors:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/authors.html.twig'
+                priority: 200
             channels:
                 template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/channels.html.twig'
                 priority: 100

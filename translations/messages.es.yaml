@@ -6,6 +6,7 @@ odiseo_blog:
             published: 'Publicado'
     form:
         article:
+            authors_help: 'En el orden de la firma: el orden en que se agregan. Para mover uno, quitalo y volvé a agregarlo.'
             comments_enabled: 'Comentarios habilitados'
             content: 'Contenido'
             content_help: 'JSON de Tiptap. El editor reemplaza este campo.'

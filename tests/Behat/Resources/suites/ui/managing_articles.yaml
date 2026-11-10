@@ -16,6 +16,7 @@ default:
                 - odiseo_blog.behat.context.setup.article
                 - odiseo_blog.behat.context.setup.article_category
                 - odiseo_blog.behat.context.setup.article_tag
+                - odiseo_blog.behat.context.setup.author
 
                 - odiseo_blog.behat.context.ui.admin.managing_articles
                 - sylius.behat.context.ui.admin.notification
