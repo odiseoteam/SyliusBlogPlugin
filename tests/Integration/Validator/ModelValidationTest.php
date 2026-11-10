@@ -92,6 +92,16 @@ final class ModelValidationTest extends DatabaseTestCase
         self::assertArrayHasKey('translations[en_US].imageAlt', $this->violations($article));
     }
 
+    public function testTheContentIsJson(): void
+    {
+        $article = $this->article('post');
+        $article->setContent('{"type":"doc","content":[]}');
+        self::assertSame([], $this->violations($article));
+
+        $article->setContent('<p>Hello</p>');
+        self::assertArrayHasKey('translations[en_US].content', $this->violations($article));
+    }
+
     public function testACategoryCannotBeItsOwnAncestor(): void
     {
         $parent = $this->category('parent_cat');

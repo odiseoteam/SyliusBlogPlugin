@@ -1,0 +1,166 @@
+sylius_twig_hooks:
+    hooks:
+        'odiseo_blog.admin.article.create.content':
+            form:
+                component: 'odiseo_blog_admin:article:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                priority: 100
+
+        'odiseo_blog.admin.article.create.content.form':
+            # Same name as the Sylius common form hookable, so it replaces it.
+            sections:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/two_columns.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.create.content.form.sections#left':
+            general:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general.html.twig'
+                priority: 100
+            translations:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.create.content.form.sections#right':
+            channels:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/channels.html.twig'
+                priority: 100
+            taxonomy:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.create.content.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general/code.html.twig'
+                priority: 200
+            comments_enabled:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/comments_enabled.html.twig'
+                priority: 100
+            featured:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/featured.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.create.content.form.sections.translations':
+            title:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/title.html.twig'
+                priority: 500
+            slug:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/slug.html.twig'
+                configuration:
+                    generate_title: odiseo_blog.ui.generate_slug_from_title
+                priority: 400
+            excerpt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/excerpt.html.twig'
+                priority: 300
+            content:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/content.html.twig'
+                priority: 200
+            meta_title:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
+                priority: 100
+            meta_description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_description.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.create.content.form.sections.taxonomy':
+            main_category:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/main_category.html.twig'
+                priority: 200
+            categories:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/categories.html.twig'
+                priority: 100
+            tags:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/tags.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content':
+            form:
+                component: 'odiseo_blog_admin:article:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                priority: 100
+
+        'odiseo_blog.admin.article.update.content.header':
+            breadcrumbs:
+                template: '@SyliusAdmin/shared/crud/update/content/header/breadcrumbs.html.twig'
+                configuration:
+                    rendered_field: title
+                priority: 100
+
+        'odiseo_blog.admin.article.update.content.form':
+            # Same name as the Sylius common form hookable, so it replaces it.
+            sections:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/two_columns.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content.form.sections#left':
+            general:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general.html.twig'
+                priority: 100
+            translations:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content.form.sections#right':
+            channels:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/channels.html.twig'
+                priority: 100
+            taxonomy:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general/code.html.twig'
+                priority: 200
+            comments_enabled:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/comments_enabled.html.twig'
+                priority: 100
+            featured:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/general/featured.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content.form.sections.translations':
+            title:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/title.html.twig'
+                priority: 500
+            slug:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/slug.html.twig'
+                configuration:
+                    generate_title: odiseo_blog.ui.generate_slug_from_title
+                priority: 400
+            excerpt:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/excerpt.html.twig'
+                priority: 300
+            content:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/translations/content.html.twig'
+                priority: 200
+            meta_title:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_title.html.twig'
+                priority: 100
+            meta_description:
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations/meta_description.html.twig'
+                priority: 0
+
+        'odiseo_blog.admin.article.update.content.form.sections.taxonomy':
+            main_category:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/main_category.html.twig'
+                priority: 200
+            categories:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/categories.html.twig'
+                priority: 100
+            tags:
+                template: '@OdiseoSyliusBlogPlugin/admin/article/form/sections/taxonomy/tags.html.twig'
+                priority: 0

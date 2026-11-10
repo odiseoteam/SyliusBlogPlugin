@@ -1,5 +1,20 @@
 odiseo_blog:
+    article:
+        state:
+            archived: 'Archivado'
+            draft: 'Borrador'
+            published: 'Publicado'
     form:
+        article:
+            comments_enabled: 'Comentarios habilitados'
+            content: 'Contenido'
+            content_help: 'JSON de Tiptap. El editor reemplaza este campo.'
+            excerpt: 'Extracto'
+            excerpt_help: 'Un resumen para los listados y los resultados de búsqueda.'
+            featured: 'Destacado'
+            main_category: 'Categoría principal'
+            main_category_help: 'Al guardar, se suma a las categorías.'
+            title: 'Título'
         author:
             add_social_link: 'Agregar un link'
             admin_user: 'Administrador'
@@ -20,6 +35,7 @@ odiseo_blog:
         meta_title: 'Meta título'
     menu:
         admin:
+            articles: 'Artículos'
             authors: 'Autores'
             categories: 'Categorías'
             configuration: 'Configuración'
@@ -36,10 +52,12 @@ odiseo_blog:
         youtube: 'YouTube'
     ui:
         admin_user: 'Administrador'
+        article: 'Artículo'
         article_categories: 'Categorías'
         article_category: 'Categoría'
         article_tag: 'Tag'
         article_tags: 'Tags'
+        articles: 'Artículos'
         author: 'Autor'
         authors: 'Autores'
         blog_enabled: 'Blog'
@@ -47,6 +65,9 @@ odiseo_blog:
         channel_configurations: 'Configuración del blog'
         delete_category_and_subcategories: '¿Borrar esta categoría y sus subcategorías?'
         generate_slug: 'Generar el slug a partir del nombre'
+        generate_slug_from_title: 'Generar el slug a partir del título'
         posts_per_page: 'Artículos por página'
+        published_at: 'Fecha de publicación'
         remove_image: 'Quitar la imagen'
         social_links: 'Redes sociales'
+        title: 'Título'

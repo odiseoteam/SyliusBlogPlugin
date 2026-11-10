@@ -1,4 +1,4 @@
-{# The button runs the generateSlug action of the form's live component. #}
+{# The button runs the generateSlug action of the form's live component; "generate_title" names its source field. #}
 {% set form = hookable_metadata.context.form %}
 {% set locale = hookable_metadata.context.locale %}
 
@@ -10,7 +10,7 @@
             <button
                 class="btn btn-outline-secondary"
                 type="button"
-                title="{{ 'odiseo_blog.ui.generate_slug'|trans }}"
+                title="{{ (hookable_metadata.configuration.generate_title|default('odiseo_blog.ui.generate_slug'))|trans }}"
                 data-action="live#action"
                 data-live-action-param="debounce(300)|generateSlug"
                 data-live-locale-code-param="{{ locale }}"

@@ -1,5 +1,20 @@
 odiseo_blog:
+    article:
+        state:
+            archived: 'Archived'
+            draft: 'Draft'
+            published: 'Published'
     form:
+        article:
+            comments_enabled: 'Comments enabled'
+            content: 'Content'
+            content_help: 'Tiptap JSON. The editor replaces this field.'
+            excerpt: 'Excerpt'
+            excerpt_help: 'A summary for listings and search results.'
+            featured: 'Featured'
+            main_category: 'Main category'
+            main_category_help: 'It is added to the categories when saving.'
+            title: 'Title'
         author:
             add_social_link: 'Add a link'
             admin_user: 'Administrator'
@@ -20,6 +35,7 @@ odiseo_blog:
         meta_title: 'Meta title'
     menu:
         admin:
+            articles: 'Articles'
             authors: 'Authors'
             categories: 'Categories'
             configuration: 'Configuration'
@@ -36,10 +52,12 @@ odiseo_blog:
         youtube: 'YouTube'
     ui:
         admin_user: 'Administrator'
+        article: 'Article'
         article_categories: 'Categories'
         article_category: 'Category'
         article_tag: 'Tag'
         article_tags: 'Tags'
+        articles: 'Articles'
         author: 'Author'
         authors: 'Authors'
         blog_enabled: 'Blog'
@@ -47,6 +65,9 @@ odiseo_blog:
         channel_configurations: 'Blog configuration'
         delete_category_and_subcategories: 'Delete this category and its subcategories?'
         generate_slug: 'Generate the slug from the name'
+        generate_slug_from_title: 'Generate the slug from the title'
         posts_per_page: 'Articles per page'
+        published_at: 'Published at'
         remove_image: 'Remove image'
         social_links: 'Social links'
+        title: 'Title'

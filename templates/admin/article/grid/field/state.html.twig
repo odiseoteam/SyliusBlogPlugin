@@ -1,0 +1,3 @@
+{% set classes = {draft: 'bg-secondary-lt', published: 'bg-success-lt', archived: 'bg-dark-lt'} %}
+
+<span class="badge {{ classes[data]|default('') }}" {{ sylius_test_html_attribute('state', data) }}>{{ ('odiseo_blog.article.state.' ~ data)|trans }}</span>

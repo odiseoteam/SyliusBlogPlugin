@@ -1,0 +1,96 @@
+sylius_grid:
+    grids:
+        odiseo_blog_admin_article:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%odiseo_blog.model.article.class%"
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["expr:service('sylius.context.locale').getLocaleCode()"]
+            sorting:
+                publishedAt: desc
+            fields:
+                title:
+                    type: twig
+                    label: odiseo_blog.ui.title
+                    sortable: translation.title
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/name.html.twig"
+                        vars:
+                            th_class: "w-33"
+                code:
+                    type: twig
+                    label: sylius.ui.code
+                    sortable: ~
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/code.html.twig"
+                state:
+                    type: twig
+                    label: sylius.ui.state
+                    sortable: ~
+                    options:
+                        template: "@OdiseoSyliusBlogPlugin/admin/article/grid/field/state.html.twig"
+                publishedAt:
+                    type: twig
+                    label: odiseo_blog.ui.published_at
+                    sortable: ~
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/date.html.twig"
+                channels:
+                    type: twig
+                    label: sylius.ui.channels
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/channels.html.twig"
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [code, translation.title]
+                    form_options:
+                        type: !php/const Sylius\Component\Grid\Filter\StringFilter::TYPE_CONTAINS
+                state:
+                    type: select
+                    label: sylius.ui.state
+                    form_options:
+                        choices:
+                            odiseo_blog.article.state.draft: !php/const Odiseo\SyliusBlogPlugin\Entity\ArticleInterface::STATE_DRAFT
+                            odiseo_blog.article.state.published: !php/const Odiseo\SyliusBlogPlugin\Entity\ArticleInterface::STATE_PUBLISHED
+                            odiseo_blog.article.state.archived: !php/const Odiseo\SyliusBlogPlugin\Entity\ArticleInterface::STATE_ARCHIVED
+                channel:
+                    type: entity
+                    label: sylius.ui.channel
+                    form_options:
+                        class: "%sylius.model.channel.class%"
+                    options:
+                        fields: [channels.id]
+                category:
+                    type: ux_translatable_autocomplete
+                    label: odiseo_blog.ui.article_category
+                    form_options:
+                        multiple: false
+                        extra_options:
+                            class: "%odiseo_blog.model.article_category.class%"
+                            translation_fields: [name]
+                            choice_label: name
+                    options:
+                        fields: [categories.id]
+                published_at:
+                    type: date
+                    label: odiseo_blog.ui.published_at
+                    options:
+                        field: publishedAt
+                        inclusive_to: true
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete
