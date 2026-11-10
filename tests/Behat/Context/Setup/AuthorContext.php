@@ -11,6 +11,8 @@ use Odiseo\SyliusBlogPlugin\Entity\ArticleAuthor;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorImage;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
+use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Factory\FactoryInterface;
@@ -31,6 +33,7 @@ final class AuthorContext implements Context
         private readonly SlugGeneratorInterface $slugGenerator,
         private readonly ImageUploaderInterface $imageUploader,
         private readonly array|\ArrayAccess $minkParameters,
+        private readonly SharedStorageInterface $sharedStorage,
     ) {
     }
 
@@ -38,6 +41,18 @@ final class AuthorContext implements Context
     public function theBlogHasAnAuthor(string $name): void
     {
         $this->save($this->author($name));
+    }
+
+    #[Given('the blog has an author :name linked to my account')]
+    public function theBlogHasAnAuthorLinkedToMyAccount(string $name): void
+    {
+        $administrator = $this->sharedStorage->get('administrator');
+        Assert::isInstanceOf($administrator, AdminUserInterface::class);
+
+        $author = $this->author($name);
+        $author->setAdminUser($administrator);
+
+        $this->save($author);
     }
 
     #[Given('the blog has an author :name with the links :first and :second')]

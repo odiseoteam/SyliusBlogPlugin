@@ -5,6 +5,11 @@
         <defaults public="true" />
 
         <!-- Transform contexts -->
+        <service id="odiseo_blog.behat.context.transform.article" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Transform\ArticleContext">
+            <argument type="service" id="odiseo_blog.repository.article" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="odiseo_blog.behat.context.transform.article_tag" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Transform\ArticleTagContext">
             <argument type="service" id="odiseo_blog.repository.article_tag" />
             <tag name="fob.context_service" />
@@ -21,6 +26,17 @@
         </service>
 
         <!-- Setup contexts -->
+        <service id="odiseo_blog.behat.context.setup.article" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup\ArticleContext">
+            <argument type="service" id="odiseo_blog.factory.article" />
+            <argument type="service" id="odiseo_blog.manager.article" />
+            <argument type="service" id="sylius.generator.slug" />
+            <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="odiseo_blog.repository.author" />
+            <argument type="service" id="sylius.uploader.image" />
+            <argument type="service" id="behat.mink.parameters" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="odiseo_blog.behat.context.setup.author" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Setup\AuthorContext">
             <argument type="service" id="odiseo_blog.factory.author" />
             <argument type="service" id="odiseo_blog.factory.article" />
@@ -28,6 +44,7 @@
             <argument type="service" id="sylius.generator.slug" />
             <argument type="service" id="sylius.uploader.image" />
             <argument type="service" id="behat.mink.parameters" />
+            <argument type="service" id="sylius.behat.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 
@@ -54,6 +71,15 @@
         </service>
 
         <!-- UI admin contexts -->
+        <service id="odiseo_blog.behat.context.ui.admin.managing_articles" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingArticlesContext">
+            <argument type="service" id="sylius.behat.current_page_resolver" />
+            <argument type="service" id="odiseo_blog.behat.page.admin.article.index" />
+            <argument type="service" id="odiseo_blog.behat.page.admin.article.create" />
+            <argument type="service" id="odiseo_blog.behat.page.admin.article.update" />
+            <argument type="service" id="odiseo_blog.manager.article" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="odiseo_blog.behat.context.ui.admin.managing_authors" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingAuthorsContext">
             <argument type="service" id="sylius.behat.current_page_resolver" />
             <argument type="service" id="odiseo_blog.behat.page.admin.author.index" />

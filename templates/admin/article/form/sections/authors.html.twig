@@ -1,0 +1,12 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="card-title">{{ 'odiseo_blog.ui.authors'|trans }}</div>
+        </div>
+        <div class="card-body">
+            {{ form_row(form.authors, sylius_test_form_attribute('authors')|merge({label_attr: {class: 'visually-hidden'}})) }}
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ sylius_twig_hooks:
         'odiseo_blog.admin.author.create.content.form':
             # Same name as the Sylius common form hookable, so it replaces it.
             sections:
-                template: '@OdiseoSyliusBlogPlugin/admin/author/form/sections.html.twig'
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/two_columns.html.twig'
                 priority: 0
 
         'odiseo_blog.admin.author.create.content.form.sections#left':
@@ -89,7 +89,7 @@ sylius_twig_hooks:
         'odiseo_blog.admin.author.update.content.form':
             # Same name as the Sylius common form hookable, so it replaces it.
             sections:
-                template: '@OdiseoSyliusBlogPlugin/admin/author/form/sections.html.twig'
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/two_columns.html.twig'
                 priority: 0
 
         'odiseo_blog.admin.author.update.content.form.sections#left':

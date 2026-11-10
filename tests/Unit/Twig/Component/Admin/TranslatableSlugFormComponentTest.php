@@ -41,6 +41,16 @@ final class TranslatableSlugFormComponentTest extends TestCase
         self::assertSame('', $this->slug($component, 'en_US'));
     }
 
+    public function testTheSlugCanComeFromAnotherField(): void
+    {
+        $component = $this->component('title');
+        $component->formValues = ['translations' => ['en_US' => ['title' => 'Brewing guide', 'name' => 'Ignored']]];
+
+        $component->generateSlug('en_US');
+
+        self::assertSame('brewing-guide', $this->slug($component, 'en_US'));
+    }
+
     private function slug(TranslatableSlugFormComponent $component, string $localeCode): mixed
     {
         /** @var array{translations: array<string, array{slug?: mixed}>} $values */
@@ -49,7 +59,7 @@ final class TranslatableSlugFormComponentTest extends TestCase
         return $values['translations'][$localeCode]['slug'] ?? null;
     }
 
-    private function component(): TranslatableSlugFormComponent
+    private function component(string $sourceField = 'name'): TranslatableSlugFormComponent
     {
         /** @var RepositoryInterface<ResourceInterface>&Stub $repository */
         $repository = $this->createStub(RepositoryInterface::class);
@@ -60,6 +70,7 @@ final class TranslatableSlugFormComponentTest extends TestCase
             ArticleTag::class,
             ArticleTagType::class,
             new SlugGenerator(),
+            $sourceField,
         );
     }
 }

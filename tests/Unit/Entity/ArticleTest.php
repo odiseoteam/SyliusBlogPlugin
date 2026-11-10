@@ -46,6 +46,34 @@ final class ArticleTest extends TestCase
         self::assertCount(0, $article->getArticleAuthors());
     }
 
+    public function testSettingTheAuthorsKeepsTheBylinesThatStay(): void
+    {
+        $jane = $this->author('jane');
+        $john = $this->author('john');
+        $ann = $this->author('ann');
+        $article = new Article();
+        $article->setAuthors([$jane, $john]);
+        $janeByline = $article->getArticleAuthors()->first();
+
+        $article->setAuthors([$ann, $jane]);
+
+        self::assertSame([$ann, $jane], $article->getAuthors());
+        self::assertCount(2, $article->getArticleAuthors());
+        self::assertTrue($article->hasArticleAuthor($janeByline ?: throw new \LogicException()));
+        self::assertSame(1, $janeByline->getPosition());
+    }
+
+    public function testAnAuthorSignsOnce(): void
+    {
+        $jane = $this->author('jane');
+        $article = new Article();
+
+        $article->setAuthors([$jane, $jane]);
+
+        self::assertCount(1, $article->getArticleAuthors());
+        self::assertSame([$jane], $article->getAuthors());
+    }
+
     public function testTranslatedFieldsGoToTheCurrentLocale(): void
     {
         $article = new Article();
@@ -72,13 +100,18 @@ final class ArticleTest extends TestCase
         self::assertSame('Una taza de café', $article->getTranslation('es_AR')->getImageAlt());
     }
 
-    private function byline(string $code, int $position): ArticleAuthor
+    private function author(string $code): Author
     {
         $author = new Author();
         $author->setCode($code);
 
+        return $author;
+    }
+
+    private function byline(string $code, int $position): ArticleAuthor
+    {
         $byline = new ArticleAuthor();
-        $byline->setAuthor($author);
+        $byline->setAuthor($this->author($code));
         $byline->setPosition($position);
 
         return $byline;

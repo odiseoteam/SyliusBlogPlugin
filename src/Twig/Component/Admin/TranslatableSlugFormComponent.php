@@ -14,7 +14,7 @@ use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 
-/** Admin form of a resource whose slug, per locale, is generated from its translated name. */
+/** Admin form of a resource whose slug, per locale, is generated from a translated field (its name by default). */
 #[AsLiveComponent]
 final class TranslatableSlugFormComponent
 {
@@ -34,6 +34,7 @@ final class TranslatableSlugFormComponent
         string $resourceClass,
         string $formClass,
         private readonly SlugGeneratorInterface $slugGenerator,
+        private readonly string $sourceField = 'name',
     ) {
         $this->initialize($repository, $formFactory, $resourceClass, $formClass);
     }
@@ -43,9 +44,9 @@ final class TranslatableSlugFormComponent
     {
         /** @var array{translations?: array<string, array<string, mixed>>} $values */
         $values = $this->formValues;
-        $name = $values['translations'][$localeCode]['name'] ?? '';
+        $source = $values['translations'][$localeCode][$this->sourceField] ?? '';
 
-        $values['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(is_string($name) ? $name : '');
+        $values['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(is_string($source) ? $source : '');
         $this->formValues = $values;
     }
 }

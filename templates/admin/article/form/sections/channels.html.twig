@@ -1,0 +1,13 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="card-title">{{ 'sylius.ui.channels'|trans }}</div>
+        </div>
+        <div class="card-body" {{ sylius_test_html_attribute('channels') }}>
+            {{ form_widget(form.channels) }}
+            {{ form_errors(form.channels) }}
+        </div>
+    </div>
+</div>

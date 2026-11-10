@@ -1,0 +1,56 @@
+services:
+    odiseo_blog.form.type.article:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleType
+        arguments:
+            - '%odiseo_blog.model.article.class%'
+            - ['odiseo_blog']
+            - '@sylius.repository.channel'
+            - '@odiseo_blog.repository.author'
+            - '@security.token_storage'
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_translation:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTranslationType
+        arguments:
+            - '%odiseo_blog.model.article_translation.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_image:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleImageType
+        arguments:
+            - '%odiseo_blog.model.article_image.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_tag_autocomplete:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagAutocompleteType
+        arguments: ['%odiseo_blog.model.article_tag.class%']
+        tags: ['form.type', 'ux.entity_autocomplete_field']
+
+    odiseo_blog.form.type.author_autocomplete:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\AuthorAutocompleteType
+        arguments: ['%odiseo_blog.model.author.class%']
+        tags: ['form.type', 'ux.entity_autocomplete_field']
+
+    odiseo_blog.twig.component.admin.article.form:
+        class: Odiseo\SyliusBlogPlugin\Twig\Component\Admin\TranslatableSlugFormComponent
+        arguments:
+            - '@odiseo_blog.repository.article'
+            - '@form.factory'
+            - '%odiseo_blog.model.article.class%'
+            - Odiseo\SyliusBlogPlugin\Form\Type\ArticleType
+            - '@sylius.generator.slug'
+            - title
+        tags:
+            - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article:form' }
+
+    odiseo_blog.controller.admin.remove_article_image:
+        class: Odiseo\SyliusBlogPlugin\Controller\Admin\RemoveImageAction
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.article'
+            - '@odiseo_blog.manager.article'
+            - '@router'
+            - '@?security.csrf.token_manager'
+            - odiseo_blog_admin_article_update

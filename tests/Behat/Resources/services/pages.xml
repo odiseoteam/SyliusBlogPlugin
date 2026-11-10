@@ -2,6 +2,15 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="odiseo_blog.behat.page.admin.article.index" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\IndexPage" parent="sylius.behat.page.admin.crud.index">
+            <argument type="string">odiseo_blog_admin_article_index</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article.create" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\CreatePage" parent="sylius.behat.page.admin.crud.create">
+            <argument type="string">odiseo_blog_admin_article_create</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article.update" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\UpdatePage" parent="sylius.behat.page.admin.crud.update">
+            <argument type="string">odiseo_blog_admin_article_update</argument>
+        </service>
         <service id="odiseo_blog.behat.page.admin.author.index" class="Sylius\Behat\Page\Admin\Crud\IndexPage" parent="sylius.behat.page.admin.crud.index">
             <argument type="string">odiseo_blog_admin_author_index</argument>
         </service>

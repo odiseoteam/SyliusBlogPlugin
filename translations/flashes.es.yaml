@@ -1,4 +1,9 @@
 odiseo_blog:
+    article:
+        bulk_delete: 'Los artículos se han eliminado con éxito.'
+        create: 'El artículo se ha creado con éxito.'
+        delete: 'El artículo se ha eliminado con éxito.'
+        update: 'El artículo se ha actualizado con éxito.'
     article_category:
         create: 'La categoría se ha creado con éxito.'
         delete: 'La categoría se ha eliminado con éxito.'
