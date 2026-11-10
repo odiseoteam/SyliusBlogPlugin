@@ -1,0 +1,22 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    <div class="card mb-3" {{ sylius_test_html_attribute('social-links') }}>
+        <div class="card-header">
+            <div class="card-title">{{ 'odiseo_blog.ui.social_links'|trans }}</div>
+        </div>
+        <div class="card-body">
+            {{ form_errors(form.socialLinks) }}
+            {% for link_form in form.socialLinks %}
+                <div class="border-bottom mb-3" {{ sylius_test_html_attribute('social-link') }}>
+                    {{ form_row(link_form.network, sylius_test_form_attribute('social-link-network')) }}
+                    {{ form_row(link_form.url, sylius_test_form_attribute('social-link-url')) }}
+                    <div class="text-end mb-3">
+                        {{ form_widget(link_form.vars.button_delete, {attr: {class: 'btn btn-sm btn-outline-danger', 'data-test-remove-social-link': ''}}) }}
+                    </div>
+                </div>
+            {% endfor %}
+            {{ form_widget(form.socialLinks.vars.button_add, sylius_test_form_attribute('add-social-link')|sylius_merge_recursive({attr: {class: 'btn btn-outline-primary'}})) }}
+        </div>
+    </div>
+</div>

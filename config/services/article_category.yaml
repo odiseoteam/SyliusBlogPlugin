@@ -1,0 +1,71 @@
+services:
+    odiseo_blog.custom_factory.article_category:
+        class: Odiseo\SyliusBlogPlugin\Factory\ArticleCategoryFactory
+        decorates: odiseo_blog.factory.article_category
+        arguments: ['@.inner']
+
+    odiseo_blog.form.type.article_category:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryType
+        arguments:
+            - '%odiseo_blog.model.article_category.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_category_translation:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryTranslationType
+        arguments:
+            - '%odiseo_blog.model.article_category_translation.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_category_image:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryImageType
+        arguments:
+            - '%odiseo_blog.model.article_category_image.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_category_autocomplete:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryAutocompleteType
+        arguments: ['%odiseo_blog.model.article_category.class%']
+        tags: ['form.type', 'ux.entity_autocomplete_field']
+
+    odiseo_blog.twig.component.admin.article_category.form:
+        class: Odiseo\SyliusBlogPlugin\Twig\Component\Admin\TranslatableSlugFormComponent
+        arguments:
+            - '@odiseo_blog.repository.article_category'
+            - '@form.factory'
+            - '%odiseo_blog.model.article_category.class%'
+            - Odiseo\SyliusBlogPlugin\Form\Type\ArticleCategoryType
+            - '@sylius.generator.slug'
+        tags:
+            - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article_category:form' }
+
+    odiseo_blog.twig.component.admin.article_category.tree:
+        class: Odiseo\SyliusBlogPlugin\Twig\Component\Admin\ArticleCategoryTreeComponent
+        arguments:
+            - '@odiseo_blog.repository.article_category'
+            - '@odiseo_blog.manager.article_category'
+            - '@sylius_admin.context.locale.admin_based'
+            - '@sylius.translation_locale_provider'
+        tags:
+            - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article_category:tree' }
+
+    # Sylius' own: it only opens the delete modal with a CSRF token for the id.
+    odiseo_blog.twig.component.admin.article_category.delete:
+        class: Sylius\Bundle\AdminBundle\Twig\Component\Taxon\DeleteComponent
+        arguments: ['@?security.csrf.token_manager']
+        calls:
+            - [setLiveResponder, ['@ux.live_component.live_responder']]
+        tags:
+            - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article_category:delete' }
+
+    odiseo_blog.controller.admin.remove_article_category_image:
+        class: Odiseo\SyliusBlogPlugin\Controller\Admin\RemoveImageAction
+        public: true
+        arguments:
+            - '@odiseo_blog.repository.article_category'
+            - '@odiseo_blog.manager.article_category'
+            - '@router'
+            - '@?security.csrf.token_manager'
+            - odiseo_blog_admin_article_category_update

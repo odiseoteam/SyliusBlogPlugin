@@ -20,6 +20,33 @@ final class AdminMenuListener
         ;
 
         $blog
+            ->addChild('authors', ['route' => 'odiseo_blog_admin_author_index', 'extras' => ['routes' => [
+                ['route' => 'odiseo_blog_admin_author_create'],
+                ['route' => 'odiseo_blog_admin_author_update'],
+            ]]])
+            ->setLabel('odiseo_blog.menu.admin.authors')
+            ->setLabelAttribute('icon', 'tabler:user-edit')
+        ;
+
+        $blog
+            ->addChild('categories', ['route' => 'odiseo_blog_admin_article_category_create', 'extras' => ['routes' => [
+                ['route' => 'odiseo_blog_admin_article_category_create_for_parent'],
+                ['route' => 'odiseo_blog_admin_article_category_update'],
+            ]]])
+            ->setLabel('odiseo_blog.menu.admin.categories')
+            ->setLabelAttribute('icon', 'tabler:category')
+        ;
+
+        $blog
+            ->addChild('tags', ['route' => 'odiseo_blog_admin_article_tag_index', 'extras' => ['routes' => [
+                ['route' => 'odiseo_blog_admin_article_tag_create'],
+                ['route' => 'odiseo_blog_admin_article_tag_update'],
+            ]]])
+            ->setLabel('odiseo_blog.menu.admin.tags')
+            ->setLabelAttribute('icon', 'tabler:tags')
+        ;
+
+        $blog
             ->addChild('configuration', ['route' => 'odiseo_blog_admin_channel_configuration_index', 'extras' => ['routes' => [
                 ['route' => 'odiseo_blog_admin_channel_configuration_update'],
             ]]])

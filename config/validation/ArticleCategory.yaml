@@ -4,6 +4,8 @@ Odiseo\SyliusBlogPlugin\Entity\ArticleCategory:
             fields: [code]
             message: 'odiseo_blog.code.unique'
             groups: ['odiseo_blog']
+        - Odiseo\SyliusBlogPlugin\Validator\Constraints\CategoryParentRelation:
+            groups: ['odiseo_blog']
     properties:
         code:
             - NotBlank:

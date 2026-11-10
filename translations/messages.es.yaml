@@ -1,5 +1,14 @@
 odiseo_blog:
     form:
+        author:
+            add_social_link: 'Agregar un link'
+            admin_user: 'Administrador'
+            admin_user_help: 'Vincula este autor con un administrador, que queda preseleccionado como autor de sus artículos.'
+            bio: 'Bio'
+            choose_network: 'Elegí una red'
+            job_title: 'Cargo'
+            network: 'Red'
+            url: 'URL'
         channel_configuration:
             description: 'Descripción'
             description_help: 'Un texto corto sobre el blog, que se muestra junto a los artículos.'
@@ -7,12 +16,37 @@ odiseo_blog:
             posts_per_page: 'Artículos por página'
             title: 'Título'
             title_help: 'Si queda vacío, se llama "Blog".'
+        meta_description: 'Meta descripción'
+        meta_title: 'Meta título'
     menu:
         admin:
+            authors: 'Autores'
+            categories: 'Categorías'
             configuration: 'Configuración'
             header: 'Blog'
+            tags: 'Tags'
+    social_network:
+        facebook: 'Facebook'
+        github: 'GitHub'
+        instagram: 'Instagram'
+        linkedin: 'LinkedIn'
+        tiktok: 'TikTok'
+        website: 'Sitio web'
+        x: 'X (Twitter)'
+        youtube: 'YouTube'
     ui:
+        admin_user: 'Administrador'
+        article_categories: 'Categorías'
+        article_category: 'Categoría'
+        article_tag: 'Tag'
+        article_tags: 'Tags'
+        author: 'Autor'
+        authors: 'Autores'
         blog_enabled: 'Blog'
         channel_configuration: 'Configuración del blog'
         channel_configurations: 'Configuración del blog'
+        delete_category_and_subcategories: '¿Borrar esta categoría y sus subcategorías?'
+        generate_slug: 'Generar el slug a partir del nombre'
         posts_per_page: 'Artículos por página'
+        remove_image: 'Quitar la imagen'
+        social_links: 'Redes sociales'

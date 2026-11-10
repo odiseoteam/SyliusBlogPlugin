@@ -1,3 +1,84 @@
+odiseo_blog_admin_author:
+    resource: |
+        alias: odiseo_blog.author
+        section: admin
+        path: blog/authors
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_admin_author
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'odiseo_blog.admin.author'
+    type: sylius.resource
+
+odiseo_blog_admin_author_remove_image:
+    path: /blog/authors/{id}/remove-image
+    methods: [PUT]
+    defaults:
+        _controller: odiseo_blog.controller.admin.remove_author_image
+
+odiseo_blog_admin_article_category:
+    resource: |
+        alias: odiseo_blog.article_category
+        section: admin
+        path: blog/categories
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show', 'index', 'bulkDelete']
+        redirect: update
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'odiseo_blog.admin.article_category'
+    type: sylius.resource
+
+# Like taxons: no grid, the tree is shown next to the form.
+odiseo_blog_admin_article_category_index:
+    path: /blog/categories/
+    methods: [GET]
+    defaults:
+        _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+        route: odiseo_blog_admin_article_category_create
+        permanent: true
+
+odiseo_blog_admin_article_category_create_for_parent:
+    path: /blog/categories/new/{id}
+    methods: [GET, POST]
+    defaults:
+        _controller: odiseo_blog.controller.article_category::createAction
+        _sylius:
+            section: admin
+            permission: true
+            template: '@SyliusAdmin/shared/crud/create.html.twig'
+            redirect: odiseo_blog_admin_article_category_update
+            factory:
+                method: createForParent
+                arguments: ['expr:notFoundOnNull(service("odiseo_blog.repository.article_category").find($id))']
+            vars:
+                hook_prefix: 'odiseo_blog.admin.article_category'
+
+odiseo_blog_admin_article_category_remove_image:
+    path: /blog/categories/{id}/remove-image
+    methods: [PUT]
+    defaults:
+        _controller: odiseo_blog.controller.admin.remove_article_category_image
+
+odiseo_blog_admin_article_tag:
+    resource: |
+        alias: odiseo_blog.article_tag
+        section: admin
+        path: blog/tags
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show']
+        redirect: update
+        grid: odiseo_blog_admin_article_tag
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'odiseo_blog.admin.article_tag'
+    type: sylius.resource
+
 odiseo_blog_admin_channel_configuration_index:
     path: /blog/configuration
     methods: [GET]

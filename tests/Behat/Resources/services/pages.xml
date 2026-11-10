@@ -2,6 +2,33 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="odiseo_blog.behat.page.admin.author.index" class="Sylius\Behat\Page\Admin\Crud\IndexPage" parent="sylius.behat.page.admin.crud.index">
+            <argument type="string">odiseo_blog_admin_author_index</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.author.create" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Author\CreatePage" parent="sylius.behat.page.admin.crud.create">
+            <argument type="string">odiseo_blog_admin_author_create</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.author.update" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Author\UpdatePage" parent="sylius.behat.page.admin.crud.update">
+            <argument type="string">odiseo_blog_admin_author_update</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_category.create" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\CreatePage" parent="sylius.behat.page.admin.crud.create">
+            <argument type="string">odiseo_blog_admin_article_category_create</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_category.create_for_parent" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\CreatePage" parent="sylius.behat.page.admin.crud.create">
+            <argument type="string">odiseo_blog_admin_article_category_create_for_parent</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_category.update" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleCategory\UpdatePage" parent="sylius.behat.page.admin.crud.update">
+            <argument type="string">odiseo_blog_admin_article_category_update</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_tag.index" class="Sylius\Behat\Page\Admin\Crud\IndexPage" parent="sylius.behat.page.admin.crud.index">
+            <argument type="string">odiseo_blog_admin_article_tag_index</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_tag.create" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleTag\CreatePage" parent="sylius.behat.page.admin.crud.create">
+            <argument type="string">odiseo_blog_admin_article_tag_create</argument>
+        </service>
+        <service id="odiseo_blog.behat.page.admin.article_tag.update" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ArticleTag\UpdatePage" parent="sylius.behat.page.admin.crud.update">
+            <argument type="string">odiseo_blog_admin_article_tag_update</argument>
+        </service>
         <service id="odiseo_blog.behat.page.admin.channel_configuration.index" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ChannelConfiguration\IndexPage" parent="sylius.behat.page.admin.crud.index">
             <argument type="string">odiseo_blog_admin_channel_configuration_index</argument>
         </service>

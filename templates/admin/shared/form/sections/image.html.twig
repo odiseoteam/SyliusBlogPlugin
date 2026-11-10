@@ -1,0 +1,36 @@
+{# The remove button posts the form to the route set as "remove_route" in the hook configuration. #}
+{% set form = hookable_metadata.context.form %}
+{% set resource = hookable_metadata.context.resource %}
+{% set has_image = resource.image is not null and resource.image.path is not empty %}
+
+<div class="col-12">
+    <div class="card mb-3" {{ sylius_test_html_attribute('image') }}>
+        <div class="card-header">
+            <div class="card-title">{{ 'sylius.ui.image'|trans }}</div>
+        </div>
+        <div class="card-body">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    {% if has_image %}
+                        <span class="avatar avatar-xl" style="background-image: url('{{ odiseo_blog_image_url(resource, 'odiseo_blog_admin_thumbnail') }}')" {{ sylius_test_html_attribute('image-preview', resource.image.path) }}></span>
+                    {% else %}
+                        <span class="avatar avatar-xl" {{ sylius_test_html_attribute('image-preview') }}>{{ ux_icon('tabler:photo') }}</span>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {{ form_row(form.image.file, sylius_test_form_attribute('image-file')) }}
+                    {% if has_image and resource.id is not null %}
+                        <button
+                            formaction="{{ path(hookable_metadata.configuration.remove_route, {id: resource.id, _csrf_token: sylius_csrf_protection_enabled() ? csrf_token(resource.id) : null}) }}"
+                            type="submit"
+                            class="btn btn-outline-danger"
+                            {{ sylius_test_html_attribute('remove-image') }}
+                        >
+                            {{ ux_icon('tabler:trash-x') }} {{ 'odiseo_blog.ui.remove_image'|trans }}
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

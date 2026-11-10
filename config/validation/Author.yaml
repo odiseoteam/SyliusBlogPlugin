@@ -8,6 +8,11 @@ Odiseo\SyliusBlogPlugin\Entity\Author:
             fields: [slug]
             message: 'odiseo_blog.slug.unique'
             groups: ['odiseo_blog']
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [adminUser]
+            message: 'odiseo_blog.author.admin_user.unique'
+            errorPath: adminUser
+            groups: ['odiseo_blog']
     properties:
         code:
             - NotBlank:
@@ -31,6 +36,20 @@ Odiseo\SyliusBlogPlugin\Entity\Author:
             - Length:
                 max: 255
                 groups: ['odiseo_blog']
+        socialLinks:
+            - All:
+                groups: ['odiseo_blog']
+                constraints:
+                    - Collection:
+                        fields:
+                            network:
+                                - NotBlank: ~
+                                - Length: {max: 50}
+                            url:
+                                - NotBlank: ~
+                                - Url: ~
+                                - Length: {max: 2048}
+                        groups: ['odiseo_blog']
         translations:
             - Valid: ~
         image:

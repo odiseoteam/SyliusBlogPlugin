@@ -1,3 +1,18 @@
 odiseo_blog:
+    article_category:
+        create: 'The category has been successfully created.'
+        delete: 'The category has been successfully deleted.'
+        update: 'The category has been successfully updated.'
+    article_tag:
+        bulk_delete: 'The tags have been successfully deleted.'
+        create: 'The tag has been successfully created.'
+        delete: 'The tag has been successfully deleted.'
+        update: 'The tag has been successfully updated.'
+    author:
+        bulk_delete: 'The authors have been successfully deleted.'
+        create: 'The author has been successfully created.'
+        delete: 'The author has been successfully deleted.'
+        delete_error: 'The author signs articles, so it can only be disabled.'
+        update: 'The author has been successfully updated.'
     channel_configuration:
         update: 'The blog configuration has been successfully updated.'

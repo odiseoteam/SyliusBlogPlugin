@@ -1,0 +1,43 @@
+sylius_grid:
+    grids:
+        odiseo_blog_admin_article_tag:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%odiseo_blog.model.article_tag.class%"
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["expr:service('sylius.context.locale').getLocaleCode()"]
+            sorting:
+                name: asc
+            fields:
+                name:
+                    type: twig
+                    label: sylius.ui.name
+                    sortable: translation.name
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/name.html.twig"
+                code:
+                    type: twig
+                    label: sylius.ui.code
+                    sortable: ~
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/code.html.twig"
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [code, translation.name]
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete

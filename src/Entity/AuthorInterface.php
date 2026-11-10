@@ -30,7 +30,7 @@ interface AuthorInterface extends
     /** @return list<array{network: string, url: string}> */
     public function getSocialLinks(): array;
 
-    /** @param list<array{network: string, url: string}> $socialLinks */
+    /** @param array<int, array{network: string, url: string}> $socialLinks The keys are ignored: the order is kept. */
     public function setSocialLinks(array $socialLinks): void;
 
     public function getAdminUser(): ?AdminUserInterface;

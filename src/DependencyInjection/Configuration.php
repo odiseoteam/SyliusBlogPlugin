@@ -23,6 +23,11 @@ final class Configuration implements ConfigurationInterface
                         ->integerNode('posts_per_page')->defaultValue(9)->min(1)->max(100)->end()
                     ->end()
                 ->end()
+                ->arrayNode('social_networks')
+                    ->info('Networks an author can link to. Each needs the translation odiseo_blog.social_network.<code>.')
+                    ->scalarPrototype()->cannotBeEmpty()->end()
+                    ->defaultValue(['x', 'linkedin', 'facebook', 'instagram', 'youtube', 'tiktok', 'github', 'website'])
+                ->end()
             ->end()
         ;
 

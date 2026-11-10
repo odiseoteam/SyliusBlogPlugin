@@ -1,0 +1,25 @@
+services:
+    odiseo_blog.form.type.article_tag:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagType
+        arguments:
+            - '%odiseo_blog.model.article_tag.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.form.type.article_tag_translation:
+        class: Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagTranslationType
+        arguments:
+            - '%odiseo_blog.model.article_tag_translation.class%'
+            - ['odiseo_blog']
+        tags: ['form.type']
+
+    odiseo_blog.twig.component.admin.article_tag.form:
+        class: Odiseo\SyliusBlogPlugin\Twig\Component\Admin\TranslatableSlugFormComponent
+        arguments:
+            - '@odiseo_blog.repository.article_tag'
+            - '@form.factory'
+            - '%odiseo_blog.model.article_tag.class%'
+            - Odiseo\SyliusBlogPlugin\Form\Type\ArticleTagType
+            - '@sylius.generator.slug'
+        tags:
+            - { name: sylius.live_component.admin, key: 'odiseo_blog_admin:article_tag:form' }

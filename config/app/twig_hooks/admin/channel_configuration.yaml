@@ -18,10 +18,10 @@ sylius_twig_hooks:
 
         'odiseo_blog.admin.channel_configuration.update.content.form.sections':
             general:
-                template: '@OdiseoSyliusBlogPlugin/admin/channel_configuration/form/sections/general.html.twig'
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/general.html.twig'
                 priority: 100
             translations:
-                template: '@OdiseoSyliusBlogPlugin/admin/channel_configuration/form/sections/translations.html.twig'
+                template: '@OdiseoSyliusBlogPlugin/admin/shared/form/sections/translations.html.twig'
                 priority: 0
 
         'odiseo_blog.admin.channel_configuration.update.content.form.sections.general':

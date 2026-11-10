@@ -2,6 +2,12 @@ odiseo_blog:
     article:
         main_category:
             not_in_categories: 'La categoría principal tiene que ser una de las categorías del artículo.'
+    article_category:
+        parent:
+            invalid_relation: 'Una categoría no puede ser su propia madre ni hija de una de sus subcategorías.'
+    author:
+        admin_user:
+            unique: 'Este administrador ya está vinculado a otro autor.'
     code:
         regex: 'El código sólo puede tener letras, números, guiones y guiones bajos.'
         unique: 'Este código ya está en uso.'
