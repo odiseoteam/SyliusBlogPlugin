@@ -9,8 +9,10 @@ use Odiseo\SyliusBlogPlugin\Content\Extractor\TocExtractor;
 use Odiseo\SyliusBlogPlugin\Content\Renderer\HtmlRenderer;
 use Odiseo\SyliusBlogPlugin\Content\Renderer\MarkdownRenderer;
 use Odiseo\SyliusBlogPlugin\Content\Validator\ContentValidator;
+use Odiseo\SyliusBlogPlugin\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 final class ContentTest extends KernelTestCase
 {
@@ -51,6 +53,18 @@ final class ContentTest extends KernelTestCase
                 'en',
             ),
         );
+    }
+
+    public function testTemplatesGetTheReadingTimeOfAnArticle(): void
+    {
+        $article = new Article();
+        $article->setCurrentLocale('en_US');
+        $article->setFallbackLocale('en_US');
+        $article->getTranslation()->setWordCount(401);
+
+        $twig = $this->service('twig', Environment::class);
+
+        self::assertSame('3', $twig->createTemplate('{{ odiseo_blog_reading_time(article) }}')->render(['article' => $article]));
     }
 
     /**

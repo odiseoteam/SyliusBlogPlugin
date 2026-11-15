@@ -14,13 +14,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 #[CoversClass(OdiseoSyliusBlogExtension::class)]
 final class OdiseoSyliusBlogExtensionTest extends TestCase
 {
-    public function testTheLimitsOfTheContentAreParameters(): void
+    public function testTheSettingsOfTheContentAreParameters(): void
     {
-        $container = $this->load([['content' => ['max_size' => 4096, 'max_depth' => 6, 'iframe_hosts' => ['maps.example.com']]]]);
+        $container = $this->load([['content' => ['max_size' => 4096, 'max_depth' => 6, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250]]]);
 
         self::assertSame(4096, $container->getParameter('odiseo_blog.content.max_size'));
         self::assertSame(6, $container->getParameter('odiseo_blog.content.max_depth'));
         self::assertSame(['maps.example.com'], $container->getParameter('odiseo_blog.content.iframe_hosts'));
+        self::assertSame(250, $container->getParameter('odiseo_blog.content.words_per_minute'));
     }
 
     public function testNodesAndMarksOfAnApplicationAreTaggedByImplementingTheirInterface(): void

@@ -118,6 +118,12 @@ services:
         class: Odiseo\SyliusBlogPlugin\Content\Extractor\WordCounter
         public: true
 
+    odiseo_blog.content.reading_time:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\ReadingTime
+        public: true
+        arguments:
+            - '%odiseo_blog.content.words_per_minute%'
+
     odiseo_blog.content.renderer.html:
         class: Odiseo\SyliusBlogPlugin\Content\Renderer\HtmlRenderer
         public: true

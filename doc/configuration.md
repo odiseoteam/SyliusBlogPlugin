@@ -36,7 +36,7 @@ settings of a channel: its own, or an unsaved configuration with the defaults. I
 {% set configuration = odiseo_blog_channel_configuration(sylius.channel) %}
 ```
 
-## Content limits
+## Content
 
-The size, the depth and the iframe hosts of the content of an article are set in the same file; see
-[content](content.md#validation).
+The size, the depth and the iframe hosts of the content of an article, and the reading speed, are set in the
+same file; see [content](content.md#validation).

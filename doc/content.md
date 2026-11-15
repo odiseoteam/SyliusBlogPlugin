@@ -4,7 +4,7 @@
 
 The content of an article is a [Tiptap](https://tiptap.dev) document (ProseMirror JSON), saved exactly as
 the editor sends it. The server derives everything else from it: HTML, Markdown, plain text, the table of
-contents and the word count.
+contents, the word count and the reading time.
 
 ```json
 {"type": "doc", "content": [
@@ -41,6 +41,7 @@ odiseo_sylius_blog:
         max_size: 1048576   # bytes
         max_depth: 20       # up to 100
         iframe_hosts: [www.youtube-nocookie.com, player.vimeo.com]
+        words_per_minute: 200   # reading speed, see below
 ```
 
 ## The HTML node
@@ -62,6 +63,7 @@ Services, all in `Odiseo\SyliusBlogPlugin\Content`:
 | `odiseo_blog.content.extractor.plain_text` | The text without formatting, with a blank line between blocks. |
 | `odiseo_blog.content.extractor.toc` | The headings with their anchors. The headings drawn by the HTML renderer carry the same `id`. |
 | `odiseo_blog.content.word_counter` | Counts the words of a text. |
+| `odiseo_blog.content.reading_time` | Minutes to read a number of words at `words_per_minute`, rounded up. |
 | `odiseo_blog.content.validator` | Checks the JSON of a content before it is saved. |
 
 ```php
@@ -76,6 +78,15 @@ The anchors come from the text of the title (`why-coffee`, and `why-coffee-2` wh
 title changes its anchor.
 
 Saving a translation stores its `plainText` and `wordCount`, whatever the way the content arrives.
+
+### Reading time
+
+`words_per_minute` (200 by default) sets the reading speed. An article with text takes at least a minute;
+one without text, 0. In templates, for the current locale:
+
+```twig
+{% set minutes = odiseo_blog_reading_time(article) %}
+```
 
 ## Your own node
 

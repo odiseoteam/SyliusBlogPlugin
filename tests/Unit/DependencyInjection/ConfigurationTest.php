@@ -45,10 +45,10 @@ final class ConfigurationTest extends TestCase
         );
     }
 
-    public function testTheContentHasLimitsAndTrustsYouTubeAndVimeo(): void
+    public function testTheContentHasLimitsTrustsYouTubeAndVimeoAndIsReadAt200WordsPerMinute(): void
     {
         self::assertSame(
-            ['max_size' => 1048576, 'max_depth' => 20, 'iframe_hosts' => ['www.youtube-nocookie.com', 'player.vimeo.com']],
+            ['max_size' => 1048576, 'max_depth' => 20, 'iframe_hosts' => ['www.youtube-nocookie.com', 'player.vimeo.com'], 'words_per_minute' => 200],
             $this->process([])['content'],
         );
     }
@@ -56,8 +56,8 @@ final class ConfigurationTest extends TestCase
     public function testTheLimitsOfTheContentCanBeChanged(): void
     {
         self::assertSame(
-            ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com']],
-            $this->process([['content' => ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com']]]])['content'],
+            ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250],
+            $this->process([['content' => ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250]]])['content'],
         );
     }
 
@@ -73,6 +73,13 @@ final class ConfigurationTest extends TestCase
         $this->expectException(InvalidConfigurationException::class);
 
         $this->process([['content' => ['max_depth' => 101]]]);
+    }
+
+    public function testTheReadingSpeedIsAtLeastOneWordPerMinute(): void
+    {
+        $this->expectException(InvalidConfigurationException::class);
+
+        $this->process([['content' => ['words_per_minute' => 0]]]);
     }
 
     public function testAPageHasAtLeastOneArticle(): void

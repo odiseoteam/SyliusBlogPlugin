@@ -19,3 +19,13 @@ services:
             - '@liip_imagine.cache.manager'
             - '@assets.packages'
         tags: ['twig.runtime']
+
+    odiseo_blog.twig.extension.content:
+        class: Odiseo\SyliusBlogPlugin\Twig\ContentExtension
+        tags: ['twig.extension']
+
+    odiseo_blog.twig.runtime.content:
+        class: Odiseo\SyliusBlogPlugin\Twig\ContentRuntime
+        arguments:
+            - '@odiseo_blog.content.reading_time'
+        tags: ['twig.runtime']
