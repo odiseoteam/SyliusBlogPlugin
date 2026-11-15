@@ -18,6 +18,10 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     protected ?string $content = null;
 
+    protected ?string $plainText = null;
+
+    protected int $wordCount = 0;
+
     protected ?string $metaTitle = null;
 
     protected ?string $metaDescription = null;
@@ -67,6 +71,26 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
     public function setContent(?string $content): void
     {
         $this->content = $content;
+    }
+
+    public function getPlainText(): ?string
+    {
+        return $this->plainText;
+    }
+
+    public function setPlainText(?string $plainText): void
+    {
+        $this->plainText = $plainText;
+    }
+
+    public function getWordCount(): int
+    {
+        return $this->wordCount;
+    }
+
+    public function setWordCount(int $wordCount): void
+    {
+        $this->wordCount = $wordCount;
     }
 
     public function getMetaTitle(): ?string

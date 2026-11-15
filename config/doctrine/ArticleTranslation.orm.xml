@@ -14,6 +14,12 @@
         <field name="slug" type="string"/>
         <field name="excerpt" type="text" nullable="true"/>
         <field name="content" type="text" nullable="true"/>
+        <field name="plainText" column="plain_text" type="text" nullable="true"/>
+        <field name="wordCount" column="word_count" type="integer">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
         <field name="metaTitle" column="meta_title" type="string" nullable="true"/>
         <field name="metaDescription" column="meta_description" type="string" nullable="true"/>
         <field name="imageAlt" column="image_alt" type="string" nullable="true"/>

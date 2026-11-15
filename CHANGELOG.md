@@ -16,11 +16,12 @@ Version 2.0 is a rewrite for Sylius 2.0–2.3, developed on `master`. 1.x stays 
 - Authors admin, under Blog › Authors: name and slug (generated from the name), avatar, social links from a configurable list of networks, an optional administrator, and job title and bio per locale. An author that signs articles can only be disabled.
 - Categories admin, under Blog › Categories: a tree next to the form, to create, edit, reorder and delete categories, with their image and a name, slug and meta per locale.
 - Tags admin, under Blog › Tags: tags with a name, slug and meta per locale. A button generates the slug from the name.
+- Content pipeline (`Odiseo\SyliusBlogPlugin\Content`): the Tiptap JSON of an article is validated when saved and drawn as HTML (Twig template per node) or Markdown; the plain text, the table of contents and the word count are derived from it. It holds text, lists, quotes, code, tables, links, YouTube and Vimeo videos, and an HTML node sanitized with Symfony's HTML sanitizer and limited to allowed iframe hosts. Your own nodes and marks are tagged `odiseo_blog.content_node` and `odiseo_blog.content_mark`. Limits in `odiseo_sylius_blog.content`. Saving a translation stores its `plainText` and `wordCount`.
 - Installation guide in `doc/`.
 
 ### Changed
 
-- Requires PHP 8.2+, Sylius 2.0+ and Symfony 6.4 or 7.4.
+- Requires PHP 8.2+, Sylius 2.0+, Symfony 6.4 or 7.4 and `symfony/html-sanitizer`.
 
 ### Removed
 

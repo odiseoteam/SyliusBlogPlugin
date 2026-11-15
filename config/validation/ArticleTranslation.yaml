@@ -19,7 +19,7 @@ Odiseo\SyliusBlogPlugin\Entity\ArticleTranslation:
                 max: 255
                 groups: ['odiseo_blog']
         content:
-            - Json:
+            - Odiseo\SyliusBlogPlugin\Validator\Constraints\ValidContent:
                 groups: ['odiseo_blog']
         metaTitle:
             - Length:

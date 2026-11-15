@@ -1,4 +1,5 @@
-# Code for upgrading from 1.x stays isolated so it can be deleted in one go.
+# Code for upgrading from 1.x stays isolated so it can be deleted in one go,
+# and the content pipeline knows nothing about the blog so it can be reused.
 deptrac:
     paths:
         - ./src
@@ -9,6 +10,11 @@ deptrac:
               - type: directory
                 value: src/Legacy/.*
 
+        - name: Content
+          collectors:
+              - type: directory
+                value: src/Content/.*
+
         - name: Plugin
           collectors:
               - type: bool
@@ -18,9 +24,14 @@ deptrac:
                 must_not:
                     - type: directory
                       value: src/Legacy/.*
+                    - type: directory
+                      value: src/Content/.*
 
     ruleset:
-        # Nothing may depend on Legacy.
-        Plugin: ~
+        # Nothing may depend on Legacy, and Content depends on nothing of the blog.
+        Content: ~
+        Plugin:
+            - Content
         Legacy:
             - Plugin
+            - Content

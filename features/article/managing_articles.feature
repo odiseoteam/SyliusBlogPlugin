@@ -110,12 +110,41 @@ Feature: Managing articles
         And the article "Tea guide" should not appear in the list
 
     @ui
+    Scenario: Saving content the blog can draw
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I set its content in "English (United States)" to:
+            """
+            {"type":"doc","content":[{"type":"heading","attrs":{"level":2},"content":[{"type":"text","text":"Brewing"}]},{"type":"paragraph","content":[{"type":"text","text":"Grind, pour and wait.","marks":[{"type":"bold"}]}]}]}
+            """
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have this content in "English (United States)":
+            """
+            {"type":"doc","content":[{"type":"heading","attrs":{"level":2},"content":[{"type":"text","text":"Brewing"}]},{"type":"paragraph","content":[{"type":"text","text":"Grind, pour and wait.","marks":[{"type":"bold"}]}]}]}
+            """
+
+    @ui
     Scenario: Trying to save content that is not JSON
         Given the blog has an article "Brewing guide"
         When I want to modify the "Brewing guide" article
-        And I set its content to "<p>Hello</p>" in "English (United States)"
+        And I set its content in "English (United States)" to:
+            """
+            <p>Hello</p>
+            """
         And I try to save my changes
         Then I should be notified that the content must be valid JSON in "English (United States)"
+
+    @ui
+    Scenario: Trying to save content with an element the blog does not know
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I set its content in "English (United States)" to:
+            """
+            {"type":"doc","content":[{"type":"mystery"}]}
+            """
+        And I try to save my changes
+        Then I should be notified that the content uses the unknown element "mystery" in "English (United States)"
 
     @ui
     Scenario: Searching articles by title

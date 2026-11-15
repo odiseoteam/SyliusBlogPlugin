@@ -45,6 +45,36 @@ final class ConfigurationTest extends TestCase
         );
     }
 
+    public function testTheContentHasLimitsAndTrustsYouTubeAndVimeo(): void
+    {
+        self::assertSame(
+            ['max_size' => 1048576, 'max_depth' => 20, 'iframe_hosts' => ['www.youtube-nocookie.com', 'player.vimeo.com']],
+            $this->process([])['content'],
+        );
+    }
+
+    public function testTheLimitsOfTheContentCanBeChanged(): void
+    {
+        self::assertSame(
+            ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com']],
+            $this->process([['content' => ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com']]]])['content'],
+        );
+    }
+
+    public function testAContentHasAtLeastTwoLevels(): void
+    {
+        $this->expectException(InvalidConfigurationException::class);
+
+        $this->process([['content' => ['max_depth' => 1]]]);
+    }
+
+    public function testAContentHasAtMostAHundredLevels(): void
+    {
+        $this->expectException(InvalidConfigurationException::class);
+
+        $this->process([['content' => ['max_depth' => 101]]]);
+    }
+
     public function testAPageHasAtLeastOneArticle(): void
     {
         $this->expectException(InvalidConfigurationException::class);

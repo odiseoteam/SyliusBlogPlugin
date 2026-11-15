@@ -4,6 +4,9 @@ odiseo_blog:
             archived: 'Archived'
             draft: 'Draft'
             published: 'Published'
+    content:
+        video:
+            title: 'Video'
     form:
         article:
             authors_help: 'In byline order: the order they are added in. To move one, remove it and add it again.'

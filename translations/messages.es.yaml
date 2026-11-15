@@ -4,6 +4,9 @@ odiseo_blog:
             archived: 'Archivado'
             draft: 'Borrador'
             published: 'Publicado'
+    content:
+        video:
+            title: 'Video'
     form:
         article:
             authors_help: 'En el orden de la firma: el orden en que se agregan. Para mover uno, quitalo y volvé a agregarlo.'
