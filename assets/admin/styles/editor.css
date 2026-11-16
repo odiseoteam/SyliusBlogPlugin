@@ -1,0 +1,75 @@
+.odiseo-blog-editor__surface {
+    height: auto;
+    min-height: 16rem;
+    padding: 0;
+}
+
+.odiseo-blog-editor__content {
+    min-height: 16rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+}
+
+.odiseo-blog-editor__content > :last-child {
+    margin-bottom: 0;
+}
+
+.odiseo-blog-editor__content p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    color: var(--tblr-secondary);
+    pointer-events: none;
+}
+
+.odiseo-blog-editor__content blockquote {
+    padding-left: 1rem;
+    border-left: 0.25rem solid var(--tblr-border-color);
+}
+
+.odiseo-blog-editor__content pre {
+    padding: 0.75rem 1rem;
+    border-radius: var(--tblr-border-radius);
+    background: var(--tblr-bg-surface-secondary);
+}
+
+.odiseo-blog-editor__content table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+.odiseo-blog-editor__content th,
+.odiseo-blog-editor__content td {
+    min-width: 4rem;
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--tblr-border-color);
+    vertical-align: top;
+}
+
+.odiseo-blog-editor__content .selectedCell {
+    background: var(--tblr-primary-lt);
+}
+
+.odiseo-blog-editor__block {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px dashed var(--tblr-border-color);
+    border-radius: var(--tblr-border-radius);
+    cursor: pointer;
+}
+
+.odiseo-blog-editor__block.ProseMirror-selectednode {
+    border-color: var(--tblr-primary);
+    outline: 2px solid var(--tblr-primary-lt);
+}
+
+.odiseo-blog-editor__block-detail {
+    overflow: hidden;
+    color: var(--tblr-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

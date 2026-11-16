@@ -16,6 +16,14 @@ interface ArticleFormInterface
 
     public function setContent(string $content, string $localeCode): void;
 
+    public function writeInContentEditor(string $text, string $localeCode): void;
+
+    public function useContentEditorTool(string $label, string $localeCode): void;
+
+    public function addVideoToContent(string $url, string $localeCode): void;
+
+    public function getContentEditorStats(string $localeCode): string;
+
     public function markAsFeatured(): void;
 
     public function isAvailableInChannel(string $channelName): bool;

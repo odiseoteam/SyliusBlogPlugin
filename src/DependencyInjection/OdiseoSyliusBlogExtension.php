@@ -40,6 +40,12 @@ final class OdiseoSyliusBlogExtension extends AbstractResourceExtension implemen
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependDoctrineMigrations($container);
+
+        $container->prependExtensionConfig('twig', ['form_themes' => ['@OdiseoSyliusBlogPlugin/admin/form/theme.html.twig']]);
+        // The icons of the plugin, so they do not depend on Iconify.
+        if ($container->hasExtension('ux_icons')) {
+            $container->prependExtensionConfig('ux_icons', ['icon_sets' => ['odiseo-blog' => ['path' => \dirname(__DIR__, 2) . '/assets/icons']]]);
+        }
     }
 
     protected function getMigrationsNamespace(): string

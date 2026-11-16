@@ -15,12 +15,12 @@ final class WordCounterTest extends TestCase
     /** @return iterable<string, array{string, int}> */
     public static function texts(): iterable
     {
-        yield 'nothing' => ['', 0];
-        yield 'words and lines' => ["Hello brave\n\nnew world", 4];
-        yield 'punctuation' => ['Hello, world! (really?)', 3];
-        yield 'accents' => ['Café con leche, ¿qué más?', 5];
-        yield 'dashes and apostrophes' => ["Don't over-think it", 3];
-        yield 'numbers' => ['In 2026 we sold 1,500 cups', 6];
+        // Shared with the editor, so both count the same.
+        /** @var list<array{case: string, text: string, words: int}> $cases */
+        $cases = json_decode((string) file_get_contents(__DIR__ . '/../../Fixtures/Content/words.json'), true);
+        foreach ($cases as $case) {
+            yield $case['case'] => [$case['text'], $case['words']];
+        }
     }
 
     #[DataProvider('texts')]

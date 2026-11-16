@@ -19,7 +19,7 @@ category, author and publication date.
 | Title | Required, per locale | |
 | Slug | Required, per locale | Unique per locale. The button next to it generates it from the title. |
 | Excerpt | Per locale | A summary for listings and search results. |
-| Content | Per locale | Tiptap JSON, typed by hand for now. It is checked when saving: see [content](content.md). |
+| Content | Per locale | Written with the [editor](editor.md). It is checked when saving: see [content](content.md). |
 | Image alt text | Per locale | Describes the image for those who can't see it. |
 | Meta title and description | Per locale | |
 

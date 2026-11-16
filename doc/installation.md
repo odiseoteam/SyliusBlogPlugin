@@ -36,7 +36,45 @@ odiseo_blog_admin:
     prefix: '/%sylius_admin.path_name%'
 ```
 
-## 5. Run the migrations
+## 5. Install the editor
+
+The content editor is a Stimulus controller with [Tiptap](https://tiptap.dev). Like Sylius' own admin
+controllers, it ships as an npm package that your application depends on locally.
+
+```json
+// package.json
+{
+    "dependencies": {
+        "@odiseoteam/sylius-blog-plugin": "file:vendor/odiseoteam/sylius-blog-plugin/assets/admin"
+    }
+}
+```
+
+```json
+// assets/admin/controllers.json
+{
+    "controllers": {
+        "@odiseoteam/sylius-blog-plugin": {
+            "editor": {
+                "enabled": true,
+                "fetch": "lazy",
+                "autoimport": {
+                    "@odiseoteam/sylius-blog-plugin/styles/editor.css": true
+                }
+            }
+        }
+    }
+}
+```
+
+```bash
+yarn install --force
+yarn build
+```
+
+Skip this step and the content is still typed as Tiptap JSON. See [the editor](editor.md).
+
+## 6. Run the migrations
 
 ```bash
 bin/console doctrine:migrations:migrate

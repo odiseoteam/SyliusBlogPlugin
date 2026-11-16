@@ -9,6 +9,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Step\Then;
 use Behat\Step\When;
 use Doctrine\Persistence\ObjectManager;
+use Facebook\WebDriver\WebDriverKeys;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface;
@@ -84,6 +85,30 @@ final class ManagingArticlesContext implements Context
     public function iSetItsContentInTo(string $localeCode, PyStringNode $content): void
     {
         $this->resolveCurrentPage()->setContent($content->getRaw(), $localeCode);
+    }
+
+    #[When('I write :text in its content in :localeCode')]
+    public function iWriteInItsContentIn(string $text, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->writeInContentEditor($text, $localeCode);
+    }
+
+    #[When('I start a new paragraph in its content in :localeCode')]
+    public function iStartANewParagraphInItsContentIn(string $localeCode): void
+    {
+        $this->resolveCurrentPage()->writeInContentEditor(WebDriverKeys::ENTER, $localeCode);
+    }
+
+    #[When('I use :tool in its content in :localeCode')]
+    public function iUseInItsContentIn(string $tool, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->useContentEditorTool($tool, $localeCode);
+    }
+
+    #[When('I add the video :url to its content in :localeCode')]
+    public function iAddTheVideoToItsContentIn(string $url, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addVideoToContent($url, $localeCode);
     }
 
     #[When('I mark it as featured')]
@@ -389,6 +414,12 @@ final class ManagingArticlesContext implements Context
             $this->resolveCurrentPage()->getContentValidationMessage($localeCode),
             sprintf('The content uses an element the blog does not know: "%s".', $type),
         );
+    }
+
+    #[Then('its content in :localeCode should have :words words and take :minutes minute(s) to read')]
+    public function itsContentInShouldHaveWordsAndTakeMinutesToRead(string $localeCode, string $words, string $minutes): void
+    {
+        Assert::same($this->resolveCurrentPage()->getContentEditorStats($localeCode), sprintf('Words: %s · Reading time: %s min', $words, $minutes));
     }
 
     #[Then('the :article article should have this content in :localeCode:')]

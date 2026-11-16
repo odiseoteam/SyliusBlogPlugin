@@ -1,0 +1,4 @@
+{
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"bulletList\",\"content\":[{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Grind\"}]},{\"type\":\"bulletList\",\"content\":[{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Fine\"}]}]}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Pour\"}]}]}]},{\"type\":\"orderedList\",\"attrs\":{\"start\":3,\"type\":null},\"content\":[{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Wait\"}]}]}]},{\"type\":\"blockquote\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Coffee first.\"}]}]},{\"type\":\"codeBlock\",\"attrs\":{\"language\":\"php\"},\"content\":[{\"type\":\"text\",\"text\":\"echo 1;\"}]},{\"type\":\"horizontalRule\"}]}",
+    "words": 8
+}

@@ -108,6 +108,25 @@ final class ContentValidatorTest extends TestCase
         self::assertCount(5, $this->validate($json));
     }
 
+    /** @return iterable<string, array{string, bool}> */
+    public static function links(): iterable
+    {
+        // Shared with the editor, so both accept the same links.
+        /** @var list<array{case: string, href: string, allowed: bool}> $cases */
+        $cases = json_decode((string) file_get_contents(__DIR__ . '/../../Fixtures/Content/links.json'), true);
+        foreach ($cases as $case) {
+            yield $case['case'] => [$case['href'], $case['allowed']];
+        }
+    }
+
+    #[DataProvider('links')]
+    public function testItAcceptsLinksToPagesEmailsPhonesPathsAndAnchors(string $href, bool $allowed): void
+    {
+        $json = self::doc(sprintf('{"type":"paragraph","content":[{"type":"text","text":"Hi","marks":[{"type":"link","attrs":{"href":%s}}]}]}', json_encode($href)));
+
+        self::assertSame($allowed, [] === $this->validate($json));
+    }
+
     private static function doc(string $nodes): string
     {
         return '{"type":"doc","content":[' . $nodes . ']}';

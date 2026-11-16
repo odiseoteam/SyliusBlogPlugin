@@ -1,0 +1,34 @@
+{
+    "name": "@odiseoteam/sylius-blog-plugin",
+    "version": "2.0.0",
+    "license": "MIT",
+    "author": "Odiseo Team",
+    "private": true,
+    "symfony": {
+        "controllers": {
+            "editor": {
+                "main": "controllers/editor_controller.js",
+                "name": "odiseo-blog-editor",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            }
+        }
+    },
+    "dependencies": {
+        "@tiptap/core": "^3.33.0",
+        "@tiptap/extension-table": "^3.33.0",
+        "@tiptap/extensions": "^3.33.0",
+        "@tiptap/pm": "^3.33.0",
+        "@tiptap/starter-kit": "^3.33.0"
+    },
+    "peerDependencies": {
+        "@hotwired/stimulus": "^3.0.0"
+    },
+    "files": [
+        "./package.json",
+        "./controllers",
+        "./editor",
+        "./styles"
+    ]
+}

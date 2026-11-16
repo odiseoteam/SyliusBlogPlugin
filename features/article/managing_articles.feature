@@ -124,6 +124,35 @@ Feature: Managing articles
             {"type":"doc","content":[{"type":"heading","attrs":{"level":2},"content":[{"type":"text","text":"Brewing"}]},{"type":"paragraph","content":[{"type":"text","text":"Grind, pour and wait.","marks":[{"type":"bold"}]}]}]}
             """
 
+    @ui @javascript
+    Scenario: Writing content with the editor
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I write "Brewing" in its content in "English (United States)"
+        And I use "Heading 2" in its content in "English (United States)"
+        And I start a new paragraph in its content in "English (United States)"
+        And I use "Bold" in its content in "English (United States)"
+        And I write "Grind, pour and wait." in its content in "English (United States)"
+        Then its content in "English (United States)" should have 5 words and take 1 minute to read
+        When I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have this content in "English (United States)":
+            """
+            {"type":"doc","content":[{"type":"heading","attrs":{"level":2},"content":[{"type":"text","text":"Brewing"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"bold"}],"text":"Grind, pour and wait."}]}]}
+            """
+
+    @ui @javascript
+    Scenario: Adding a video with the editor
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I add the video "https://youtu.be/dQw4w9WgXcQ" to its content in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have this content in "English (United States)":
+            """
+            {"type":"doc","content":[{"type":"video","attrs":{"src":"https://youtu.be/dQw4w9WgXcQ"}}]}
+            """
+
     @ui
     Scenario: Trying to save content that is not JSON
         Given the blog has an article "Brewing guide"

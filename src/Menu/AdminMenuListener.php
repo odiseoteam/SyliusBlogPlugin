@@ -25,7 +25,7 @@ final class AdminMenuListener
                 ['route' => 'odiseo_blog_admin_article_update'],
             ]]])
             ->setLabel('odiseo_blog.menu.admin.articles')
-            ->setLabelAttribute('icon', 'tabler:file-text')
+            ->setLabelAttribute('icon', 'odiseo-blog:file-text')
         ;
 
         $blog
@@ -34,7 +34,7 @@ final class AdminMenuListener
                 ['route' => 'odiseo_blog_admin_author_update'],
             ]]])
             ->setLabel('odiseo_blog.menu.admin.authors')
-            ->setLabelAttribute('icon', 'tabler:user-edit')
+            ->setLabelAttribute('icon', 'odiseo-blog:user-edit')
         ;
 
         $blog
@@ -43,7 +43,7 @@ final class AdminMenuListener
                 ['route' => 'odiseo_blog_admin_article_category_update'],
             ]]])
             ->setLabel('odiseo_blog.menu.admin.categories')
-            ->setLabelAttribute('icon', 'tabler:category')
+            ->setLabelAttribute('icon', 'odiseo-blog:category')
         ;
 
         $blog

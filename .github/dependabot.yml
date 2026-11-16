@@ -9,6 +9,16 @@ updates:
           # The plugin supports Symfony 6.4 and 7.4.
           - dependency-name: "symfony/*"
             versions: [">=8.0"]
+    # The editor, as an application installs it.
+    - package-ecosystem: npm
+      directory: "/assets/admin"
+      schedule:
+          interval: weekly
+    # The tooling of the JavaScript tests.
+    - package-ecosystem: npm
+      directory: "/"
+      schedule:
+          interval: weekly
     - package-ecosystem: github-actions
       directory: "/"
       schedule:

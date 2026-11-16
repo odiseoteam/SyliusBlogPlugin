@@ -90,7 +90,8 @@ one without text, 0. In templates, for the current locale:
 
 ## Your own node
 
-A node is a class, a Twig template and, in the editor, a Tiptap extension. Implementing
+A node is a class, a Twig template and, in the editor, a Tiptap extension (see
+[the editor](editor.md#your-own-node)). Implementing
 `ContentNodeInterface` is enough: with autoconfigure, the service is tagged `odiseo_blog.content_node`.
 Extend `AbstractContentNode` to skip the defaults.
 
