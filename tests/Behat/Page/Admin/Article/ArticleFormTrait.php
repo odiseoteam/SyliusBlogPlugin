@@ -6,6 +6,7 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article;
 
 use Behat\Mink\Exception\ElementNotFoundException;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\AutocompleteTrait;
+use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\ContentEditorTrait;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\TranslatableSlugFormTrait;
 use Webmozart\Assert\Assert;
 
@@ -13,6 +14,7 @@ use Webmozart\Assert\Assert;
 trait ArticleFormTrait
 {
     use AutocompleteTrait;
+    use ContentEditorTrait;
     use TranslatableSlugFormTrait {
         getDefinedElements as getSlugFormElements;
     }

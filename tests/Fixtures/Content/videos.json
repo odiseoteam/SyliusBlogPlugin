@@ -1,0 +1,14 @@
+[
+    {"case": "YouTube watch page", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "embed": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"},
+    {"case": "YouTube watch page with more parameters", "url": "https://youtube.com/watch?list=x&v=dQw4w9WgXcQ&t=10", "embed": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"},
+    {"case": "YouTube short link", "url": "https://youtu.be/dQw4w9WgXcQ?t=10", "embed": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"},
+    {"case": "YouTube embed", "url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "embed": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"},
+    {"case": "YouTube without cookies", "url": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ", "embed": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"},
+    {"case": "Vimeo page", "url": "https://vimeo.com/76979871", "embed": "https://player.vimeo.com/video/76979871"},
+    {"case": "Vimeo player", "url": "https://player.vimeo.com/video/76979871?h=abc", "embed": "https://player.vimeo.com/video/76979871"},
+    {"case": "not https", "url": "http://www.youtube.com/watch?v=dQw4w9WgXcQ", "embed": null},
+    {"case": "another site", "url": "https://example.com/watch?v=dQw4w9WgXcQ", "embed": null},
+    {"case": "a host that only ends like YouTube", "url": "https://evilyoutube.com/watch?v=dQw4w9WgXcQ", "embed": null},
+    {"case": "a short identifier", "url": "https://youtu.be/abc", "embed": null},
+    {"case": "a Vimeo name", "url": "https://vimeo.com/channels/staffpicks", "embed": null}
+]

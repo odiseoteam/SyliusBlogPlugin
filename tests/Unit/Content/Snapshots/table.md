@@ -1,0 +1,3 @@
+| Bean | Notes \| origin |
+| --- | --- |
+| Arabica |

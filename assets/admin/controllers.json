@@ -1,4 +1,17 @@
 {
-    "controllers": [],
+    "controllers": {
+        "@odiseoteam/sylius-blog-plugin": {
+            "editor": {
+                "main": "controllers/editor_controller.js",
+                "name": "odiseo-blog-editor",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true,
+                "autoimport": {
+                    "@odiseoteam/sylius-blog-plugin/styles/editor.css": true
+                }
+            }
+        }
+    },
     "entrypoints": []
 }

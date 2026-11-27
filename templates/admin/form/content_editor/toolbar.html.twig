@@ -1,0 +1,74 @@
+{% import '@SyliusAdmin/shared/helper/button.html.twig' as button %}
+{% import '@SyliusAdmin/shared/helper/dropdown.html.twig' as dropdown %}
+
+{% macro command(text, icon, params) %}
+    {% import '@SyliusAdmin/shared/helper/button.html.twig' as button %}
+    {% set action = params.dialog is defined ? 'open' : 'run' %}
+    {% set attr = {title: text|trans, 'aria-label': text|trans, 'aria-pressed': 'false', 'data-action': 'odiseo-blog-editor#' ~ action} %}
+    {% for name, value in params %}
+        {% set attr = attr|merge({('data-odiseo-blog-editor-' ~ name ~ '-param'): value}) %}
+    {% endfor %}
+    {{ button.default({text: text|trans, icon: 'odiseo-blog:' ~ icon, icon_only: true, class: 'btn-ghost-secondary', attr: attr}) }}
+{% endmacro %}
+
+{% macro item(text, icon, params) %}
+    <button type="button" class="dropdown-item" aria-pressed="false" data-action="odiseo-blog-editor#run"
+        {%- for name, value in params %} data-odiseo-blog-editor-{{ name }}-param="{{ value }}"{% endfor %}>
+        {{ ux_icon('odiseo-blog:' ~ icon, {class: 'icon dropdown-item-icon'}) }}
+        {{ text|trans }}
+    </button>
+{% endmacro %}
+
+{% set text_styles %}
+    {{ _self.item('odiseo_blog.ui.editor.paragraph', 'heading', {command: 'paragraph'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.heading_2', 'heading', {command: 'heading', level: 2}) }}
+    {{ _self.item('odiseo_blog.ui.editor.heading_3', 'heading', {command: 'heading', level: 3}) }}
+    {{ _self.item('odiseo_blog.ui.editor.heading_4', 'heading', {command: 'heading', level: 4}) }}
+{% endset %}
+{% set table_actions %}
+    {{ _self.item('odiseo_blog.ui.editor.insert_table', 'table', {command: 'insertTable'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.add_row', 'row-insert-bottom', {command: 'addRowAfter'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.add_column', 'column-insert-right', {command: 'addColumnAfter'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.delete_row', 'row-remove', {command: 'deleteRow'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.delete_column', 'column-remove', {command: 'deleteColumn'}) }}
+    {{ _self.item('odiseo_blog.ui.editor.delete_table', 'table-off', {command: 'deleteTable'}) }}
+{% endset %}
+
+{# custom_trigger: a toggle button inside the translations accordion breaks the error badges of Sylius. #}
+<div class="btn-toolbar gap-1 mb-2" role="toolbar" aria-label="{{ 'odiseo_blog.ui.editor.toolbar'|trans }}" data-odiseo-blog-editor-target="toolbar" hidden>
+    {{ dropdown.default({
+        custom_trigger: button.default({text: 'odiseo_blog.ui.editor.text_style'|trans, icon: 'odiseo-blog:heading', class: 'btn-ghost-secondary dropdown-toggle', attr: {'aria-haspopup': 'true'}}),
+        content: text_styles,
+    }) }}
+    <div class="btn-group">
+        {{ _self.command('odiseo_blog.ui.editor.bold', 'bold', {command: 'bold'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.italic', 'italic', {command: 'italic'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.underline', 'underline', {command: 'underline'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.strike', 'strikethrough', {command: 'strike'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.code', 'code', {command: 'code'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.link', 'link', {dialog: 'link'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.clear_formatting', 'clear-formatting', {command: 'clearFormatting'}) }}
+    </div>
+    <div class="btn-group">
+        {{ _self.command('odiseo_blog.ui.editor.bullet_list', 'list', {command: 'bulletList'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.ordered_list', 'list-numbers', {command: 'orderedList'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.blockquote', 'blockquote', {command: 'blockquote'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.code_block', 'source-code', {command: 'codeBlock'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.horizontal_rule', 'separator-horizontal', {command: 'horizontalRule'}) }}
+    </div>
+    {{ dropdown.default({
+        custom_trigger: button.default({text: 'odiseo_blog.ui.editor.table'|trans, icon: 'odiseo-blog:table', icon_only: true, class: 'btn-ghost-secondary dropdown-toggle', attr: {title: 'odiseo_blog.ui.editor.table'|trans, 'aria-label': 'odiseo_blog.ui.editor.table'|trans, 'aria-haspopup': 'true'}}),
+        content: table_actions,
+    }) }}
+    <div class="btn-group">
+        {{ _self.command('odiseo_blog.ui.editor.video', 'movie', {dialog: 'video'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.html', 'html', {dialog: 'html'}) }}
+        {% if product_search_url %}
+            {{ _self.command('odiseo_blog.ui.editor.product', 'shopping-bag', {dialog: 'product'}) }}
+        {% endif %}
+    </div>
+    <div class="btn-group ms-auto">
+        {{ _self.command('odiseo_blog.ui.editor.undo', 'arrow-back-up', {command: 'undo'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.redo', 'arrow-forward-up', {command: 'redo'}) }}
+    </div>
+</div>

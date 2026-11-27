@@ -1,0 +1,11 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "html",
+      "attrs": {
+        "html": "<p onclick=\"x()\">Hi <strong>there</strong><script>alert(1)</script></p><iframe src=\"https://player.vimeo.com/video/1\"></iframe><iframe src=\"https://evil.example/x\"></iframe><img src=\"https://example.com/a.jpg\" alt=\"A\"><a href=\"javascript:alert(1)\">bad</a>"
+      }
+    }
+  ]
+}

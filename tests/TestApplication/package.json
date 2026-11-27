@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "@odiseoteam/sylius-blog-plugin": "file:../../../assets/admin"
+    }
+}

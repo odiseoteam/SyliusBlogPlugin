@@ -10,7 +10,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "sylius/sylius": "^2.0"
+        "sylius/sylius": "^2.0",
+        "symfony/html-sanitizer": "^6.4 || ^7.4"
     },
     "require-dev": {
         "behat/behat": "^3.16",

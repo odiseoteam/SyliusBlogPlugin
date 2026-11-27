@@ -14,6 +14,7 @@ use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Odiseo\SyliusBlogPlugin\Repository\AuthorRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Factory\FactoryInterface;
@@ -116,6 +117,16 @@ final class ArticleContext implements Context
     }
 
     /** A draft in the channel of the store. */
+    #[Given('the :article article shows the product :product')]
+    public function theArticleShowsTheProduct(ArticleInterface $article, ProductInterface $product): void
+    {
+        $article->getTranslation('en_US')->setContent(json_encode(['type' => 'doc', 'content' => [
+            ['type' => 'paragraph', 'content' => [['type' => 'text', 'text' => 'Our pick:']]],
+            ['type' => 'product', 'attrs' => ['code' => $product->getCode()]],
+        ]], \JSON_THROW_ON_ERROR));
+        $this->manager->flush();
+    }
+
     private function article(string $title): ArticleInterface
     {
         $slug = $this->slugGenerator->generate($title);

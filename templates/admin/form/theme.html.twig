@@ -1,0 +1,31 @@
+{% block odiseo_blog_content_editor_row %}
+    {%- set labels = {
+        content: label is same as(false) ? '' : (label ?? name|humanize)|trans({}, translation_domain),
+        video: 'odiseo_blog.ui.editor.video'|trans,
+        html: 'odiseo_blog.ui.editor.html'|trans,
+        product: 'odiseo_blog.ui.editor.product'|trans,
+        invalidProduct: 'odiseo_blog.ui.editor.invalid_product'|trans,
+        invalidLink: 'odiseo_blog.ui.editor.invalid_link'|trans,
+        invalidVideo: 'odiseo_blog.ui.editor.invalid_video'|trans,
+    } -%}
+    {# Kept as is when the live form re-renders, so the editor survives. #}
+    <div id="{{ id }}_editor" class="mb-3 odiseo-blog-editor" data-live-ignore {{ stimulus_controller('odiseo-blog-editor', {
+        wordsPerMinute: words_per_minute,
+        placeholder: placeholder ? placeholder|trans : '',
+        stats: 'odiseo_blog.ui.editor.stats'|trans,
+        labels: labels,
+        productSearchUrl: product_search_url ?? '',
+    }) }}>
+        {{ form_label(form) }}
+        {{ include('@OdiseoSyliusBlogPlugin/admin/form/content_editor/toolbar.html.twig') }}
+        <div class="form-control odiseo-blog-editor__surface" data-odiseo-blog-editor-target="surface" hidden></div>
+        {{ form_widget(form, {attr: attr|merge({'data-odiseo-blog-editor-target': 'input'})}) }}
+        <div class="alert alert-warning mt-2 mb-0" role="alert" data-odiseo-blog-editor-target="fallback" hidden>
+            {{ 'odiseo_blog.ui.editor.fallback'|trans }}
+        </div>
+        <div class="form-hint" data-odiseo-blog-editor-target="stats" aria-live="polite" hidden></div>
+        <div data-odiseo-blog-editor-target="help">{{ form_help(form) }}</div>
+        {{ form_errors(form) }}
+        {{ include('@OdiseoSyliusBlogPlugin/admin/form/content_editor/dialog.html.twig') }}
+    </div>
+{% endblock %}

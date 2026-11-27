@@ -1,0 +1,183 @@
+services:
+    odiseo_blog.content.node.paragraph:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\ParagraphNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.heading:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\HeadingNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.blockquote:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\BlockquoteNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.bullet_list:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\BulletListNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.ordered_list:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\OrderedListNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.list_item:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\ListItemNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.code_block:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\CodeBlockNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.horizontal_rule:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\HorizontalRuleNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.hard_break:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\HardBreakNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.table:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\TableNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.table_row:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\TableRowNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.table_header:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\TableHeaderNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.table_cell:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\TableCellNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.video:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\VideoNode
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.product:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\ProductNode
+        arguments:
+            - '@odiseo_blog.content.product_finder'
+            - '@router'
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.product_finder:
+        class: Odiseo\SyliusBlogPlugin\Content\Product\ChannelProductFinder
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@sylius.context.channel'
+            - '%sylius.model.product.class%'
+        tags: [{ name: kernel.reset, method: reset }]
+
+    odiseo_blog.content.node.html:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\HtmlNode
+        arguments:
+            - '@odiseo_blog.content.html_sanitizer'
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.mark.bold:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\BoldMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.mark.italic:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\ItalicMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.mark.underline:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\UnderlineMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.mark.strike:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\StrikeMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.mark.code:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\CodeMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.mark.link:
+        class: Odiseo\SyliusBlogPlugin\Content\Marks\LinkMark
+        tags: ['odiseo_blog.content_mark']
+
+    odiseo_blog.content.html_sanitizer:
+        class: Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface
+        factory: ['Odiseo\SyliusBlogPlugin\Content\HtmlSanitizerFactory', 'create']
+        arguments:
+            - '%odiseo_blog.content.iframe_hosts%'
+
+    odiseo_blog.content.registry:
+        class: Odiseo\SyliusBlogPlugin\Content\Registry\ContentRegistry
+        arguments:
+            - !tagged_iterator odiseo_blog.content_node
+            - !tagged_iterator odiseo_blog.content_mark
+
+    odiseo_blog.content.parser:
+        class: Odiseo\SyliusBlogPlugin\Content\Document\DocumentParser
+        public: true
+
+    odiseo_blog.content.extractor.plain_text:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\PlainTextExtractor
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+
+    odiseo_blog.content.extractor.toc:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\TocExtractor
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+            - '@odiseo_blog.content.extractor.plain_text'
+
+    odiseo_blog.content.extractor.embedded_products:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\EmbeddedProductsExtractor
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+
+    odiseo_blog.content.word_counter:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\WordCounter
+        public: true
+
+    odiseo_blog.content.reading_time:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\ReadingTime
+        public: true
+        arguments:
+            - '%odiseo_blog.content.words_per_minute%'
+
+    odiseo_blog.content.renderer.html:
+        class: Odiseo\SyliusBlogPlugin\Content\Renderer\HtmlRenderer
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+            - '@odiseo_blog.content.extractor.toc'
+            - '@twig'
+
+    odiseo_blog.content.renderer.markdown:
+        class: Odiseo\SyliusBlogPlugin\Content\Renderer\MarkdownRenderer
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+
+    odiseo_blog.content.validator:
+        class: Odiseo\SyliusBlogPlugin\Content\Validator\ContentValidator
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+            - '@validator'
+            - '%odiseo_blog.content.max_size%'
+            - '%odiseo_blog.content.max_depth%'
+
+    Odiseo\SyliusBlogPlugin\Validator\Constraints\ValidContentValidator:
+        arguments:
+            - '@odiseo_blog.content.validator'
+        tags: ['validator.constraint_validator']
+
+    odiseo_blog.listener.article_translation_content:
+        class: Odiseo\SyliusBlogPlugin\EventListener\ArticleTranslationContentListener
+        arguments:
+            - '@odiseo_blog.content.parser'
+            - '@odiseo_blog.content.extractor.plain_text'
+            - '@odiseo_blog.content.word_counter'
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

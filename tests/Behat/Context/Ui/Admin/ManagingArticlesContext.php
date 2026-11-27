@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Step\Then;
 use Behat\Step\When;
 use Doctrine\Persistence\ObjectManager;
+use Facebook\WebDriver\WebDriverKeys;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\ArticleFormInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\CreatePageInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\IndexPageInterface;
@@ -79,10 +82,40 @@ final class ManagingArticlesContext implements Context
         $this->resolveCurrentPage()->setExcerpt($excerpt, $localeCode);
     }
 
-    #[When('I set its content to :content in :localeCode')]
-    public function iSetItsContentToIn(string $content, string $localeCode): void
+    #[When('I set its content in :localeCode to:')]
+    public function iSetItsContentInTo(string $localeCode, PyStringNode $content): void
     {
-        $this->resolveCurrentPage()->setContent($content, $localeCode);
+        $this->resolveCurrentPage()->setContent($content->getRaw(), $localeCode);
+    }
+
+    #[When('I write :text in its content in :localeCode')]
+    public function iWriteInItsContentIn(string $text, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->writeInContentEditor($text, $localeCode);
+    }
+
+    #[When('I start a new paragraph in its content in :localeCode')]
+    public function iStartANewParagraphInItsContentIn(string $localeCode): void
+    {
+        $this->resolveCurrentPage()->writeInContentEditor(WebDriverKeys::ENTER, $localeCode);
+    }
+
+    #[When('I use :tool in its content in :localeCode')]
+    public function iUseInItsContentIn(string $tool, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->useContentEditorTool($tool, $localeCode);
+    }
+
+    #[When('I add the video :url to its content in :localeCode')]
+    public function iAddTheVideoToItsContentIn(string $url, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addVideoToContent($url, $localeCode);
+    }
+
+    #[When('I add the product :product to its content in :localeCode')]
+    public function iAddTheProductToItsContentIn(ProductInterface $product, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addProductToContent((string) $product->getName(), $localeCode);
     }
 
     #[When('I mark it as featured')]
@@ -378,7 +411,28 @@ final class ManagingArticlesContext implements Context
     #[Then('I should be notified that the content must be valid JSON in :localeCode')]
     public function iShouldBeNotifiedThatTheContentMustBeValidJsonIn(string $localeCode): void
     {
-        Assert::same($this->resolveCurrentPage()->getContentValidationMessage($localeCode), 'This value should be valid JSON.');
+        Assert::same($this->resolveCurrentPage()->getContentValidationMessage($localeCode), 'The content is not valid JSON.');
+    }
+
+    #[Then('I should be notified that the content uses the unknown element :type in :localeCode')]
+    public function iShouldBeNotifiedThatTheContentUsesTheUnknownElementIn(string $type, string $localeCode): void
+    {
+        Assert::same(
+            $this->resolveCurrentPage()->getContentValidationMessage($localeCode),
+            sprintf('The content uses an element the blog does not know: "%s".', $type),
+        );
+    }
+
+    #[Then('its content in :localeCode should have :words words and take :minutes minute(s) to read')]
+    public function itsContentInShouldHaveWordsAndTakeMinutesToRead(string $localeCode, string $words, string $minutes): void
+    {
+        Assert::same($this->resolveCurrentPage()->getContentEditorStats($localeCode), sprintf('Words: %s · Reading time: %s min', $words, $minutes));
+    }
+
+    #[Then('the :article article should have this content in :localeCode:')]
+    public function theArticleShouldHaveThisContentIn(ArticleInterface $article, string $localeCode, PyStringNode $content): void
+    {
+        Assert::same($this->reload($article)->getTranslation($localeCode)->getContent(), $content->getRaw());
     }
 
     private function reload(ArticleInterface $article): ArticleInterface

@@ -1,0 +1,8 @@
+[
+    {"case": "nothing", "text": "", "words": 0},
+    {"case": "words and lines", "text": "Hello brave\n\nnew world", "words": 4},
+    {"case": "punctuation", "text": "Hello, world! (really?)", "words": 3},
+    {"case": "accents", "text": "Café con leche, ¿qué más?", "words": 5},
+    {"case": "dashes and apostrophes", "text": "Don't over-think it, don’t", "words": 4},
+    {"case": "numbers", "text": "In 2026 we sold 1,500 cups at 3.5 each", "words": 9}
+]

@@ -1,0 +1,9 @@
+Quoted.
+
+Twice.
+
+<?php echo "a" . $b * 2;
+return;
+
+Line one
+line two

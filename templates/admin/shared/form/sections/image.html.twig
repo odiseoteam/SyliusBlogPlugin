@@ -14,7 +14,7 @@
                     {% if has_image %}
                         <span class="avatar avatar-xl" style="background-image: url('{{ odiseo_blog_image_url(resource, 'odiseo_blog_admin_thumbnail') }}')" {{ sylius_test_html_attribute('image-preview', resource.image.path) }}></span>
                     {% else %}
-                        <span class="avatar avatar-xl" {{ sylius_test_html_attribute('image-preview') }}>{{ ux_icon('tabler:photo') }}</span>
+                        <span class="avatar avatar-xl" {{ sylius_test_html_attribute('image-preview') }}>{{ ux_icon('odiseo-blog:photo') }}</span>
                     {% endif %}
                 </div>
                 <div class="col">

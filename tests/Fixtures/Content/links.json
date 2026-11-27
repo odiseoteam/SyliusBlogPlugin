@@ -1,0 +1,13 @@
+[
+    {"case": "a web page", "href": "https://example.com/coffee?roast=dark#notes", "allowed": true},
+    {"case": "plain http", "href": "http://example.com", "allowed": true},
+    {"case": "an email", "href": "mailto:hello@example.com", "allowed": true},
+    {"case": "a phone", "href": "tel:+5491100000000", "allowed": true},
+    {"case": "a path of the site", "href": "/en_US/products/coffee", "allowed": true},
+    {"case": "an anchor", "href": "#brewing", "allowed": true},
+    {"case": "javascript", "href": "javascript:alert(1)", "allowed": false},
+    {"case": "data", "href": "data:text/html,hi", "allowed": false},
+    {"case": "a protocol-relative address", "href": "//evil.example.com", "allowed": false},
+    {"case": "a relative path", "href": "coffee", "allowed": false},
+    {"case": "spaces", "href": "https://example.com/a b", "allowed": false}
+]

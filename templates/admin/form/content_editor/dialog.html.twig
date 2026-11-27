@@ -1,0 +1,55 @@
+{% import '@SyliusAdmin/shared/helper/button.html.twig' as button %}
+
+{# The fields have no name, so they are never sent with the form. #}
+<div class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="{{ id }}_dialog_title" data-odiseo-blog-editor-target="modal" data-action="keydown->odiseo-blog-editor#submitOnEnter">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="{{ id }}_dialog_title" data-odiseo-blog-editor-target="modalTitle"></h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'sylius.ui.close'|trans }}"></button>
+            </div>
+            <div class="modal-body">
+                <div data-odiseo-blog-editor-target="pane" data-dialog="link" data-title="{{ 'odiseo_blog.ui.editor.link'|trans }}" hidden>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_href">{{ 'odiseo_blog.ui.editor.link_address'|trans }}</label>
+                        <input type="text" class="form-control" id="{{ id }}_dialog_href" inputmode="url" placeholder="https://" data-odiseo-blog-editor-target="href">
+                        <div class="form-hint">{{ 'odiseo_blog.ui.editor.link_address_help'|trans }}</div>
+                    </div>
+                    <label class="form-check">
+                        <input type="checkbox" class="form-check-input" data-odiseo-blog-editor-target="newTab">
+                        <span class="form-check-label">{{ 'odiseo_blog.ui.editor.link_new_tab'|trans }}</span>
+                    </label>
+                    <label class="form-check">
+                        <input type="checkbox" class="form-check-input" data-odiseo-blog-editor-target="nofollow">
+                        <span class="form-check-label">{{ 'odiseo_blog.ui.editor.link_nofollow'|trans }}</span>
+                    </label>
+                    <label class="form-check mb-0">
+                        <input type="checkbox" class="form-check-input" data-odiseo-blog-editor-target="sponsored">
+                        <span class="form-check-label">{{ 'odiseo_blog.ui.editor.link_sponsored'|trans }}</span>
+                    </label>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="video" data-title="{{ 'odiseo_blog.ui.editor.video'|trans }}" hidden>
+                    <label class="form-label" for="{{ id }}_dialog_video">{{ 'odiseo_blog.ui.editor.video_address'|trans }}</label>
+                    <input type="text" class="form-control" id="{{ id }}_dialog_video" inputmode="url" placeholder="https://www.youtube.com/watch?v=…" data-odiseo-blog-editor-target="videoSrc">
+                    <div class="form-hint">{{ 'odiseo_blog.ui.editor.video_address_help'|trans }}</div>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="html" data-title="{{ 'odiseo_blog.ui.editor.html'|trans }}" hidden>
+                    <label class="form-label" for="{{ id }}_dialog_html">{{ 'odiseo_blog.ui.editor.html_code'|trans }}</label>
+                    <textarea class="form-control font-monospace" id="{{ id }}_dialog_html" rows="8" data-odiseo-blog-editor-target="html"></textarea>
+                    <div class="form-hint">{{ 'odiseo_blog.ui.editor.html_code_help'|trans }}</div>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="product" data-title="{{ 'odiseo_blog.ui.editor.product'|trans }}" hidden>
+                    <label class="form-label" for="{{ id }}_dialog_product">{{ 'odiseo_blog.ui.editor.product_search'|trans }}</label>
+                    <select id="{{ id }}_dialog_product" class="form-select" data-odiseo-blog-editor-target="product"></select>
+                    <div class="form-hint">{{ 'odiseo_blog.ui.editor.product_search_help'|trans }}</div>
+                </div>
+                <div class="text-danger small mt-2" role="alert" data-odiseo-blog-editor-target="modalError"></div>
+            </div>
+            <div class="modal-footer">
+                {{ button.default({text: 'odiseo_blog.ui.editor.remove_link'|trans, class: 'btn-ghost-danger me-auto', attr: {'data-action': 'odiseo-blog-editor#removeLink', 'data-odiseo-blog-editor-target': 'removeLink', hidden: true}}) }}
+                {{ button.default({text: 'sylius.ui.cancel'|trans, attr: {'data-bs-dismiss': 'modal'}}) }}
+                {{ button.primary({text: 'odiseo_blog.ui.editor.apply'|trans, attr: {'data-action': 'odiseo-blog-editor#apply'}}) }}
+            </div>
+        </div>
+    </div>
+</div>

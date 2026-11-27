@@ -1,0 +1,53 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Kept "
+        },
+        {
+          "type": "text",
+          "text": "and formatted",
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "sparkle"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "mystery",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Never shown."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "<b>escaped</b> & \"quoted\" *stars* _under_ [brackets]"
+        }
+      ]
+    }
+  ]
+}

@@ -25,11 +25,10 @@ final class ArticleTranslationType extends AbstractResourceType
                 'help' => 'odiseo_blog.form.article.excerpt_help',
                 'required' => false,
             ])
-            ->add('content', TextareaType::class, [
+            ->add('content', ContentEditorType::class, [
                 'label' => 'odiseo_blog.form.article.content',
                 'help' => 'odiseo_blog.form.article.content_help',
                 'required' => false,
-                'attr' => ['rows' => 12, 'class' => 'font-monospace'],
             ])
             ->add('imageAlt', TextType::class, [
                 'label' => 'odiseo_blog.form.article.image_alt',

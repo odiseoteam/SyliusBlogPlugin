@@ -1,0 +1,5 @@
+Plain, bold and italic, both, underlined, struck and code().
+
+A link and a path, but not this one.
+
+ padded

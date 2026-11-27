@@ -11,5 +11,21 @@ odiseo_blog:
     code:
         regex: 'El código sólo puede tener letras, números, guiones y guiones bajos.'
         unique: 'Este código ya está en uso.'
+    content:
+        code_block:
+            invalid_language: 'El lenguaje del bloque de código no es válido.'
+        invalid_attribute: 'El atributo "{{ attribute }}" de "{{ type }}" no es válido: {{ reason }}'
+        invalid_document: 'El contenido no es un documento del editor.'
+        invalid_json: 'El contenido no es un JSON válido.'
+        invalid_node: 'El contenido tiene una parte que no es válida.'
+        link:
+            invalid_href: 'Un link sólo puede ir a una página web, un email, un teléfono o una ruta del sitio.'
+            invalid_rel: 'El link sólo puede ser nofollow, sponsored o ugc.'
+        too_deep: 'El contenido tiene demasiados niveles anidados (como máximo {{ limit }}).'
+        too_large: 'El contenido es demasiado grande (como máximo {{ limit }}).'
+        unknown_mark: 'El contenido usa un formato que el blog no conoce: "{{ type }}".'
+        unknown_node: 'El contenido usa un elemento que el blog no conoce: "{{ type }}".'
+        video:
+            unsupported: 'Sólo se pueden agregar videos de YouTube y Vimeo.'
     slug:
         unique: 'Este slug ya está en uso.'

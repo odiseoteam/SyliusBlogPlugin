@@ -81,6 +81,10 @@ jobs:
                     symfony_version: "${{ matrix.symfony }}"
 
             -
+                name: Run JavaScript tests
+                run: yarn install && yarn test
+
+            -
                 name: Run unit tests
                 run: vendor/bin/phpunit --colors=always --testsuite=unit
 

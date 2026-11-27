@@ -17,5 +17,7 @@
 /deptrac.yaml export-ignore
 /ecs.php export-ignore
 /Makefile export-ignore
+/package.json export-ignore
 /phpstan.neon export-ignore
 /phpunit.xml.dist export-ignore
+/vitest.config.js export-ignore

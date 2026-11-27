@@ -11,5 +11,21 @@ odiseo_blog:
     code:
         regex: 'The code can only contain letters, numbers, dashes and underscores.'
         unique: 'This code is already used.'
+    content:
+        code_block:
+            invalid_language: 'The language of the code block is not valid.'
+        invalid_attribute: 'The "{{ attribute }}" of "{{ type }}" is not valid: {{ reason }}'
+        invalid_document: 'The content is not a document of the editor.'
+        invalid_json: 'The content is not valid JSON.'
+        invalid_node: 'The content has a part that is not valid.'
+        link:
+            invalid_href: 'A link can only go to a web page, an email, a phone or a path of the site.'
+            invalid_rel: 'The link can only be nofollow, sponsored or ugc.'
+        too_deep: 'The content has too many nested levels (at most {{ limit }}).'
+        too_large: 'The content is too large (at most {{ limit }}).'
+        unknown_mark: 'The content uses a format the blog does not know: "{{ type }}".'
+        unknown_node: 'The content uses an element the blog does not know: "{{ type }}".'
+        video:
+            unsupported: 'Only videos of YouTube and Vimeo can be added.'
     slug:
         unique: 'This slug is already used.'

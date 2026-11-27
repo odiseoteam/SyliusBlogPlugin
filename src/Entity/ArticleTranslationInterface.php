@@ -25,6 +25,15 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     public function setContent(?string $content): void;
 
+    /** The text of the content without formatting. Saved with the content. */
+    public function getPlainText(): ?string;
+
+    public function setPlainText(?string $plainText): void;
+
+    public function getWordCount(): int;
+
+    public function setWordCount(int $wordCount): void;
+
     public function getMetaTitle(): ?string;
 
     public function setMetaTitle(?string $metaTitle): void;
