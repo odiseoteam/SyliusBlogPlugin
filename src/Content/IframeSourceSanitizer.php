@@ -27,7 +27,7 @@ final class IframeSourceSanitizer implements AttributeSanitizerInterface
         return ['src'];
     }
 
-    public function sanitizeAttribute(string $element, string $attribute, string $value, HtmlSanitizerConfig $config): ?string
+    public function sanitizeAttribute(string $element, string $attribute, string $value, HtmlSanitizerConfig $config): string
     {
         $parts = parse_url($value);
         $host = is_array($parts) && 'https' === ($parts['scheme'] ?? null) ? strtolower($parts['host'] ?? '') : '';
@@ -38,6 +38,7 @@ final class IframeSourceSanitizer implements AttributeSanitizerInterface
             }
         }
 
-        return null;
+        // Empty instead of null: Symfony 6.4 passes null on to the URL sanitizer, which then drops the empty value.
+        return '';
     }
 }
