@@ -16,6 +16,8 @@ final class MarkdownRenderer
 
     public function render(Node $document): string
     {
+        $this->registry->preload($document);
+
         return implode("\n\n", $this->children($document));
     }
 

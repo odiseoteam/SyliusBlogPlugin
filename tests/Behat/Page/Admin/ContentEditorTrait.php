@@ -6,6 +6,7 @@ namespace Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin;
 
 use Behat\Mink\Driver\PantherDriver;
 use Behat\Mink\Element\NodeElement;
+use Facebook\WebDriver\WebDriverKeys;
 use Webmozart\Assert\Assert;
 
 /** The rich text editor of a content field; it needs JavaScript. */
@@ -54,6 +55,25 @@ trait ContentEditorTrait
         $modal->find('css', '[data-odiseo-blog-editor-target="videoSrc"]')?->setValue($url);
         $modal->find('css', '[data-action="odiseo-blog-editor#apply"]')?->click();
         Assert::true($this->getDocument()->waitFor(5, static fn (): bool => !$modal->isVisible()), 'The video dialog did not close.');
+    }
+
+    /** Searches the product by its name in the product dialog, picks it and applies the dialog. */
+    public function addProductToContent(string $name, string $localeCode): void
+    {
+        $this->contentEditorSurface($localeCode);
+        $this->useContentEditorTool('Product', $localeCode);
+        $modal = $this->contentEditor($localeCode)->find('css', '.modal');
+        Assert::notNull($modal);
+        // The search gets the focus once the dialog has opened; Bootstrap ignores closing it before.
+        Assert::true($this->pantherDriver()->wait(5000, 'document.activeElement?.closest(\'.ts-wrapper\') !== null'), 'The product dialog did not open.');
+
+        $this->pantherDriver()->getClient()->getKeyboard()->sendKeys($name);
+        $option = sprintf('[data-odiseo-blog-editor-target="pane"][data-dialog="product"] .ts-dropdown .option');
+        Assert::true($this->pantherDriver()->wait(10000, sprintf('[...document.querySelectorAll(%s)].some((option) => option.textContent.includes(%s))', json_encode($option), json_encode($name))), sprintf('No product "%s" was found.', $name));
+        $this->pantherDriver()->getClient()->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
+
+        $modal->find('css', '[data-action="odiseo-blog-editor#apply"]')?->click();
+        Assert::true($this->getDocument()->waitFor(5, static fn (): bool => !$modal->isVisible()), 'The product dialog did not close.');
     }
 
     public function getContentEditorStats(string $localeCode): string

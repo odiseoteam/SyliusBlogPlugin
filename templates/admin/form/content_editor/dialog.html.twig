@@ -38,6 +38,11 @@
                     <textarea class="form-control font-monospace" id="{{ id }}_dialog_html" rows="8" data-odiseo-blog-editor-target="html"></textarea>
                     <div class="form-hint">{{ 'odiseo_blog.ui.editor.html_code_help'|trans }}</div>
                 </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="product" data-title="{{ 'odiseo_blog.ui.editor.product'|trans }}" hidden>
+                    <label class="form-label" for="{{ id }}_dialog_product">{{ 'odiseo_blog.ui.editor.product_search'|trans }}</label>
+                    <select id="{{ id }}_dialog_product" class="form-select" data-odiseo-blog-editor-target="product"></select>
+                    <div class="form-hint">{{ 'odiseo_blog.ui.editor.product_search_help'|trans }}</div>
+                </div>
                 <div class="text-danger small mt-2" role="alert" data-odiseo-blog-editor-target="modalError"></div>
             </div>
             <div class="modal-footer">

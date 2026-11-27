@@ -14,13 +14,15 @@ function mount(value) {
         <div data-controller="odiseo-blog-editor"
              data-odiseo-blog-editor-words-per-minute-value="2"
              data-odiseo-blog-editor-stats-value="${STATS}"
-             data-odiseo-blog-editor-labels-value='{"invalidLink":"Bad link","invalidVideo":"Bad video"}'>
+             data-odiseo-blog-editor-labels-value='{"invalidLink":"Bad link","invalidVideo":"Bad video","invalidProduct":"Bad product"}'
+             data-odiseo-blog-editor-product-search-url-value="/admin/blog/products/search">
             <div data-odiseo-blog-editor-target="toolbar" hidden>
                 <button type="button" data-action="odiseo-blog-editor#run" data-odiseo-blog-editor-command-param="bold">Bold</button>
                 <button type="button" data-action="odiseo-blog-editor#run" data-odiseo-blog-editor-command-param="heading" data-odiseo-blog-editor-level-param="3">H3</button>
                 <button type="button" data-action="odiseo-blog-editor#run" data-odiseo-blog-editor-command-param="undo">Undo</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="link">Link</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="video">Video</button>
+                <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="product">Product</button>
             </div>
             <div data-odiseo-blog-editor-target="surface" hidden></div>
             <textarea data-odiseo-blog-editor-target="input"></textarea>
@@ -40,6 +42,9 @@ function mount(value) {
                 </div>
                 <div data-odiseo-blog-editor-target="pane" data-dialog="html" data-title="HTML">
                     <textarea data-odiseo-blog-editor-target="html"></textarea>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="product" data-title="Product">
+                    <select data-odiseo-blog-editor-target="product"></select>
                 </div>
                 <div data-odiseo-blog-editor-target="modalError"></div>
                 <button type="button" data-odiseo-blog-editor-target="removeLink" data-action="odiseo-blog-editor#removeLink"></button>
@@ -62,9 +67,12 @@ const $ = (target) => document.querySelector(`[data-odiseo-blog-editor-target="$
 const click = (selector) => document.querySelector(selector).click();
 const saved = () => JSON.parse($('input').value);
 
+const MUG = { code: 'MUG', name: 'Coffee mug', image: '/media/mug.jpg' };
+
 beforeEach(() => {
     modal = { show: vi.fn(), hide: vi.fn() };
     window.bootstrap = { Modal: { getOrCreateInstance: () => modal } };
+    window.fetch = vi.fn(async () => ({ ok: true, json: async () => [MUG] }));
 });
 
 afterEach(() => {
@@ -139,6 +147,39 @@ describe('the editor', () => {
         $('videoSrc').value = 'https://youtu.be/dQw4w9WgXcQ';
         click('#apply');
         expect(saved().content).toEqual([{ type: 'video', attrs: { src: 'https://youtu.be/dQw4w9WgXcQ' } }]);
+    });
+});
+
+describe('products', () => {
+    it('are chosen in the dialog', async () => {
+        const controller = await start();
+        click('[data-odiseo-blog-editor-dialog-param="product"]');
+
+        click('#apply');
+        expect($('modalError').textContent).toBe('Bad product');
+
+        controller.productSelect.addOption(MUG);
+        controller.productSelect.setValue('MUG');
+        click('#apply');
+
+        expect(saved().content).toEqual([{ type: 'product', attrs: { code: 'MUG' } }]);
+        await vi.waitFor(() => expect($('surface').textContent).toContain('Coffee mug'));
+    });
+
+    it('show their name and image in the editor', async () => {
+        await start('{"type":"doc","content":[{"type":"product","attrs":{"code":"MUG"}}]}');
+        await vi.waitFor(() => expect($('surface').textContent).toContain('Coffee mug · MUG'));
+
+        expect($('surface').querySelector('img').getAttribute('src')).toBe('/media/mug.jpg');
+        expect(window.fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('are edited from their card', async () => {
+        const controller = await start('{"type":"doc","content":[{"type":"product","attrs":{"code":"MUG"}}]}');
+        controller.editor.commands.setNodeSelection(0);
+        click('[data-odiseo-blog-editor-dialog-param="product"]');
+
+        await vi.waitFor(() => expect(controller.productSelect.getValue()).toBe('MUG'));
     });
 });
 

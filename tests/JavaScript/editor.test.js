@@ -55,9 +55,9 @@ describe('the content the editor saves', () => {
         await expectFixture('table');
     });
 
-    it('holds videos and HTML', async () => {
+    it('holds videos, HTML and products', async () => {
         createEditor('<p>Watch it:</p><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe><p>And this one:</p>');
-        editor.chain().focus('end').setVideo('https://vimeo.com/76979871').setHtml('<p>Hi <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"></iframe></p>').run();
+        editor.chain().focus('end').setVideo('https://vimeo.com/76979871').setHtml('<p>Hi <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"></iframe></p>').setProduct('COFFEE_MUG').run();
 
         await expectFixture('embeds');
     });

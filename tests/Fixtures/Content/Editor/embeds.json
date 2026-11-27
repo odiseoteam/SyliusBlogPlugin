@@ -1,4 +1,4 @@
 {
-    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Watch it:\"}]},{\"type\":\"video\",\"attrs\":{\"src\":\"https://www.youtube.com/embed/dQw4w9WgXcQ\"}},{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"And this one:\"}]},{\"type\":\"video\",\"attrs\":{\"src\":\"https://vimeo.com/76979871\"}},{\"type\":\"html\",\"attrs\":{\"html\":\"<p>Hi <iframe src=\\\"https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ\\\"></iframe></p>\"}}]}",
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Watch it:\"}]},{\"type\":\"video\",\"attrs\":{\"src\":\"https://www.youtube.com/embed/dQw4w9WgXcQ\"}},{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"And this one:\"}]},{\"type\":\"video\",\"attrs\":{\"src\":\"https://vimeo.com/76979871\"}},{\"type\":\"html\",\"attrs\":{\"html\":\"<p>Hi <iframe src=\\\"https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ\\\"></iframe></p>\"}},{\"type\":\"product\",\"attrs\":{\"code\":\"COFFEE_MUG\"}}]}",
     "words": 5
 }

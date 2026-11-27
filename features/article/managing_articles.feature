@@ -153,6 +153,19 @@ Feature: Managing articles
             {"type":"doc","content":[{"type":"video","attrs":{"src":"https://youtu.be/dQw4w9WgXcQ"}}]}
             """
 
+    @ui @javascript
+    Scenario: Adding a product with the editor
+        Given the store has a product "Coffee mug"
+        And the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I add the product "Coffee mug" to its content in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have this content in "English (United States)":
+            """
+            {"type":"doc","content":[{"type":"product","attrs":{"code":"COFFEE_MUG"}}]}
+            """
+
     @ui
     Scenario: Trying to save content that is not JSON
         Given the blog has an article "Brewing guide"

@@ -20,6 +20,7 @@ Version 2.0 is a rewrite for Sylius 2.0–2.3, developed on `master`. 1.x stays 
 - Reading time: `odiseo_blog_reading_time(article)` gives the minutes to read an article at `odiseo_sylius_blog.content.words_per_minute` (200 by default).
 - Content editor: Tiptap, with a toolbar of Sylius buttons and menus, a dialog for links, YouTube and Vimeo videos and HTML blocks, and the word count and reading time as you write. It ships as the npm package in `assets/admin` (`@odiseoteam/sylius-blog-plugin`). Without JavaScript, or with content it cannot open, the content is typed as JSON. `ContentEditorType` brings it to other forms, and the `odiseo-blog-editor:options` event adds your own Tiptap extensions.
 - The icons of the plugin ship with it, so they don't depend on Iconify.
+- Products in the content: a `product` node that keeps the product code and is drawn with the product card of the shop while the product is enabled in the channel. The products of a content are loaded together before it is drawn (`PreloadingNodeInterface` lets your own nodes do the same). The editor picks it with a search of the catalog by name or code, and `EmbeddedProductsExtractor` lists the products of a content. `odiseo_blog_content(article)` draws the content in templates.
 - Installation guide in `doc/`.
 
 ### Changed

@@ -1,0 +1,10 @@
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% block title %}{{ article.title }} | {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5" {{ sylius_test_html_attribute('article') }}>
+        <h1>{{ article.title }}</h1>
+        <div {{ sylius_test_html_attribute('article-content') }}>{{ odiseo_blog_content(article) }}</div>
+    </div>
+{% endblock %}

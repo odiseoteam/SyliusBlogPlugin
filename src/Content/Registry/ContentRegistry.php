@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusBlogPlugin\Content\Registry;
 
+use Odiseo\SyliusBlogPlugin\Content\Document\Node;
 use Odiseo\SyliusBlogPlugin\Content\Marks\ContentMarkInterface;
 use Odiseo\SyliusBlogPlugin\Content\Nodes\ContentNodeInterface;
+use Odiseo\SyliusBlogPlugin\Content\Nodes\PreloadingNodeInterface;
 
 /** The nodes and marks the content can have. For a repeated type, the first one wins (the one with the highest priority). */
 final class ContentRegistry
@@ -39,5 +41,15 @@ final class ContentRegistry
     public function getMark(string $type): ?ContentMarkInterface
     {
         return $this->marks[$type] ?? null;
+    }
+
+    /** Lets the nodes that need it load what the document uses, before it is drawn. */
+    public function preload(Node $document): void
+    {
+        foreach ($this->nodes as $node) {
+            if ($node instanceof PreloadingNodeInterface) {
+                $node->preload($document);
+            }
+        }
     }
 }

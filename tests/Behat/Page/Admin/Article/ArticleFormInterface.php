@@ -22,6 +22,8 @@ interface ArticleFormInterface
 
     public function addVideoToContent(string $url, string $localeCode): void;
 
+    public function addProductToContent(string $name, string $localeCode): void;
+
     public function getContentEditorStats(string $localeCode): string;
 
     public function markAsFeatured(): void;

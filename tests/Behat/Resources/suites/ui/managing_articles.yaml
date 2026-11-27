@@ -6,6 +6,7 @@ default:
 
                 - sylius.behat.context.transform.channel
                 - sylius.behat.context.transform.locale
+                - sylius.behat.context.transform.product
                 - sylius.behat.context.transform.shared_storage
                 - odiseo_blog.behat.context.transform.article
                 - odiseo_blog.behat.context.transform.article_category
@@ -13,6 +14,7 @@ default:
 
                 - sylius.behat.context.setup.channel
                 - sylius.behat.context.setup.admin_security
+                - sylius.behat.context.setup.product
                 - odiseo_blog.behat.context.setup.article
                 - odiseo_blog.behat.context.setup.article_category
                 - odiseo_blog.behat.context.setup.article_tag

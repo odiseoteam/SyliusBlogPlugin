@@ -16,6 +16,7 @@ use Odiseo\SyliusBlogPlugin\Entity\ArticleTagInterface;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\ArticleFormInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\CreatePageInterface;
 use Tests\Odiseo\SyliusBlogPlugin\Behat\Page\Admin\Article\IndexPageInterface;
@@ -109,6 +110,12 @@ final class ManagingArticlesContext implements Context
     public function iAddTheVideoToItsContentIn(string $url, string $localeCode): void
     {
         $this->resolveCurrentPage()->addVideoToContent($url, $localeCode);
+    }
+
+    #[When('I add the product :product to its content in :localeCode')]
+    public function iAddTheProductToItsContentIn(ProductInterface $product, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addProductToContent((string) $product->getName(), $localeCode);
     }
 
     #[When('I mark it as featured')]

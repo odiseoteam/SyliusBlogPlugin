@@ -23,6 +23,8 @@ final class HtmlRenderer
 
     public function render(Node $document): string
     {
+        $this->registry->preload($document);
+
         /** @var \SplObjectStorage<Node, string> $anchors */
         $anchors = new \SplObjectStorage();
         foreach ($this->toc->extract($document) as $entry) {

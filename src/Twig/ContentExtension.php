@@ -12,6 +12,7 @@ final class ContentExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('odiseo_blog_content', [ContentRuntime::class, 'content']),
             new TwigFunction('odiseo_blog_reading_time', [ContentRuntime::class, 'readingTime']),
         ];
     }

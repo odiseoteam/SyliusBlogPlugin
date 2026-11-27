@@ -55,6 +55,21 @@ services:
         class: Odiseo\SyliusBlogPlugin\Content\Nodes\VideoNode
         tags: ['odiseo_blog.content_node']
 
+    odiseo_blog.content.node.product:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\ProductNode
+        arguments:
+            - '@odiseo_blog.content.product_finder'
+            - '@router'
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.product_finder:
+        class: Odiseo\SyliusBlogPlugin\Content\Product\ChannelProductFinder
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@sylius.context.channel'
+            - '%sylius.model.product.class%'
+        tags: [{ name: kernel.reset, method: reset }]
+
     odiseo_blog.content.node.html:
         class: Odiseo\SyliusBlogPlugin\Content\Nodes\HtmlNode
         arguments:
@@ -113,6 +128,12 @@ services:
         arguments:
             - '@odiseo_blog.content.registry'
             - '@odiseo_blog.content.extractor.plain_text'
+
+    odiseo_blog.content.extractor.embedded_products:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\EmbeddedProductsExtractor
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
 
     odiseo_blog.content.word_counter:
         class: Odiseo\SyliusBlogPlugin\Content\Extractor\WordCounter

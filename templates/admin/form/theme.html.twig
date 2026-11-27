@@ -3,6 +3,8 @@
         content: label is same as(false) ? '' : (label ?? name|humanize)|trans({}, translation_domain),
         video: 'odiseo_blog.ui.editor.video'|trans,
         html: 'odiseo_blog.ui.editor.html'|trans,
+        product: 'odiseo_blog.ui.editor.product'|trans,
+        invalidProduct: 'odiseo_blog.ui.editor.invalid_product'|trans,
         invalidLink: 'odiseo_blog.ui.editor.invalid_link'|trans,
         invalidVideo: 'odiseo_blog.ui.editor.invalid_video'|trans,
     } -%}
@@ -12,6 +14,7 @@
         placeholder: placeholder ? placeholder|trans : '',
         stats: 'odiseo_blog.ui.editor.stats'|trans,
         labels: labels,
+        productSearchUrl: product_search_url ?? '',
     }) }}>
         {{ form_label(form) }}
         {{ include('@OdiseoSyliusBlogPlugin/admin/form/content_editor/toolbar.html.twig') }}

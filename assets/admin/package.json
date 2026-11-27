@@ -23,7 +23,8 @@
         "@tiptap/starter-kit": "^3.33.0"
     },
     "peerDependencies": {
-        "@hotwired/stimulus": "^3.0.0"
+        "@hotwired/stimulus": "^3.0.0",
+        "tom-select": "^2.2"
     },
     "files": [
         "./package.json",

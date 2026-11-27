@@ -1,3 +1,11 @@
 odiseo_blog_admin:
     resource: "@OdiseoSyliusBlogPlugin/config/routes/admin.yaml"
     prefix: '/%sylius_admin.path_name%'
+
+# A minimal article page, until the blog has its own.
+odiseo_blog_test_article_show:
+    path: /{_locale}/blog/{slug}
+    controller: Tests\Odiseo\SyliusBlogPlugin\Controller\ArticlePageController
+    methods: [GET]
+    requirements:
+        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$

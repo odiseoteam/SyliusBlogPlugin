@@ -3,10 +3,11 @@ import { TableKit } from '@tiptap/extension-table';
 import { Placeholder } from '@tiptap/extensions';
 import { Html } from './html.js';
 import { isAllowedHref } from './links.js';
+import { Product } from './product.js';
 import { Video } from './video.js';
 
 /** The nodes and marks the blog can draw. */
-export function createExtensions({ placeholder = '', labels = {} } = {}) {
+export function createExtensions({ placeholder = '', labels = {}, describeProduct = null } = {}) {
     return [
         StarterKit.configure({
             heading: { levels: [2, 3, 4] },
@@ -21,6 +22,7 @@ export function createExtensions({ placeholder = '', labels = {} } = {}) {
         Placeholder.configure({ placeholder }),
         Video.configure({ label: labels.video ?? 'Video' }),
         Html.configure({ label: labels.html ?? 'HTML' }),
+        Product.configure({ label: labels.product ?? 'Product', describe: describeProduct }),
     ];
 }
 

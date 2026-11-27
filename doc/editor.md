@@ -18,9 +18,10 @@ that the server validates and draws (see [content](content.md)). Install its ass
 | Table | Inserts a table with a header row, and adds or deletes rows and columns. |
 | Video | A YouTube or Vimeo address. |
 | HTML block | HTML for what has no tool of its own. The server sanitizes it when drawing it. |
+| Product | Searches the catalog by name or code. The shop shows its card while it is enabled in the channel (see [content](content.md#products)). |
 | Undo, redo | |
 
-Videos and HTML blocks show as cards. A double click, or the same tool with the card selected, edits them.
+Videos, HTML blocks and products show as cards; a product card shows its name and image. A double click, or the same tool with the card selected, edits them.
 Below the editor are the words and the reading time, counted as the server counts them.
 
 Pasted text keeps what the blog can draw and drops the rest: images, colors, a level 1 heading (it becomes a
@@ -41,8 +42,12 @@ JSON, or an empty one for an empty document; validate it with `Odiseo\SyliusBlog
 ```php
 $builder->add('content', ContentEditorType::class, [
     'placeholder' => 'app.ui.write_the_page', // translation key; null for none
+    'product_search_url' => null, // leaves products out of the toolbar
 ]);
 ```
+
+By default the product tool searches `odiseo_blog_admin_product_search`, an admin route that returns the code,
+name and thumbnail of up to 20 products whose code or name contains `query`, or of the codes in `code[]`.
 
 ## Your own node
 

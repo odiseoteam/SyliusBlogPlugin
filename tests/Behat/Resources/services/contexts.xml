@@ -70,6 +70,12 @@
             <tag name="fob.context_service" />
         </service>
 
+        <!-- UI shop contexts -->
+        <service id="odiseo_blog.behat.context.ui.shop.reading_articles" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Shop\ReadingArticlesContext">
+            <argument type="service" id="odiseo_blog.behat.page.shop.article.show" />
+            <tag name="fob.context_service" />
+        </service>
+
         <!-- UI admin contexts -->
         <service id="odiseo_blog.behat.context.ui.admin.managing_articles" class="Tests\Odiseo\SyliusBlogPlugin\Behat\Context\Ui\Admin\ManagingArticlesContext">
             <argument type="service" id="sylius.behat.current_page_resolver" />

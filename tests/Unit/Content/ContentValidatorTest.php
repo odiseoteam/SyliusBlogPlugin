@@ -26,6 +26,7 @@ final class ContentValidatorTest extends TestCase
         yield 'attributes left empty' => [self::doc('{"type":"heading","attrs":{"level":null}}')];
         yield 'attributes nobody uses' => [self::doc('{"type":"paragraph","attrs":{"textAlign":"left"}}')];
         yield 'a video' => [self::doc('{"type":"video","attrs":{"src":"https://youtu.be/dQw4w9WgXcQ"}}')];
+        yield 'a product, in the catalog or not' => [self::doc('{"type":"product","attrs":{"code":"COFFEE_MUG-2"}}')];
         yield 'a table cell' => [self::doc('{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableCell","attrs":{"colspan":2,"rowspan":1,"colwidth":null}}]}]}')];
         yield 'HTML' => [self::doc('{"type":"html","attrs":{"html":"<p>Hi</p>"}}')];
     }
@@ -52,6 +53,8 @@ final class ContentValidatorTest extends TestCase
         yield 'a document inside a document' => [self::doc('{"type":"doc","content":[]}'), 'odiseo_blog.content.unknown_node', ['{{ type }}' => 'doc']];
         yield 'an unknown mark' => [self::doc('{"type":"paragraph","content":[{"type":"text","text":"Hi","marks":[{"type":"sparkle"}]}]}'), 'odiseo_blog.content.unknown_mark', ['{{ type }}' => 'sparkle']];
         yield 'a heading level' => [self::doc('{"type":"heading","attrs":{"level":1}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'heading', '{{ attribute }}' => 'level']];
+        yield 'a product with an empty code' => [self::doc('{"type":"product","attrs":{"code":""}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'product', '{{ attribute }}' => 'code']];
+        yield 'a product code that is not a code' => [self::doc('{"type":"product","attrs":{"code":"../etc"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'product', '{{ attribute }}' => 'code']];
         yield 'a javascript link' => [self::doc('{"type":"text","text":"Hi","marks":[{"type":"link","attrs":{"href":"javascript:alert(1)"}}]}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'link', '{{ attribute }}' => 'href']];
         yield 'a link relation' => [self::doc('{"type":"text","text":"Hi","marks":[{"type":"link","attrs":{"href":"/a","rel":"follow"}}]}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'link', '{{ attribute }}' => 'rel']];
         yield 'a video of another site' => [self::doc('{"type":"video","attrs":{"src":"https://example.com/a.mp4"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'video', '{{ attribute }}' => 'src']];

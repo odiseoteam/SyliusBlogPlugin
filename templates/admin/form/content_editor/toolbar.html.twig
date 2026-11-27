@@ -63,6 +63,9 @@
     <div class="btn-group">
         {{ _self.command('odiseo_blog.ui.editor.video', 'movie', {dialog: 'video'}) }}
         {{ _self.command('odiseo_blog.ui.editor.html', 'html', {dialog: 'html'}) }}
+        {% if product_search_url %}
+            {{ _self.command('odiseo_blog.ui.editor.product', 'shopping-bag', {dialog: 'product'}) }}
+        {% endif %}
     </div>
     <div class="btn-group ms-auto">
         {{ _self.command('odiseo_blog.ui.editor.undo', 'arrow-back-up', {command: 'undo'}) }}

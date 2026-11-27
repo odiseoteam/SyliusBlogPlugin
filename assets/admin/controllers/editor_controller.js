@@ -1,7 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 import { Editor } from '@tiptap/core';
+import TomSelect from 'tom-select';
 import { createExtensions, serialize, textOf } from '../editor/extensions.js';
 import { isAllowedHref, relOf, relTokens } from '../editor/links.js';
+import { PRODUCT_CODE } from '../editor/product.js';
+import { ProductCatalog } from '../editor/products.js';
 import { embedUrl } from '../editor/video.js';
 import { countWords, readingMinutes } from '../editor/words.js';
 
@@ -30,13 +33,13 @@ const COMMANDS = {
     redo: { run: (chain) => chain.redo() },
 };
 
-const DIALOGS = ['link', 'video', 'html'];
+const DIALOGS = ['link', 'video', 'html', 'product'];
 
 export default class extends Controller {
     static targets = [
         'input', 'toolbar', 'surface', 'stats', 'help', 'fallback',
         'modal', 'modalTitle', 'pane', 'modalError', 'removeLink',
-        'href', 'newTab', 'nofollow', 'sponsored', 'videoSrc', 'html',
+        'href', 'newTab', 'nofollow', 'sponsored', 'videoSrc', 'html', 'product',
     ];
 
     static values = {
@@ -44,6 +47,7 @@ export default class extends Controller {
         placeholder: String,
         stats: String,
         labels: Object,
+        productSearchUrl: String,
     };
 
     connect() {
@@ -54,8 +58,14 @@ export default class extends Controller {
             return;
         }
 
+        this.catalog = this.productSearchUrlValue ? new ProductCatalog(this.productSearchUrlValue) : null;
+        const extensions = createExtensions({
+            placeholder: this.placeholderValue,
+            labels: this.labelsValue,
+            describeProduct: this.catalog ? (code) => this.catalog.describe(code) : null,
+        });
         // Applications add their own nodes by listening to this event.
-        const { detail } = this.dispatch('options', { detail: { extensions: createExtensions({ placeholder: this.placeholderValue, labels: this.labelsValue }) } });
+        const { detail } = this.dispatch('options', { detail: { extensions } });
 
         let invalid = false;
         this.editor = new Editor({
@@ -90,6 +100,8 @@ export default class extends Controller {
     }
 
     disconnect() {
+        this.productSelect?.destroy();
+        this.productSelect = null;
         this.editor?.destroy();
         this.editor = null;
     }
@@ -109,7 +121,12 @@ export default class extends Controller {
 
     apply(event) {
         event?.preventDefault();
-        const applied = { link: () => this.applyLink(), video: () => this.applyVideo(), html: () => this.applyHtml() }[this.dialog]?.();
+        const applied = {
+            link: () => this.applyLink(),
+            video: () => this.applyVideo(),
+            html: () => this.applyHtml(),
+            product: () => this.applyProduct(),
+        }[this.dialog]?.();
         if (applied) {
             this.modal().hide();
         }
@@ -120,9 +137,10 @@ export default class extends Controller {
         this.modal().hide();
     }
 
-    // Enter in a field of the dialog applies it instead of sending the article form.
+    // Enter in a field of the dialog applies it instead of sending the form.
     submitOnEnter(event) {
-        if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
+        // Tom Select takes the Enter that picks an option.
+        if (event.key === 'Enter' && !event.defaultPrevented && event.target.tagName !== 'TEXTAREA') {
             this.apply(event);
         }
     }
@@ -226,6 +244,9 @@ export default class extends Controller {
         if (dialog === 'html') {
             this.htmlTarget.value = node?.type.name === 'html' ? node.attrs.html ?? '' : '';
         }
+        if (dialog === 'product') {
+            this.selectProduct(node?.type.name === 'product' ? node.attrs.code : null);
+        }
 
         this.modalTarget.addEventListener('shown.bs.modal', () => this.firstField()?.focus(), { once: true });
         this.modal().show();
@@ -282,6 +303,35 @@ export default class extends Controller {
         return true;
     }
 
+    applyProduct() {
+        const code = this.productSelect?.getValue() ?? '';
+        if (!PRODUCT_CODE.test(code)) {
+            return this.fail('invalidProduct');
+        }
+        this.editor.chain().focus().setProduct(code).run();
+
+        return true;
+    }
+
+    /** The product field, searched with Tom Select like the autocompletes of Sylius. */
+    selectProduct(code) {
+        this.productSelect ??= new TomSelect(this.productTarget, {
+            valueField: 'code',
+            labelField: 'name',
+            searchField: ['name', 'code'],
+            maxItems: 1,
+            load: (query, callback) => { this.catalog.search(query).then(callback, () => callback()); },
+            render: { option: renderProduct, item: renderProduct },
+        });
+        this.productSelect.clear(true);
+        if (code) {
+            this.catalog.describe(code).then((product) => {
+                this.productSelect.addOption(product ?? { code, name: code });
+                this.productSelect.setValue(code, true);
+            });
+        }
+    }
+
     fail(label) {
         this.modalErrorTarget.textContent = this.labelsValue[label] ?? '';
 
@@ -293,10 +343,20 @@ export default class extends Controller {
     }
 
     firstField() {
+        if (this.dialog === 'product') {
+            return this.productSelect?.control_input;
+        }
+
         return this.paneTargets.find((pane) => !pane.hidden)?.querySelector('input, textarea');
     }
 
     modal() {
         return window.bootstrap.Modal.getOrCreateInstance(this.modalTarget);
     }
+}
+
+function renderProduct(product, escape) {
+    const image = product.image ? `<img src="${escape(product.image)}" alt="" class="avatar avatar-xs me-2">` : '';
+
+    return `<div class="d-flex align-items-center">${image}<span>${escape(product.name)}</span><small class="text-secondary ms-2">${escape(product.code)}</small></div>`;
 }
