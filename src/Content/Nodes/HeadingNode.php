@@ -18,17 +18,17 @@ final class HeadingNode extends AbstractContentNode
 
     public function getAttributes(): array
     {
-        return ['level' => 2];
+        return ['level' => 2, 'textAlign' => null];
     }
 
     public function getConstraints(): array
     {
-        return ['level' => new Assert\Choice(choices: self::LEVELS)];
+        return ['level' => new Assert\Choice(choices: self::LEVELS), 'textAlign' => TextAlign::constraint()];
     }
 
     public function getVariables(Node $node): array
     {
-        return ['level' => $this->level($node)];
+        return ['level' => $this->level($node), 'align_class' => TextAlign::classOf($node)];
     }
 
     public function toMarkdown(Node $node, array $children): string

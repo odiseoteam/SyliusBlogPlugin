@@ -26,6 +26,9 @@ function mount(value) {
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="link">Link</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="video">Video</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="product">Product</button>
+                <button type="button" data-action="odiseo-blog-editor#align" data-odiseo-blog-editor-align-param="left">Left</button>
+                <button type="button" data-action="odiseo-blog-editor#align" data-odiseo-blog-editor-align-param="center">Center</button>
+                <button type="button" data-action="odiseo-blog-editor#align" data-odiseo-blog-editor-align-param="right">Right</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="image">Image</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="gallery">Gallery</button>
             </div>
@@ -169,6 +172,43 @@ describe('the editor', () => {
     });
 });
 
+const alignButton = (align) => document.querySelector(`[data-odiseo-blog-editor-align-param="${align}"]`);
+
+describe('alignment', () => {
+    it('aligns the text and shows the alignment of the cursor', async () => {
+        const controller = await start('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hi"}]}]}');
+        controller.editor.commands.focus('end');
+        expect(alignButton('left').getAttribute('aria-pressed')).toBe('true');
+
+        alignButton('center').click();
+
+        expect(saved().content).toEqual([{ type: 'paragraph', attrs: { textAlign: 'center' }, content: [{ type: 'text', text: 'Hi' }] }]);
+        expect(alignButton('center').getAttribute('aria-pressed')).toBe('true');
+        expect(alignButton('left').getAttribute('aria-pressed')).toBe('false');
+    });
+
+    it('aligns the selected image when it is not of the full width', async () => {
+        const controller = await start('{"type":"doc","content":[{"type":"image","attrs":{"path":"ab/cd/a.jpg","size":"small"}},{"type":"image","attrs":{"path":"ab/cd/b.jpg","size":"full"}}]}');
+        controller.editor.commands.setNodeSelection(0);
+
+        alignButton('right').click();
+        expect(saved().content[0].attrs.align).toBe('right');
+        expect($('surface').querySelector('figure').dataset.align).toBe('right');
+
+        controller.editor.commands.setNodeSelection(1);
+        expect(alignButton('right').disabled).toBe(true);
+        alignButton('right').click();
+        expect(saved().content[1].attrs.align).toBe('center');
+    });
+
+    it('leaves out the alignment of the theme', async () => {
+        const controller = await start();
+        controller.editor.commands.insertContent('<h2>Title</h2><p>Text</p>');
+
+        expect(saved().content.map((node) => node.attrs ?? null)).toEqual([{ level: 2 }, null]);
+    });
+});
+
 describe('products', () => {
     it('are chosen in the dialog', async () => {
         const controller = await start();
@@ -244,7 +284,7 @@ describe('images', () => {
         $('imageSize').value = 'medium';
         click('#apply');
 
-        expect(saved().content).toEqual([{ type: 'image', attrs: { path: 'ab/cd/mugs.jpg', alt: 'Two mugs', caption: 'Fresh', size: 'medium', width: 1600, height: 1200 } }]);
+        expect(saved().content).toEqual([{ type: 'image', attrs: { path: 'ab/cd/mugs.jpg', alt: 'Two mugs', caption: 'Fresh', size: 'medium', align: 'center', width: 1600, height: 1200 } }]);
         expect($('stats').textContent).toBe('Words: 1 · Reading time: 1 min');
     });
 

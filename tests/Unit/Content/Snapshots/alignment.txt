@@ -1,0 +1,9 @@
+Centered title
+
+To the right.
+
+To the left.
+
+As the theme says.
+
+Unknown alignments are ignored.

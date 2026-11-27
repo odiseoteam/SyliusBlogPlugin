@@ -12,8 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 /** An uploaded image, with its alt text, caption and size in the column of the text. */
 final class ImageNode extends AbstractContentNode implements MediaNodeInterface, TextNodeInterface
 {
-    /** Share of the column of the text each size takes from tablets up; phones always get the whole width. */
-    public const SIZES = ['small' => 50, 'medium' => 75, 'full' => 100];
+    /** Columns of 12 each size takes from tablets up; phones always get the whole width. */
+    public const SIZES = ['small' => 6, 'medium' => 9, 'full' => 12];
+
+    /** Left and right let the text flow around an image that does not take the full width. */
+    public const ALIGNS = ['left', 'center', 'right'];
+
+    /** Columns a floating image takes, narrower so the text beside it stays readable. */
+    private const FLOATING_SIZES = ['small' => 4, 'medium' => 6];
 
     /** Where the sizes start to apply, as the `md` breakpoint of Bootstrap. */
     private const BREAKPOINT = 768;
@@ -32,7 +38,7 @@ final class ImageNode extends AbstractContentNode implements MediaNodeInterface,
 
     public function getAttributes(): array
     {
-        return ['path' => null, 'alt' => '', 'caption' => '', 'size' => 'full', 'width' => null, 'height' => null];
+        return ['path' => null, 'alt' => '', 'caption' => '', 'size' => 'full', 'align' => 'center', 'width' => null, 'height' => null];
     }
 
     public function getConstraints(): array
@@ -42,6 +48,7 @@ final class ImageNode extends AbstractContentNode implements MediaNodeInterface,
             'alt' => [new Assert\Type('string'), new Assert\Length(max: 255)],
             'caption' => [new Assert\Type('string'), new Assert\Length(max: 500)],
             'size' => new Assert\Choice(choices: array_keys(self::SIZES)),
+            'align' => new Assert\Choice(choices: self::ALIGNS),
             'width' => [new Assert\Type('integer'), new Assert\Positive()],
             'height' => [new Assert\Type('integer'), new Assert\Positive()],
         ];
@@ -57,14 +64,19 @@ final class ImageNode extends AbstractContentNode implements MediaNodeInterface,
         $width = $this->dimension($node, 'width');
         $height = $this->dimension($node, 'height');
         $size = $this->attribute($node, 'size');
-        $percent = self::SIZES[is_string($size) ? $size : 'full'] ?? 100;
-        $columnWidth = intdiv(self::COLUMN_WIDTH * $percent, 100);
+        $size = is_string($size) && isset(self::SIZES[$size]) ? $size : 'full';
+        $align = $this->attribute($node, 'align');
+        $float = isset(self::FLOATING_SIZES[$size]) && in_array($align, ['left', 'right'], true) ? $align : null;
+        $columns = null !== $float ? self::FLOATING_SIZES[$size] : self::SIZES[$size];
+        $percent = intdiv(100 * $columns, 12);
+        $columnWidth = intdiv(self::COLUMN_WIDTH * $columns, 12);
 
         return ['image' => [
             'src' => $this->urlResolver->resolve($path, ImageFilters::forWidth($columnWidth)),
             'srcset' => $this->srcset($path, $width),
             'sizes' => sprintf('(min-width: %dpx) %dpx, (min-width: %dpx) %dvw, 100vw', self::COLUMN_WIDTH, $columnWidth, self::BREAKPOINT, $percent),
-            'columns' => intdiv(12 * $percent, 100),
+            'columns' => $columns,
+            'float' => $float,
             'alt' => $this->text($node, 'alt'),
             'caption' => $this->text($node, 'caption'),
             'width' => null !== $height ? $width : null,

@@ -62,6 +62,15 @@ describe('the content the editor saves', () => {
         await expectFixture('embeds');
     });
 
+    it('holds alignments', async () => {
+        createEditor('<h2>Title</h2><p>Right</p><p>Theme</p>');
+        editor.chain().setTextSelection(1).setTextAlign('center').setTextSelection(8).setTextAlign('right')
+            .focus('end').setImage({ path: 'ab/cd/side.jpg', alt: 'Side', size: 'small', align: 'left', width: 400, height: 400 })
+            .run();
+
+        await expectFixture('alignment');
+    });
+
     it('holds images and galleries', async () => {
         createEditor('<p>Our mugs:</p>');
         editor.chain().focus('end')

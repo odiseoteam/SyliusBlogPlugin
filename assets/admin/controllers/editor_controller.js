@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { Editor } from '@tiptap/core';
 import TomSelect from 'tom-select';
-import { createExtensions, serialize, textOf } from '../editor/extensions.js';
+import { ALIGNMENTS, createExtensions, serialize, textOf } from '../editor/extensions.js';
 import { GALLERY_COLUMNS } from '../editor/gallery.js';
 import { IMAGE_PATH, IMAGE_SIZES } from '../editor/image.js';
 import { isAllowedHref, relOf, relTokens } from '../editor/links.js';
@@ -129,6 +129,22 @@ export default class extends Controller {
         }
     }
 
+    /** Aligns the selected image, or else the blocks of text of the selection. */
+    align({ params }) {
+        if (!this.editor || !ALIGNMENTS.includes(params.align)) {
+            return;
+        }
+        const node = this.selectedNode();
+        if (node?.type.name === 'image') {
+            if (node.attrs.size !== 'full') {
+                this.editor.chain().focus().updateAttributes('image', { align: params.align }).run();
+            }
+
+            return;
+        }
+        this.editor.chain().focus().setTextAlign(params.align).run();
+    }
+
     open({ params }) {
         if (this.editor && DIALOGS.includes(params.dialog)) {
             this.openDialog(params.dialog);
@@ -202,11 +218,31 @@ export default class extends Controller {
                 button.disabled = !this.editor.can()[params.command]();
             }
         });
+        this.toolbarTarget.querySelectorAll('[data-odiseo-blog-editor-align-param]').forEach((button) => {
+            const { active, disabled } = this.alignState(button.dataset.odiseoBlogEditorAlignParam);
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-pressed', String(active));
+            button.disabled = disabled;
+        });
         this.toolbarTarget.querySelectorAll('[data-odiseo-blog-editor-dialog-param]').forEach((button) => {
             const active = button.dataset.odiseoBlogEditorDialogParam === 'link' && this.editor.isActive('link');
             button.classList.toggle('active', active);
             button.setAttribute('aria-pressed', String(active));
         });
+    }
+
+    /** An image of the full width cannot be aligned, nor the other blocks that are not text. */
+    alignState(align) {
+        const node = this.selectedNode();
+        if (node?.type.name === 'image') {
+            return { active: (node.attrs.align ?? 'center') === align, disabled: node.attrs.size === 'full' };
+        }
+        if (node) {
+            return { active: false, disabled: true };
+        }
+        const { textAlign } = this.editor.getAttributes(this.editor.isActive('heading') ? 'heading' : 'paragraph');
+
+        return { active: (textAlign ?? 'left') === align, disabled: !this.editor.can().setTextAlign(align) };
     }
 
     isActive(params) {

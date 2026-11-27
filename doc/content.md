@@ -17,11 +17,14 @@ contents, the word count and the reading time.
 
 | | Types |
 | --- | --- |
-| Text nodes | `paragraph`, `heading` (levels 2 to 4), `blockquote`, `bulletList`, `orderedList`, `listItem`, `codeBlock`, `horizontalRule`, `hardBreak`, `table`, `tableRow`, `tableHeader`, `tableCell` |
-| Media | `image`: an uploaded image, with `alt`, `caption` and `size` (`small`, `medium` or `full`); `gallery`: uploaded `images` (each with its `alt`), `columns` (2, 3 or 4) and a `caption`; `video`: a YouTube or Vimeo URL, drawn as an embed (YouTube without cookies) |
+| Text nodes | `paragraph` and `heading` (levels 2 to 4), both with an optional `textAlign` (`left`, `center` or `right`), and `blockquote`, `bulletList`, `orderedList`, `listItem`, `codeBlock`, `horizontalRule`, `hardBreak`, `table`, `tableRow`, `tableHeader`, `tableCell` |
+| Media | `image`: an uploaded image, with `alt`, `caption`, `size` (`small`, `medium` or `full`) and `align` (`left`, `center` or `right`); `gallery`: uploaded `images` (each with its `alt`), `columns` (2, 3 or 4) and a `caption`; `video`: a YouTube or Vimeo URL, drawn as an embed (YouTube without cookies) |
 | Catalog | `product`: the `code` of a product, drawn with the product card of the shop |
 | Marks | `bold`, `italic`, `underline`, `strike`, `code`, `link` (`href`, `rel` of nofollow, sponsored and ugc, and `target`) |
 | Escape | `html`: raw HTML, sanitized every time it is drawn |
+
+Aligned blocks are drawn with the Bootstrap classes `text-start`, `text-center` and `text-end`; without an
+alignment, the one of the theme applies. Markdown has no alignment, so it is left out there.
 
 A link can only go to a web page, an email, a phone or a path of the site. Anything else is drawn as plain
 text.
@@ -32,7 +35,8 @@ An `image` node keeps the path of a file uploaded from the editor, never an addr
 drawn with a `srcset` of the `odiseo_blog_content_*` filter sets (640, 960, 1280 and 1920 pixels wide, never
 enlarged), `loading="lazy"`, and its `width` and `height` when the editor knew them, so the page does not jump
 while it loads. On phones it takes the whole width of the text; from tablets up, half (`small`), three
-quarters (`medium`) or all of it (`full`). In a gallery, each image is a square thumbnail (`odiseo_blog_gallery`)
+quarters (`medium`) or all of it (`full`). Aligned to the left or right, a small or medium image floats with
+the text around it, and takes a third or half of the column so that the text beside it stays readable. In a gallery, each image is a square thumbnail (`odiseo_blog_gallery`)
 that links to a large version. See [images](images.md#filter-sets) to change the filter sets.
 
 The alt text is optional: without it the image is drawn as decorative (`alt=""`), and the editor marks it. The

@@ -15,6 +15,7 @@ that the server validates and draws (see [content](content.md)). Install its ass
 | Link | Opens a dialog with the address, opening it in a new tab, and `nofollow` or `sponsored`. With no text selected, the address is added as the text of the link. `Ctrl+K` opens it too. |
 | Clear formatting | Removes the formats and turns the blocks back into paragraphs. |
 | Lists, quote, code block, divider | Blocks. |
+| Align left, center, right | Aligns the paragraphs and headings of the selection, or the selected image. An image floats to the left or right with the text around it; one of the full width cannot be aligned. There is no justify: it leaves gaps between words on phones. |
 | Table | Inserts a table with a header row, and adds or deletes rows and columns. |
 | Image | Uploads an image, with its alt text, a caption and its size: small, medium or the full width of the text (see [content](content.md#images)). |
 | Gallery | Uploads several images, each with its alt text, with a caption and 2, 3 or 4 columns. |

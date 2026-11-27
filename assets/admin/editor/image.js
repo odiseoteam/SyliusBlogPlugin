@@ -4,8 +4,14 @@ import { insertOrUpdate } from './blocks.js';
 // Same rule as the image node of the server.
 export const IMAGE_PATH = /^[\w-]+(?:\/[\w-]+)*\.[A-Za-z0-9]+$/;
 
-/** Share of the column of the text each size takes. */
+/** Share of the column of the text each size takes, and a narrower one when it floats, as on the server. */
 export const IMAGE_SIZES = { small: 50, medium: 75, full: 100 };
+const FLOATING_SIZES = { small: 33, medium: 50 };
+
+/** Whether the image floats to a side, with the text around it. */
+export function floats(attrs) {
+    return attrs.size in FLOATING_SIZES && (attrs.align === 'left' || attrs.align === 'right');
+}
 
 /** Attributes as data, so copying and pasting a block keeps them. */
 export function attrsFrom(element) {
@@ -44,6 +50,7 @@ export const Image = Node.create({
             alt: { default: '', rendered: false },
             caption: { default: '', rendered: false },
             size: { default: 'full', rendered: false },
+            align: { default: 'center', rendered: false },
             width: { default: null, rendered: false },
             height: { default: null, rendered: false },
         };
@@ -67,7 +74,9 @@ export const Image = Node.create({
             const dom = document.createElement('figure');
             dom.className = 'odiseo-blog-editor__block odiseo-blog-editor__image';
             dom.dataset.type = 'image';
-            dom.style.setProperty('--odiseo-blog-image-width', `${IMAGE_SIZES[node.attrs.size] ?? 100}%`);
+            const floating = floats(node.attrs);
+            dom.dataset.align = floating ? node.attrs.align : 'center';
+            dom.style.setProperty('--odiseo-blog-image-width', `${(floating ? FLOATING_SIZES : IMAGE_SIZES)[node.attrs.size] ?? 100}%`);
 
             const url = this.options.url(node.attrs.path);
             if (url) {

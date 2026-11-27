@@ -142,6 +142,19 @@ Feature: Managing articles
             """
 
     @ui @javascript
+    Scenario: Aligning text with the editor
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I write "Brewing" in its content in "English (United States)"
+        And I use "Align center" in its content in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the "Brewing guide" article should have this content in "English (United States)":
+            """
+            {"type":"doc","content":[{"type":"paragraph","attrs":{"textAlign":"center"},"content":[{"type":"text","text":"Brewing"}]}]}
+            """
+
+    @ui @javascript
     Scenario: Adding a video with the editor
         Given the blog has an article "Brewing guide"
         When I want to modify the "Brewing guide" article

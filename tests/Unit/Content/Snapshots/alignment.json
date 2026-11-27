@@ -1,0 +1,7 @@
+{"type": "doc", "content": [
+    {"type": "heading", "attrs": {"level": 2, "textAlign": "center"}, "content": [{"type": "text", "text": "Centered title"}]},
+    {"type": "paragraph", "attrs": {"textAlign": "right"}, "content": [{"type": "text", "text": "To the right."}]},
+    {"type": "paragraph", "attrs": {"textAlign": "left"}, "content": [{"type": "text", "text": "To the left."}]},
+    {"type": "paragraph", "attrs": {"textAlign": null}, "content": [{"type": "text", "text": "As the theme says."}]},
+    {"type": "paragraph", "attrs": {"textAlign": "justify"}, "content": [{"type": "text", "text": "Unknown alignments are ignored."}]}
+]}

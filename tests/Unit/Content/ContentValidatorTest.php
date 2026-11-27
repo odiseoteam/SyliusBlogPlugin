@@ -24,7 +24,8 @@ final class ContentValidatorTest extends TestCase
         yield 'text with marks' => [self::doc('{"type":"paragraph","content":[{"type":"text","text":"Hi","marks":[{"type":"bold"},{"type":"link","attrs":{"href":"https://example.com","rel":"nofollow sponsored","target":"_blank"}}]}]}')];
         yield 'a heading' => [self::doc('{"type":"heading","attrs":{"level":3},"content":[{"type":"text","text":"Hi"}]}')];
         yield 'attributes left empty' => [self::doc('{"type":"heading","attrs":{"level":null}}')];
-        yield 'attributes nobody uses' => [self::doc('{"type":"paragraph","attrs":{"textAlign":"left"}}')];
+        yield 'attributes nobody uses' => [self::doc('{"type":"paragraph","attrs":{"indent":2}}')];
+        yield 'an alignment' => [self::doc('{"type":"heading","attrs":{"level":2,"textAlign":"right"}}')];
         yield 'a video' => [self::doc('{"type":"video","attrs":{"src":"https://youtu.be/dQw4w9WgXcQ"}}')];
         yield 'a product, in the catalog or not' => [self::doc('{"type":"product","attrs":{"code":"COFFEE_MUG-2"}}')];
         yield 'a table cell' => [self::doc('{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableCell","attrs":{"colspan":2,"rowspan":1,"colwidth":null}}]}]}')];
@@ -61,6 +62,8 @@ final class ContentValidatorTest extends TestCase
         yield 'an image without path' => [self::doc('{"type":"image","attrs":{"path":""}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
         yield 'an image out of the storage' => [self::doc('{"type":"image","attrs":{"path":"../../config/secrets.jpg"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
         yield 'an image address' => [self::doc('{"type":"image","attrs":{"path":"https://example.com/a.jpg"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
+        yield 'an alignment of the text' => [self::doc('{"type":"paragraph","attrs":{"textAlign":"justify"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'paragraph', '{{ attribute }}' => 'textAlign']];
+        yield 'an alignment of an image' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/a.jpg","align":"top"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'align']];
         yield 'an image size' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/a.jpg","size":"huge"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'size']];
         yield 'an image width' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/a.jpg","width":-5}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'width']];
         yield 'an empty gallery' => [self::doc('{"type":"gallery","attrs":{"images":[]}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'gallery', '{{ attribute }}' => 'images']];

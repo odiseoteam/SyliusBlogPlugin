@@ -13,6 +13,21 @@ final class ParagraphNode extends AbstractContentNode
         return 'paragraph';
     }
 
+    public function getAttributes(): array
+    {
+        return ['textAlign' => null];
+    }
+
+    public function getConstraints(): array
+    {
+        return ['textAlign' => TextAlign::constraint()];
+    }
+
+    public function getVariables(Node $node): array
+    {
+        return ['align_class' => TextAlign::classOf($node)];
+    }
+
     public function toMarkdown(Node $node, array $children): string
     {
         return MarkdownLines::escapeLineStarts(implode('', $children));

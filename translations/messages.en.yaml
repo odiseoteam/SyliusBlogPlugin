@@ -73,6 +73,9 @@ odiseo_blog:
         editor:
             add_column: 'Add a column'
             add_row: 'Add a row'
+            align_center: 'Align center'
+            align_left: 'Align left'
+            align_right: 'Align right'
             alt: 'Alt text'
             alt_help: 'Describes the image for those who cannot see it. Leave it empty only if the image is decorative.'
             apply: 'Apply'

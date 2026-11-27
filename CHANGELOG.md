@@ -22,6 +22,7 @@ Version 2.0 is a rewrite for Sylius 2.0–2.3, developed on `master`. 1.x stays 
 - The icons of the plugin ship with it, so they don't depend on Iconify.
 - Products in the content: a `product` node that keeps the product code and is drawn with the product card of the shop while the product is enabled in the channel. The products of a content are loaded together before it is drawn (`PreloadingNodeInterface` lets your own nodes do the same). The editor picks it with a search of the catalog by name or code, and `EmbeddedProductsExtractor` lists the products of a content. `odiseo_blog_content(article)` draws the content in templates.
 - Images in the content: `image` and `gallery` nodes for files uploaded from the editor, with alt text (marked in the editor when it is missing), a caption, a size or a number of columns. They are drawn with a `srcset` of new LiipImagine filter sets, lazy loading and their dimensions. Images can also be pasted or dropped on the text. Uploads are kept as `odiseo_blog.content_media`, and `odiseo:blog:media:prune` deletes the ones no content uses (`MediaUsageProviderInterface` adds the contents of your own).
+- Alignment: the editor aligns paragraphs and headings to the left, center or right, and with the same buttons floats a small or medium image to a side, with the text around it.
 - Installation guide in `doc/`.
 
 ### Changed
