@@ -61,6 +61,16 @@ describe('the content the editor saves', () => {
 
         await expectFixture('embeds');
     });
+
+    it('holds images and galleries', async () => {
+        createEditor('<p>Our mugs:</p>');
+        editor.chain().focus('end')
+            .setImage({ path: 'ab/cd/mugs.jpg', alt: 'Two mugs', caption: 'Fresh from the oven', size: 'medium', width: 1600, height: 1200 })
+            .setGallery({ images: [{ path: 'ab/cd/one.jpg', alt: 'One mug', width: 800, height: 800 }, { path: 'ab/cd/two.webp', alt: '', width: null, height: null }], columns: 2, caption: 'The whole set' })
+            .run();
+
+        await expectFixture('media');
+    });
 });
 
 describe('videos and HTML', () => {

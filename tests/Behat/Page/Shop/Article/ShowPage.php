@@ -25,6 +25,16 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
         return false;
     }
 
+    public function hasImage(string $alt): bool
+    {
+        return null !== $this->getElement('content')->find('css', sprintf('.odiseo-blog-image img[alt=%s]', json_encode($alt)));
+    }
+
+    public function countGalleryImages(): int
+    {
+        return count($this->getElement('content')->findAll('css', '.odiseo-blog-gallery img'));
+    }
+
     /** @return array<string, string> */
     protected function getDefinedElements(): array
     {

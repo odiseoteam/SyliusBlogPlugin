@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <!-- id, type and path come from the mapping of Sylius' Image. -->
+    <mapped-superclass name="Odiseo\SyliusBlogPlugin\Entity\ContentMedia" table="odiseo_blog_content_media">
+        <indexes>
+            <index name="IDX_ODISEO_BLOG_CONTENT_MEDIA_CREATED_AT" columns="created_at"/>
+        </indexes>
+
+        <field name="createdAt" column="created_at" type="datetime"/>
+    </mapped-superclass>
+</doctrine-mapping>

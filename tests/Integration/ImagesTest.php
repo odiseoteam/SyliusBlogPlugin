@@ -32,6 +32,15 @@ final class ImagesTest extends KernelTestCase
             'odiseo_blog_hero' => [1600, 900],
             'odiseo_blog_og' => [1200, 630],
         ], $sizes);
+        foreach ([640, 960, 1280, 1920] as $width) {
+            /** @var array{format: string, filters: array{downscale: array{max: array{int, int}}}} $filterSet */
+            $filterSet = $configuration->get('odiseo_blog_content_' . $width);
+            self::assertSame([$width, 10000], $filterSet['filters']['downscale']['max']);
+            self::assertSame('webp', $filterSet['format']);
+        }
+        /** @var array{filters: array{fixed: array{width: int, height: int}}} $gallery */
+        $gallery = $configuration->get('odiseo_blog_gallery');
+        self::assertSame(['width' => 600, 'height' => 600], $gallery['filters']['fixed']);
         self::assertSame('jpg', $configuration->get('odiseo_blog_og')['format']);
         self::assertSame('webp', $configuration->get('odiseo_blog_card')['format']);
     }

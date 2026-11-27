@@ -70,6 +70,23 @@ services:
             - '%sylius.model.product.class%'
         tags: [{ name: kernel.reset, method: reset }]
 
+    odiseo_blog.content.node.image:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\ImageNode
+        arguments:
+            - '@odiseo_blog.content.image_url_resolver'
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.node.gallery:
+        class: Odiseo\SyliusBlogPlugin\Content\Nodes\GalleryNode
+        arguments:
+            - '@odiseo_blog.content.image_url_resolver'
+        tags: ['odiseo_blog.content_node']
+
+    odiseo_blog.content.image_url_resolver:
+        class: Odiseo\SyliusBlogPlugin\Content\Media\LiipImageUrlResolver
+        arguments:
+            - '@liip_imagine.cache.manager'
+
     odiseo_blog.content.node.html:
         class: Odiseo\SyliusBlogPlugin\Content\Nodes\HtmlNode
         arguments:
@@ -131,6 +148,12 @@ services:
 
     odiseo_blog.content.extractor.embedded_products:
         class: Odiseo\SyliusBlogPlugin\Content\Extractor\EmbeddedProductsExtractor
+        public: true
+        arguments:
+            - '@odiseo_blog.content.registry'
+
+    odiseo_blog.content.extractor.embedded_media:
+        class: Odiseo\SyliusBlogPlugin\Content\Extractor\EmbeddedMediaExtractor
         public: true
         arguments:
             - '@odiseo_blog.content.registry'

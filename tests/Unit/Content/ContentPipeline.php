@@ -9,6 +9,7 @@ use Odiseo\SyliusBlogPlugin\Content\Extractor\PlainTextExtractor;
 use Odiseo\SyliusBlogPlugin\Content\Extractor\TocExtractor;
 use Odiseo\SyliusBlogPlugin\Content\HtmlSanitizerFactory;
 use Odiseo\SyliusBlogPlugin\Content\Marks;
+use Odiseo\SyliusBlogPlugin\Content\Media\ImageUrlResolverInterface;
 use Odiseo\SyliusBlogPlugin\Content\Nodes;
 use Odiseo\SyliusBlogPlugin\Content\Product\ProductFinderInterface;
 use Odiseo\SyliusBlogPlugin\Content\Registry\ContentRegistry;
@@ -60,6 +61,13 @@ final class ContentPipeline
             {
             }
         };
+        // Addresses like the ones of LiipImagine, on the host of the shop.
+        $imageUrls = new class() implements ImageUrlResolverInterface {
+            public function resolve(string $path, string $filter): string
+            {
+                return sprintf('https://shop.example.com/media/cache/%s/%s', $filter, $path);
+            }
+        };
         $routes = new RouteCollection();
         $routes->add('sylius_shop_product_show', new Route('/products/{slug}'));
 
@@ -70,6 +78,7 @@ final class ContentPipeline
                 new Nodes\HardBreakNode(), new Nodes\TableNode(), new Nodes\TableRowNode(), new Nodes\TableHeaderNode(),
                 new Nodes\TableCellNode(), new Nodes\VideoNode(), new Nodes\HtmlNode(HtmlSanitizerFactory::create($iframeHosts)),
                 new Nodes\ProductNode($productFinder, new UrlGenerator($routes, new RequestContext(host: 'shop.example.com', scheme: 'https'))),
+                new Nodes\ImageNode($imageUrls), new Nodes\GalleryNode($imageUrls),
             ],
             [
                 new Marks\BoldMark(), new Marks\ItalicMark(), new Marks\UnderlineMark(),

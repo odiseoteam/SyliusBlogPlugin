@@ -76,9 +76,59 @@ trait ContentEditorTrait
         Assert::true($this->getDocument()->waitFor(5, static fn (): bool => !$modal->isVisible()), 'The product dialog did not close.');
     }
 
+    /** Uploads the file in the image dialog, describes it and applies the dialog. */
+    public function addImageToContent(string $file, string $alt, string $localeCode): void
+    {
+        $modal = $this->openContentDialog('Image', 'imageFile', $localeCode);
+        $modal->find('css', '[data-odiseo-blog-editor-target="imageFile"]')?->attachFile($this->fixturePath($file));
+        Assert::true($this->pantherDriver()->wait(10000, 'document.querySelector(\'[data-odiseo-blog-editor-target="imagePreview"]:not([hidden])\') !== null'), 'The image was not uploaded.');
+
+        $modal->find('css', '[data-odiseo-blog-editor-target="imageAlt"]')?->setValue($alt);
+        $this->applyContentDialog($modal);
+    }
+
+    /** @param list<string> $files */
+    public function addGalleryToContent(array $files, string $localeCode): void
+    {
+        $modal = $this->openContentDialog('Gallery', 'galleryFiles', $localeCode);
+        foreach ($files as $index => $file) {
+            $modal->find('css', '[data-odiseo-blog-editor-target="galleryFiles"]')?->attachFile($this->fixturePath($file));
+            Assert::true($this->pantherDriver()->wait(10000, sprintf('document.querySelectorAll(\'[data-odiseo-blog-editor-target="galleryList"] li\').length === %d', $index + 1)), sprintf('The image "%s" was not uploaded.', $file));
+        }
+
+        $this->applyContentDialog($modal);
+    }
+
     public function getContentEditorStats(string $localeCode): string
     {
         return $this->contentEditor($localeCode)->find('css', '[data-odiseo-blog-editor-target="stats"]')?->getText() ?? '';
+    }
+
+    /** Opens a dialog of the toolbar and waits until its first field has the focus. */
+    private function openContentDialog(string $tool, string $firstField, string $localeCode): NodeElement
+    {
+        $this->contentEditorSurface($localeCode);
+        $this->useContentEditorTool($tool, $localeCode);
+        $modal = $this->contentEditor($localeCode)->find('css', '.modal');
+        Assert::notNull($modal);
+        // Bootstrap ignores closing the dialog before it has opened.
+        Assert::true($this->pantherDriver()->wait(5000, sprintf('document.activeElement?.matches(\'[data-odiseo-blog-editor-target="%s"]\') === true', $firstField)), sprintf('The dialog "%s" did not open.', $tool));
+
+        return $modal;
+    }
+
+    private function applyContentDialog(NodeElement $modal): void
+    {
+        $modal->find('css', '[data-action="odiseo-blog-editor#apply"]')?->click();
+        Assert::true($this->getDocument()->waitFor(5, static fn (): bool => !$modal->isVisible()), 'The dialog did not close.');
+    }
+
+    private function fixturePath(string $file): string
+    {
+        $filesPath = $this->getParameter('files_path');
+        Assert::string($filesPath);
+
+        return $filesPath . $file;
     }
 
     private function contentEditor(string $localeCode): NodeElement

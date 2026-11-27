@@ -2,8 +2,8 @@
 
 # Images
 
-Articles have a featured image, with its alt text per locale. Categories have an image and authors an
-avatar.
+Articles have a featured image, with its alt text per locale, and images and galleries in their content (see
+[content](content.md#images)). Categories have an image and authors an avatar.
 
 ## Storage
 
@@ -23,9 +23,12 @@ and WebP by default), up to 10 MB.
 | `odiseo_blog_hero` | 1600 × 900 | WebP | The image on top of an article |
 | `odiseo_blog_og` | 1200 × 630 | JPEG | Open Graph and Twitter Cards |
 | `odiseo_blog_avatar` | 240 × 240 | WebP | Author avatars |
-| `odiseo_blog_admin_thumbnail` | 200 × 200 | WebP | Admin grids |
+| `odiseo_blog_admin_thumbnail` | 200 × 200 | WebP | Admin grids and the galleries of the editor |
+| `odiseo_blog_gallery` | 600 × 600 | WebP | The thumbnails of a gallery in the content |
+| `odiseo_blog_content_640`, `_960`, `_1280`, `_1920` | That width at most | WebP | The images of the content |
 
-All of them return exactly that size: they crop, and enlarge small images when needed. Your
+All of them but the content ones return exactly that size: they crop, and enlarge small images when needed.
+The content ones shrink the image to that width, keep its proportions and never enlarge it. Your
 application can change them in its own configuration. Its settings are merged with these, so change
 the size through the `fixed` filter; another filter would be applied after it, not instead of it:
 
@@ -37,6 +40,9 @@ liip_imagine:
             filters:
                 fixed: { width: 600, height: 400 }
 ```
+
+Keep the width of the content filter sets: the `srcset` of the content images tells the browser those widths.
+Their format and quality can be changed.
 
 ## In templates
 

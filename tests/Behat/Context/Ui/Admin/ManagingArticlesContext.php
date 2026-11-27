@@ -112,6 +112,18 @@ final class ManagingArticlesContext implements Context
         $this->resolveCurrentPage()->addVideoToContent($url, $localeCode);
     }
 
+    #[When('I add the image :file described as :alt to its content in :localeCode')]
+    public function iAddTheImageDescribedAsToItsContentIn(string $file, string $alt, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addImageToContent($file, $alt, $localeCode);
+    }
+
+    #[When('I add a gallery of :first and :second to its content in :localeCode')]
+    public function iAddAGalleryOfToItsContentIn(string $first, string $second, string $localeCode): void
+    {
+        $this->resolveCurrentPage()->addGalleryToContent([$first, $second], $localeCode);
+    }
+
     #[When('I add the product :product to its content in :localeCode')]
     public function iAddTheProductToItsContentIn(ProductInterface $product, string $localeCode): void
     {
@@ -433,6 +445,38 @@ final class ManagingArticlesContext implements Context
     public function theArticleShouldHaveThisContentIn(ArticleInterface $article, string $localeCode, PyStringNode $content): void
     {
         Assert::same($this->reload($article)->getTranslation($localeCode)->getContent(), $content->getRaw());
+    }
+
+    #[Then('the content of the :article article should show an image described as :alt in :localeCode')]
+    public function theContentOfTheArticleShouldShowAnImageDescribedAsIn(ArticleInterface $article, string $alt, string $localeCode): void
+    {
+        $images = $this->contentNodes($article, $localeCode, 'image');
+        Assert::count($images, 1);
+        Assert::same($images[0]['attrs']['alt'] ?? null, $alt);
+        $path = $images[0]['attrs']['path'] ?? null;
+        Assert::string($path);
+        Assert::regex($path, '~^[\w-]+(?:/[\w-]+)*\.\w+$~');
+    }
+
+    #[Then('the content of the :article article should show a gallery of :count images in :localeCode')]
+    public function theContentOfTheArticleShouldShowAGalleryOfImagesIn(ArticleInterface $article, int $count, string $localeCode): void
+    {
+        $galleries = $this->contentNodes($article, $localeCode, 'gallery');
+        Assert::count($galleries, 1);
+        $images = $galleries[0]['attrs']['images'] ?? null;
+        Assert::isArray($images);
+        Assert::count($images, $count);
+    }
+
+    /** @return list<array{attrs?: array<string, mixed>}> The top-level nodes of a type in the saved content. */
+    private function contentNodes(ArticleInterface $article, string $localeCode, string $type): array
+    {
+        $document = json_decode((string) $this->reload($article)->getTranslation($localeCode)->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+        Assert::isArray($document);
+        /** @var list<array{type?: string, attrs?: array<string, mixed>}> $nodes */
+        $nodes = $document['content'] ?? [];
+
+        return array_values(array_filter($nodes, static fn (array $node): bool => $type === ($node['type'] ?? null)));
     }
 
     private function reload(ArticleInterface $article): ArticleInterface

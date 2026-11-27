@@ -28,3 +28,29 @@ liip_imagine:
             quality: 80
             filters:
                 fixed: { width: 1200, height: 630 }
+        # The images of the content shrink to these widths and keep their proportions; they are never enlarged.
+        odiseo_blog_content_640:
+            format: webp
+            quality: 80
+            filters:
+                downscale: { max: [640, 10000] }
+        odiseo_blog_content_960:
+            format: webp
+            quality: 80
+            filters:
+                downscale: { max: [960, 10000] }
+        odiseo_blog_content_1280:
+            format: webp
+            quality: 80
+            filters:
+                downscale: { max: [1280, 10000] }
+        odiseo_blog_content_1920:
+            format: webp
+            quality: 80
+            filters:
+                downscale: { max: [1920, 10000] }
+        odiseo_blog_gallery:
+            format: webp
+            quality: 80
+            filters:
+                fixed: { width: 600, height: 600 }

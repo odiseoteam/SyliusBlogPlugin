@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Content\Extractor;
 
 use Odiseo\SyliusBlogPlugin\Content\Document\Node;
+use Odiseo\SyliusBlogPlugin\Content\Nodes\TextNodeInterface;
 use Odiseo\SyliusBlogPlugin\Content\Registry\ContentRegistry;
 
 /** The text of a document without formatting, with a blank line between blocks. Nodes the blog does not know add nothing. */
@@ -28,6 +29,10 @@ final class PlainTextExtractor
         $definition = $this->registry->getNode($node->type);
         if ('doc' !== $node->type && null === $definition) {
             return '';
+        }
+
+        if ($definition instanceof TextNodeInterface) {
+            return $definition->toText($node);
         }
 
         if ([] === $node->children) {

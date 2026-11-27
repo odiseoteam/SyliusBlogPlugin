@@ -29,6 +29,9 @@ final class ContentValidatorTest extends TestCase
         yield 'a product, in the catalog or not' => [self::doc('{"type":"product","attrs":{"code":"COFFEE_MUG-2"}}')];
         yield 'a table cell' => [self::doc('{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableCell","attrs":{"colspan":2,"rowspan":1,"colwidth":null}}]}]}')];
         yield 'HTML' => [self::doc('{"type":"html","attrs":{"html":"<p>Hi</p>"}}')];
+        yield 'an image' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/mugs.jpg","alt":"","caption":"","size":"small","width":800,"height":600}}')];
+        yield 'an image of unknown size' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/mugs.jpg","width":null,"height":null}}')];
+        yield 'a gallery' => [self::doc('{"type":"gallery","attrs":{"images":[{"path":"ab/cd/one.jpg","alt":"One","width":800,"height":800},{"path":"ab/cd/two.jpg"}],"columns":4,"caption":""}}')];
     }
 
     #[DataProvider('validContent')]
@@ -55,6 +58,14 @@ final class ContentValidatorTest extends TestCase
         yield 'a heading level' => [self::doc('{"type":"heading","attrs":{"level":1}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'heading', '{{ attribute }}' => 'level']];
         yield 'a product with an empty code' => [self::doc('{"type":"product","attrs":{"code":""}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'product', '{{ attribute }}' => 'code']];
         yield 'a product code that is not a code' => [self::doc('{"type":"product","attrs":{"code":"../etc"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'product', '{{ attribute }}' => 'code']];
+        yield 'an image without path' => [self::doc('{"type":"image","attrs":{"path":""}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
+        yield 'an image out of the storage' => [self::doc('{"type":"image","attrs":{"path":"../../config/secrets.jpg"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
+        yield 'an image address' => [self::doc('{"type":"image","attrs":{"path":"https://example.com/a.jpg"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'path']];
+        yield 'an image size' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/a.jpg","size":"huge"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'size']];
+        yield 'an image width' => [self::doc('{"type":"image","attrs":{"path":"ab/cd/a.jpg","width":-5}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'image', '{{ attribute }}' => 'width']];
+        yield 'an empty gallery' => [self::doc('{"type":"gallery","attrs":{"images":[]}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'gallery', '{{ attribute }}' => 'images']];
+        yield 'a gallery image out of the storage' => [self::doc('{"type":"gallery","attrs":{"images":[{"path":"/etc/passwd.jpg"}]}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'gallery', '{{ attribute }}' => 'images']];
+        yield 'gallery columns' => [self::doc('{"type":"gallery","attrs":{"images":[{"path":"ab/cd/a.jpg"}],"columns":7}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'gallery', '{{ attribute }}' => 'columns']];
         yield 'a javascript link' => [self::doc('{"type":"text","text":"Hi","marks":[{"type":"link","attrs":{"href":"javascript:alert(1)"}}]}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'link', '{{ attribute }}' => 'href']];
         yield 'a link relation' => [self::doc('{"type":"text","text":"Hi","marks":[{"type":"link","attrs":{"href":"/a","rel":"follow"}}]}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'link', '{{ attribute }}' => 'rel']];
         yield 'a video of another site' => [self::doc('{"type":"video","attrs":{"src":"https://example.com/a.mp4"}}'), 'odiseo_blog.content.invalid_attribute', ['{{ type }}' => 'video', '{{ attribute }}' => 'src']];

@@ -1,0 +1,4 @@
+{
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Our mugs:\"}]},{\"type\":\"image\",\"attrs\":{\"path\":\"ab/cd/mugs.jpg\",\"alt\":\"Two mugs\",\"caption\":\"Fresh from the oven\",\"size\":\"medium\",\"width\":1600,\"height\":1200}},{\"type\":\"gallery\",\"attrs\":{\"images\":[{\"path\":\"ab/cd/one.jpg\",\"alt\":\"One mug\",\"width\":800,\"height\":800},{\"path\":\"ab/cd/two.webp\",\"alt\":\"\",\"width\":null,\"height\":null}],\"columns\":2,\"caption\":\"The whole set\"}}]}",
+    "words": 9
+}

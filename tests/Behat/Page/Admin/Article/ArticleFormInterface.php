@@ -24,6 +24,11 @@ interface ArticleFormInterface
 
     public function addProductToContent(string $name, string $localeCode): void;
 
+    public function addImageToContent(string $file, string $alt, string $localeCode): void;
+
+    /** @param list<string> $files */
+    public function addGalleryToContent(array $files, string $localeCode): void;
+
     public function getContentEditorStats(string $localeCode): string;
 
     public function markAsFeatured(): void;

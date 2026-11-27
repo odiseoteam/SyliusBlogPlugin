@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusBlogPlugin\Content\Renderer;
 
 use Odiseo\SyliusBlogPlugin\Content\Document\Node;
+use Odiseo\SyliusBlogPlugin\Content\Nodes\MarkdownLines;
 use Odiseo\SyliusBlogPlugin\Content\Registry\ContentRegistry;
 
 /** Writes a document as Markdown. What the blog does not know is left out. */
@@ -44,7 +45,7 @@ final class MarkdownRenderer
         $text = $node->text ?? '';
         $isCode = [] !== array_filter($node->marks, static fn ($mark): bool => 'code' === $mark->type);
         if (!$isCode) {
-            $text = (string) preg_replace('/([\\\\`*_\[\]<>])/', '\\\\$1', $text);
+            $text = MarkdownLines::escapeInline($text);
         }
 
         // The marks wrap the words, not the spaces around them.

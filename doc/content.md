@@ -18,13 +18,42 @@ contents, the word count and the reading time.
 | | Types |
 | --- | --- |
 | Text nodes | `paragraph`, `heading` (levels 2 to 4), `blockquote`, `bulletList`, `orderedList`, `listItem`, `codeBlock`, `horizontalRule`, `hardBreak`, `table`, `tableRow`, `tableHeader`, `tableCell` |
-| Media | `video`: a YouTube or Vimeo URL, drawn as an embed (YouTube without cookies) |
+| Media | `image`: an uploaded image, with `alt`, `caption` and `size` (`small`, `medium` or `full`); `gallery`: uploaded `images` (each with its `alt`), `columns` (2, 3 or 4) and a `caption`; `video`: a YouTube or Vimeo URL, drawn as an embed (YouTube without cookies) |
 | Catalog | `product`: the `code` of a product, drawn with the product card of the shop |
 | Marks | `bold`, `italic`, `underline`, `strike`, `code`, `link` (`href`, `rel` of nofollow, sponsored and ugc, and `target`) |
 | Escape | `html`: raw HTML, sanitized every time it is drawn |
 
 A link can only go to a web page, an email, a phone or a path of the site. Anything else is drawn as plain
 text.
+
+## Images
+
+An `image` node keeps the path of a file uploaded from the editor, never an address of another site. It is
+drawn with a `srcset` of the `odiseo_blog_content_*` filter sets (640, 960, 1280 and 1920 pixels wide, never
+enlarged), `loading="lazy"`, and its `width` and `height` when the editor knew them, so the page does not jump
+while it loads. On phones it takes the whole width of the text; from tablets up, half (`small`), three
+quarters (`medium`) or all of it (`full`). In a gallery, each image is a square thumbnail (`odiseo_blog_gallery`)
+that links to a large version. See [images](images.md#filter-sets) to change the filter sets.
+
+The alt text is optional: without it the image is drawn as decorative (`alt=""`), and the editor marks it. The
+captions count as text and words; the alt texts do not. In Markdown an image is `![alt](address)` with its
+caption below.
+
+Each upload is kept as an `odiseo_blog.content_media` resource. Files no content uses any more are deleted by:
+
+```bash
+bin/console odiseo:blog:media:prune --dry-run   # list them
+bin/console odiseo:blog:media:prune             # delete them, with their thumbnails
+bin/console odiseo:blog:media:prune --days=30   # keep those uploaded in the last 30 days
+```
+
+Files uploaded in the last `media.prune_after_days` (7 by default) are kept, since they may belong to a content
+that is still being written. Run it from a cron job if you want it to run on its own.
+
+The command looks for the files in the content of the articles. If your own contents show uploaded files, tell
+it with a service that implements `Odiseo\SyliusBlogPlugin\Media\MediaUsageProviderInterface` (with
+autoconfigure, that is enough), or the files would be deleted. A node of your own that shows uploaded files
+implements `MediaNodeInterface`, so they are found in any content.
 
 ## Products
 
@@ -59,6 +88,8 @@ odiseo_sylius_blog:
         max_depth: 20       # up to 100
         iframe_hosts: [www.youtube-nocookie.com, player.vimeo.com]
         words_per_minute: 200   # reading speed, see below
+        media:
+            prune_after_days: 7   # uploads younger than this are never pruned
 ```
 
 ## The HTML node
@@ -80,6 +111,7 @@ Services, all in `Odiseo\SyliusBlogPlugin\Content`:
 | `odiseo_blog.content.extractor.plain_text` | The text without formatting, with a blank line between blocks. |
 | `odiseo_blog.content.extractor.toc` | The headings with their anchors. The headings drawn by the HTML renderer carry the same `id`. |
 | `odiseo_blog.content.extractor.embedded_products` | The codes of the products of a document, in order and without repeats. |
+| `odiseo_blog.content.extractor.embedded_media` | The paths of the uploaded files a document shows, in order and without repeats. |
 | `odiseo_blog.content.word_counter` | Counts the words of a text. |
 | `odiseo_blog.content.reading_time` | Minutes to read a number of words at `words_per_minute`, rounded up. |
 | `odiseo_blog.content.validator` | Checks the JSON of a content before it is saved. |
@@ -164,6 +196,9 @@ final class CalloutNode extends AbstractContentNode
 The template receives `node`, `attributes` (with the defaults filled in), `children` (the HTML of the child
 nodes, already safe), `anchor` (only for headings) and whatever `getVariables()` returns. Output that comes
 from the author must be escaped, as Twig does by default.
+
+A node without children whose attributes hold text, like a caption, implements `TextNodeInterface` so that the
+text counts for the plain text and the words.
 
 A mark is the same with `ContentMarkInterface`, `AbstractContentMark` and the tag `odiseo_blog.content_mark`;
 its template receives `mark`, `attributes` and `content`.

@@ -166,6 +166,24 @@ Feature: Managing articles
             {"type":"doc","content":[{"type":"product","attrs":{"code":"COFFEE_MUG"}}]}
             """
 
+    @ui @javascript
+    Scenario: Adding an image with the editor
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I add the image "mugs.jpg" described as "Two mugs of coffee" to its content in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the content of the "Brewing guide" article should show an image described as "Two mugs of coffee" in "English (United States)"
+
+    @ui @javascript
+    Scenario: Adding a gallery with the editor
+        Given the blog has an article "Brewing guide"
+        When I want to modify the "Brewing guide" article
+        And I add a gallery of "mugs.jpg" and "ford.jpg" to its content in "English (United States)"
+        And I save my changes
+        Then I should be notified that it has been successfully edited
+        And the content of the "Brewing guide" article should show a gallery of 2 images in "English (United States)"
+
     @ui
     Scenario: Trying to save content that is not JSON
         Given the blog has an article "Brewing guide"

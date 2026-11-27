@@ -14,8 +14,11 @@ function mount(value) {
         <div data-controller="odiseo-blog-editor"
              data-odiseo-blog-editor-words-per-minute-value="2"
              data-odiseo-blog-editor-stats-value="${STATS}"
-             data-odiseo-blog-editor-labels-value='{"invalidLink":"Bad link","invalidVideo":"Bad video","invalidProduct":"Bad product"}'
-             data-odiseo-blog-editor-product-search-url-value="/admin/blog/products/search">
+             data-odiseo-blog-editor-labels-value='{"invalidLink":"Bad link","invalidVideo":"Bad video","invalidProduct":"Bad product","invalidImage":"Bad image","invalidGallery":"No images","missingAlt":"No alt","uploading":"Uploading","uploadFailed":"Upload failed","remove":"Remove","alt":"Alt"}'
+             data-odiseo-blog-editor-product-search-url-value="/admin/blog/products/search"
+             data-odiseo-blog-editor-media-upload-url-value="/admin/blog/media"
+             data-odiseo-blog-editor-media-token-value="token"
+             data-odiseo-blog-editor-media-urls-value='{"placeholder":"__PATH__","image":"/media/cache/resolve/odiseo_blog_content_640/__PATH__","thumbnail":"/media/cache/resolve/odiseo_blog_admin_thumbnail/__PATH__"}'>
             <div data-odiseo-blog-editor-target="toolbar" hidden>
                 <button type="button" data-action="odiseo-blog-editor#run" data-odiseo-blog-editor-command-param="bold">Bold</button>
                 <button type="button" data-action="odiseo-blog-editor#run" data-odiseo-blog-editor-command-param="heading" data-odiseo-blog-editor-level-param="3">H3</button>
@@ -23,10 +26,13 @@ function mount(value) {
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="link">Link</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="video">Video</button>
                 <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="product">Product</button>
+                <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="image">Image</button>
+                <button type="button" data-action="odiseo-blog-editor#open" data-odiseo-blog-editor-dialog-param="gallery">Gallery</button>
             </div>
             <div data-odiseo-blog-editor-target="surface" hidden></div>
             <textarea data-odiseo-blog-editor-target="input"></textarea>
             <div data-odiseo-blog-editor-target="fallback" hidden></div>
+            <div data-odiseo-blog-editor-target="notice" hidden></div>
             <div data-odiseo-blog-editor-target="stats" hidden></div>
             <div data-odiseo-blog-editor-target="help">Tiptap JSON</div>
             <div data-odiseo-blog-editor-target="modal" data-action="keydown->odiseo-blog-editor#submitOnEnter">
@@ -45,6 +51,19 @@ function mount(value) {
                 </div>
                 <div data-odiseo-blog-editor-target="pane" data-dialog="product" data-title="Product">
                     <select data-odiseo-blog-editor-target="product"></select>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="image" data-title="Image">
+                    <img data-odiseo-blog-editor-target="imagePreview" hidden>
+                    <input type="file" data-odiseo-blog-editor-target="imageFile" data-action="change->odiseo-blog-editor#uploadImage">
+                    <input data-odiseo-blog-editor-target="imageAlt">
+                    <input data-odiseo-blog-editor-target="imageCaption">
+                    <select data-odiseo-blog-editor-target="imageSize"><option value="small">S</option><option value="medium">M</option><option value="full">F</option></select>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="gallery" data-title="Gallery">
+                    <ul data-odiseo-blog-editor-target="galleryList"></ul>
+                    <input type="file" multiple data-odiseo-blog-editor-target="galleryFiles" data-action="change->odiseo-blog-editor#uploadGallery">
+                    <input data-odiseo-blog-editor-target="galleryCaption">
+                    <select data-odiseo-blog-editor-target="galleryColumns"><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
                 </div>
                 <div data-odiseo-blog-editor-target="modalError"></div>
                 <button type="button" data-odiseo-blog-editor-target="removeLink" data-action="odiseo-blog-editor#removeLink"></button>
@@ -180,6 +199,136 @@ describe('products', () => {
         click('[data-odiseo-blog-editor-dialog-param="product"]');
 
         await vi.waitFor(() => expect(controller.productSelect.getValue()).toBe('MUG'));
+    });
+});
+
+/** Puts files in a file field and lets the controller see the change. */
+function choose(target, files) {
+    Object.defineProperty($(target), 'files', { value: files, configurable: true });
+    $(target).dispatchEvent(new Event('change'));
+}
+
+const photo = (name) => new File(['x'], name, { type: 'image/jpeg' });
+
+function uploads(...stored) {
+    const answers = [...stored];
+    window.fetch = vi.fn(async (url, options) => {
+        if (options?.method !== 'POST') {
+            return { ok: true, json: async () => [] };
+        }
+        const answer = answers.shift();
+
+        return answer instanceof Error
+            ? { ok: false, json: async () => ({ error: answer.message }) }
+            : { ok: true, json: async () => answer };
+    });
+}
+
+describe('images', () => {
+    it('are uploaded, described and sized in the dialog', async () => {
+        uploads({ path: 'ab/cd/mugs.jpg', width: 1600, height: 1200 });
+        await start();
+        click('[data-odiseo-blog-editor-dialog-param="image"]');
+
+        click('#apply');
+        expect($('modalError').textContent).toBe('Bad image');
+
+        choose('imageFile', [photo('mugs.jpg')]);
+        await vi.waitFor(() => expect($('imagePreview').hidden).toBe(false));
+        expect($('imagePreview').getAttribute('src')).toBe('/media/cache/resolve/odiseo_blog_content_640/ab/cd/mugs.jpg');
+        const [, request] = window.fetch.mock.calls.find(([url]) => url === '/admin/blog/media');
+        expect(request.body.get('_token')).toBe('token');
+
+        $('imageAlt').value = ' Two mugs ';
+        $('imageCaption').value = 'Fresh';
+        $('imageSize').value = 'medium';
+        click('#apply');
+
+        expect(saved().content).toEqual([{ type: 'image', attrs: { path: 'ab/cd/mugs.jpg', alt: 'Two mugs', caption: 'Fresh', size: 'medium', width: 1600, height: 1200 } }]);
+        expect($('stats').textContent).toBe('Words: 1 · Reading time: 1 min');
+    });
+
+    it('tell why the upload failed', async () => {
+        uploads(new Error('The file is too large.'));
+        await start();
+        click('[data-odiseo-blog-editor-dialog-param="image"]');
+
+        choose('imageFile', [photo('huge.jpg')]);
+
+        await vi.waitFor(() => expect($('modalError').textContent).toBe('The file is too large.'));
+        expect($('imagePreview').hidden).toBe(true);
+    });
+
+    it('warn in the editor when they have no alt text', async () => {
+        await start('{"type":"doc","content":[{"type":"image","attrs":{"path":"ab/cd/mugs.jpg","alt":"","size":"small"}}]}');
+
+        expect($('surface').querySelector('img').getAttribute('src')).toBe('/media/cache/resolve/odiseo_blog_content_640/ab/cd/mugs.jpg');
+        expect($('surface').textContent).toContain('No alt');
+    });
+
+    it('are added where they are pasted', async () => {
+        uploads({ path: 'ab/cd/one.jpg', width: 10, height: 10 }, { path: 'ab/cd/two.jpg', width: 20, height: 20 });
+        const controller = await start('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hi"}]}]}');
+        controller.editor.commands.focus('end');
+
+        const event = new Event('paste', { bubbles: true, cancelable: true });
+        event.clipboardData = { files: [photo('one.jpg'), new File(['x'], 'notes.txt', { type: 'text/plain' }), photo('two.jpg')], getData: () => '' };
+        controller.editor.view.dom.dispatchEvent(event);
+
+        await vi.waitFor(() => expect(saved().content.filter((node) => node.type === 'image').map((node) => node.attrs.path)).toEqual(['ab/cd/one.jpg', 'ab/cd/two.jpg']));
+        expect(event.defaultPrevented).toBe(true);
+    });
+
+    it('tell under the editor when a pasted one fails', async () => {
+        uploads(new Error(''));
+        const controller = await start();
+
+        const event = new Event('paste', { bubbles: true, cancelable: true });
+        event.clipboardData = { files: [photo('one.jpg')], getData: () => '' };
+        controller.editor.view.dom.dispatchEvent(event);
+
+        await vi.waitFor(() => expect($('notice').hidden).toBe(false));
+        expect($('notice').textContent).toBe('Upload failed');
+    });
+});
+
+describe('galleries', () => {
+    it('are made of uploaded images, each with its alt text', async () => {
+        uploads({ path: 'ab/cd/one.jpg', width: 800, height: 600 }, { path: 'ab/cd/two.jpg', width: 400, height: 400 }, { path: 'ab/cd/three.jpg', width: 1, height: 1 });
+        await start();
+        click('[data-odiseo-blog-editor-dialog-param="gallery"]');
+
+        click('#apply');
+        expect($('modalError').textContent).toBe('No images');
+
+        choose('galleryFiles', [photo('one.jpg'), photo('two.jpg'), photo('three.jpg')]);
+        await vi.waitFor(() => expect($('galleryList').querySelectorAll('li')).toHaveLength(3));
+        expect($('galleryList').querySelector('img').getAttribute('src')).toBe('/media/cache/resolve/odiseo_blog_admin_thumbnail/ab/cd/one.jpg');
+
+        const first = $('galleryList').querySelector('input');
+        first.value = 'First';
+        first.dispatchEvent(new Event('input'));
+        $('galleryList').querySelectorAll('button')[1].click();
+        $('galleryColumns').value = '2';
+        $('galleryCaption').value = 'The set';
+        click('#apply');
+
+        expect(saved().content).toEqual([{ type: 'gallery', attrs: {
+            images: [{ path: 'ab/cd/one.jpg', alt: 'First', width: 800, height: 600 }, { path: 'ab/cd/three.jpg', alt: '', width: 1, height: 1 }],
+            columns: 2,
+            caption: 'The set',
+        } }]);
+    });
+
+    it('are edited from their card', async () => {
+        const controller = await start('{"type":"doc","content":[{"type":"gallery","attrs":{"images":[{"path":"ab/cd/one.jpg","alt":"One"}],"columns":4,"caption":"Set"}}]}');
+        expect($('surface').querySelectorAll('img')).toHaveLength(1);
+        controller.editor.commands.setNodeSelection(0);
+        click('[data-odiseo-blog-editor-dialog-param="gallery"]');
+
+        expect($('galleryList').querySelector('input').value).toBe('One');
+        expect($('galleryColumns').value).toBe('4');
+        expect($('galleryCaption').value).toBe('Set');
     });
 });
 

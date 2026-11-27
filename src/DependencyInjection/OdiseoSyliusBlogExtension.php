@@ -6,6 +6,7 @@ namespace Odiseo\SyliusBlogPlugin\DependencyInjection;
 
 use Odiseo\SyliusBlogPlugin\Content\Marks\ContentMarkInterface;
 use Odiseo\SyliusBlogPlugin\Content\Nodes\ContentNodeInterface;
+use Odiseo\SyliusBlogPlugin\Media\MediaUsageProviderInterface;
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
@@ -19,7 +20,7 @@ final class OdiseoSyliusBlogExtension extends AbstractResourceExtension implemen
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-        /** @var array{channel_defaults: array{enabled: bool, posts_per_page: int}, content: array{max_size: int, max_depth: int, iframe_hosts: list<string>, words_per_minute: int}, social_networks: list<string>} $config */
+        /** @var array{channel_defaults: array{enabled: bool, posts_per_page: int}, content: array{max_size: int, max_depth: int, iframe_hosts: list<string>, words_per_minute: int, media: array{prune_after_days: int}}, social_networks: list<string>} $config */
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $container->setParameter('odiseo_blog.channel_defaults.enabled', $config['channel_defaults']['enabled']);
@@ -29,9 +30,11 @@ final class OdiseoSyliusBlogExtension extends AbstractResourceExtension implemen
         $container->setParameter('odiseo_blog.content.max_depth', $config['content']['max_depth']);
         $container->setParameter('odiseo_blog.content.iframe_hosts', $config['content']['iframe_hosts']);
         $container->setParameter('odiseo_blog.content.words_per_minute', $config['content']['words_per_minute']);
+        $container->setParameter('odiseo_blog.content.media.prune_after_days', $config['content']['media']['prune_after_days']);
 
         $container->registerForAutoconfiguration(ContentNodeInterface::class)->addTag('odiseo_blog.content_node');
         $container->registerForAutoconfiguration(ContentMarkInterface::class)->addTag('odiseo_blog.content_mark');
+        $container->registerForAutoconfiguration(MediaUsageProviderInterface::class)->addTag('odiseo_blog.media_usage_provider');
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yaml');

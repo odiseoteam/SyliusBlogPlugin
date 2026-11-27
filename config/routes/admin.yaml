@@ -19,6 +19,12 @@ odiseo_blog_admin_product_search:
     defaults:
         _controller: odiseo_blog.controller.admin.product_search
 
+odiseo_blog_admin_media_upload:
+    path: /blog/media
+    methods: [POST]
+    defaults:
+        _controller: odiseo_blog.controller.admin.media_upload
+
 odiseo_blog_admin_article_remove_image:
     path: /blog/articles/{id}/remove-image
     methods: [PUT]

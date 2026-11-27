@@ -2,7 +2,10 @@ import { Controller } from '@hotwired/stimulus';
 import { Editor } from '@tiptap/core';
 import TomSelect from 'tom-select';
 import { createExtensions, serialize, textOf } from '../editor/extensions.js';
+import { GALLERY_COLUMNS } from '../editor/gallery.js';
+import { IMAGE_PATH, IMAGE_SIZES } from '../editor/image.js';
 import { isAllowedHref, relOf, relTokens } from '../editor/links.js';
+import { imageFiles, MediaLibrary } from '../editor/media.js';
 import { PRODUCT_CODE } from '../editor/product.js';
 import { ProductCatalog } from '../editor/products.js';
 import { embedUrl } from '../editor/video.js';
@@ -33,13 +36,15 @@ const COMMANDS = {
     redo: { run: (chain) => chain.redo() },
 };
 
-const DIALOGS = ['link', 'video', 'html', 'product'];
+const DIALOGS = ['link', 'video', 'html', 'product', 'image', 'gallery'];
 
 export default class extends Controller {
     static targets = [
         'input', 'toolbar', 'surface', 'stats', 'help', 'fallback',
         'modal', 'modalTitle', 'pane', 'modalError', 'removeLink',
         'href', 'newTab', 'nofollow', 'sponsored', 'videoSrc', 'html', 'product',
+        'imageFile', 'imagePreview', 'imageAlt', 'imageCaption', 'imageSize',
+        'galleryFiles', 'galleryList', 'galleryColumns', 'galleryCaption', 'notice',
     ];
 
     static values = {
@@ -48,6 +53,9 @@ export default class extends Controller {
         stats: String,
         labels: Object,
         productSearchUrl: String,
+        mediaUploadUrl: String,
+        mediaToken: String,
+        mediaUrls: Object,
     };
 
     connect() {
@@ -59,10 +67,15 @@ export default class extends Controller {
         }
 
         this.catalog = this.productSearchUrlValue ? new ProductCatalog(this.productSearchUrlValue) : null;
+        this.media = this.mediaUploadUrlValue
+            ? new MediaLibrary({ uploadUrl: this.mediaUploadUrlValue, token: this.mediaTokenValue, urls: this.mediaUrlsValue })
+            : null;
+        this.uploads = 0;
         const extensions = createExtensions({
             placeholder: this.placeholderValue,
             labels: this.labelsValue,
             describeProduct: this.catalog ? (code) => this.catalog.describe(code) : null,
+            mediaUrl: (path, kind) => this.media?.url(path, kind) ?? null,
         });
         // Applications add their own nodes by listening to this event.
         const { detail } = this.dispatch('options', { detail: { extensions } });
@@ -78,6 +91,9 @@ export default class extends Controller {
                 attributes: { class: 'odiseo-blog-editor__content', 'aria-label': this.labelsValue.content ?? '' },
                 handleDoubleClickOn: (view, pos, node) => this.editNode(pos, node),
                 handleKeyDown: (view, event) => this.handleKeyDown(event),
+                handlePaste: (view, event) => this.dropImages(imageFiles(event.clipboardData?.files), null, event),
+                handleDrop: (view, event, slice, moved) => !moved
+                    && this.dropImages(imageFiles(event.dataTransfer?.files), view.posAtCoords({ left: event.clientX, top: event.clientY })?.pos ?? null, event),
             },
         });
 
@@ -126,6 +142,8 @@ export default class extends Controller {
             video: () => this.applyVideo(),
             html: () => this.applyHtml(),
             product: () => this.applyProduct(),
+            image: () => this.applyImage(),
+            gallery: () => this.applyGallery(),
         }[this.dialog]?.();
         if (applied) {
             this.modal().hide();
@@ -247,6 +265,12 @@ export default class extends Controller {
         if (dialog === 'product') {
             this.selectProduct(node?.type.name === 'product' ? node.attrs.code : null);
         }
+        if (dialog === 'image') {
+            this.openImage(node?.type.name === 'image' ? node.attrs : null);
+        }
+        if (dialog === 'gallery') {
+            this.openGallery(node?.type.name === 'gallery' ? node.attrs : null);
+        }
 
         this.modalTarget.addEventListener('shown.bs.modal', () => this.firstField()?.focus(), { once: true });
         this.modal().show();
@@ -313,6 +337,164 @@ export default class extends Controller {
         return true;
     }
 
+    openImage(attrs) {
+        this.draftImage = attrs ? { ...attrs } : null;
+        this.imageFileTarget.value = '';
+        this.imageAltTarget.value = attrs?.alt ?? '';
+        this.imageCaptionTarget.value = attrs?.caption ?? '';
+        this.imageSizeTarget.value = attrs?.size in IMAGE_SIZES ? attrs.size : 'full';
+        this.showImagePreview();
+    }
+
+    /** Uploads the chosen file right away, so the dialog can show it. */
+    async uploadImage() {
+        const [file] = this.imageFileTarget.files ?? [];
+        if (file) {
+            const stored = await this.upload(file);
+            if (stored) {
+                this.draftImage = { ...this.draftImage, ...stored };
+                this.showImagePreview();
+            }
+        }
+    }
+
+    showImagePreview() {
+        const url = this.media?.url(this.draftImage?.path);
+        this.imagePreviewTarget.hidden = !url;
+        this.imagePreviewTarget.src = url ?? '';
+    }
+
+    applyImage() {
+        if (this.uploads > 0) {
+            return this.fail('uploading');
+        }
+        if (!IMAGE_PATH.test(this.draftImage?.path ?? '')) {
+            return this.fail('invalidImage');
+        }
+        this.editor.chain().focus().setImage({
+            ...this.draftImage,
+            alt: this.imageAltTarget.value.trim(),
+            caption: this.imageCaptionTarget.value.trim(),
+            size: this.imageSizeTarget.value,
+        }).run();
+
+        return true;
+    }
+
+    openGallery(attrs) {
+        this.draftGallery = (attrs?.images ?? []).map((image) => ({ ...image }));
+        this.galleryFilesTarget.value = '';
+        this.galleryColumnsTarget.value = String(GALLERY_COLUMNS.includes(attrs?.columns) ? attrs.columns : 3);
+        this.galleryCaptionTarget.value = attrs?.caption ?? '';
+        this.renderGallery();
+    }
+
+    async uploadGallery() {
+        const files = [...(this.galleryFilesTarget.files ?? [])];
+        this.galleryFilesTarget.value = '';
+        for (const file of files) {
+            const stored = await this.upload(file);
+            if (stored) {
+                this.draftGallery.push({ path: stored.path, alt: '', width: stored.width, height: stored.height });
+                this.renderGallery();
+            }
+        }
+    }
+
+    /** One row per image: its thumbnail, its alt text and a button to take it out. */
+    renderGallery() {
+        this.galleryListTarget.replaceChildren(...this.draftGallery.map((image, index) => {
+            const row = document.createElement('li');
+            row.className = 'list-group-item d-flex gap-2 align-items-center';
+            const thumbnail = row.appendChild(document.createElement('img'));
+            thumbnail.src = this.media?.url(image.path, 'thumbnail') ?? '';
+            thumbnail.alt = '';
+            thumbnail.className = 'avatar avatar-md';
+            const alt = row.appendChild(document.createElement('input'));
+            alt.type = 'text';
+            alt.className = 'form-control';
+            alt.value = image.alt ?? '';
+            alt.placeholder = this.labelsValue.alt ?? '';
+            alt.setAttribute('aria-label', this.labelsValue.alt ?? '');
+            alt.addEventListener('input', () => { this.draftGallery[index].alt = alt.value; });
+            const remove = row.appendChild(document.createElement('button'));
+            remove.type = 'button';
+            remove.className = 'btn btn-ghost-danger';
+            remove.textContent = this.labelsValue.remove ?? '×';
+            remove.addEventListener('click', () => {
+                this.draftGallery.splice(index, 1);
+                this.renderGallery();
+            });
+
+            return row;
+        }));
+    }
+
+    applyGallery() {
+        if (this.uploads > 0) {
+            return this.fail('uploading');
+        }
+        const images = this.draftGallery
+            .filter((image) => IMAGE_PATH.test(image.path ?? ''))
+            .map((image) => ({ ...image, alt: (image.alt ?? '').trim() }));
+        if (images.length === 0) {
+            return this.fail('invalidGallery');
+        }
+        this.editor.chain().focus().setGallery({
+            images,
+            columns: Number(this.galleryColumnsTarget.value),
+            caption: this.galleryCaptionTarget.value.trim(),
+        }).run();
+
+        return true;
+    }
+
+    /** Stores a file, telling in the dialog that it is uploading and why it failed. */
+    async upload(file) {
+        this.uploads += 1;
+        this.modalErrorTarget.textContent = this.labelsValue.uploading ?? '';
+        try {
+            const stored = await this.media.upload(file);
+            this.modalErrorTarget.textContent = '';
+
+            return stored;
+        } catch (error) {
+            this.modalErrorTarget.textContent = error.message || (this.labelsValue.uploadFailed ?? '');
+
+            return null;
+        } finally {
+            this.uploads -= 1;
+        }
+    }
+
+    /** Images pasted or dropped on the text are uploaded and added where they landed. */
+    dropImages(files, pos, event) {
+        if (!this.media || files.length === 0) {
+            return false;
+        }
+        event.preventDefault();
+        this.noticeTarget.hidden = true;
+        // The first one goes where it landed and each next one after the previous one.
+        files.reduce((previous, file, index) => previous.then(async () => {
+            try {
+                const stored = await this.media.upload(file);
+                const content = { type: 'image', attrs: stored };
+                if (index > 0) {
+                    this.editor.chain().focus().insertContentAt(this.editor.state.selection.to, content).run();
+                } else if (pos === null) {
+                    this.editor.chain().focus().insertContent(content).run();
+                } else {
+                    this.editor.chain().focus().insertContentAt(pos, content).run();
+                }
+            } catch (error) {
+                this.noticeTarget.textContent = error.message || (this.labelsValue.uploadFailed ?? '');
+                this.noticeTarget.hidden = false;
+            }
+        }), Promise.resolve());
+
+        return true;
+    }
+
     /** The product field, searched with Tom Select like the autocompletes of Sylius. */
     selectProduct(code) {
         this.productSelect ??= new TomSelect(this.productTarget, {
@@ -345,6 +527,9 @@ export default class extends Controller {
     firstField() {
         if (this.dialog === 'product') {
             return this.productSelect?.control_input;
+        }
+        if (this.dialog === 'image' || this.dialog === 'gallery') {
+            return this.paneTargets.find((pane) => !pane.hidden)?.querySelector('input[type="file"]');
         }
 
         return this.paneTargets.find((pane) => !pane.hidden)?.querySelector('input, textarea');

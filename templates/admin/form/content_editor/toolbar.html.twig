@@ -61,6 +61,10 @@
         content: table_actions,
     }) }}
     <div class="btn-group">
+        {% if media_upload_url %}
+            {{ _self.command('odiseo_blog.ui.editor.image', 'photo', {dialog: 'image'}) }}
+            {{ _self.command('odiseo_blog.ui.editor.gallery', 'library-photo', {dialog: 'gallery'}) }}
+        {% endif %}
         {{ _self.command('odiseo_blog.ui.editor.video', 'movie', {dialog: 'video'}) }}
         {{ _self.command('odiseo_blog.ui.editor.html', 'html', {dialog: 'html'}) }}
         {% if product_search_url %}
