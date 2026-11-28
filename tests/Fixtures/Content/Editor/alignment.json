@@ -1,0 +1,4 @@
+{
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"heading\",\"attrs\":{\"textAlign\":\"center\",\"level\":2},\"content\":[{\"type\":\"text\",\"text\":\"Title\"}]},{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"right\"},\"content\":[{\"type\":\"text\",\"text\":\"Right\"}]},{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Theme\"}]},{\"type\":\"image\",\"attrs\":{\"path\":\"ab/cd/side.jpg\",\"alt\":\"Side\",\"caption\":\"\",\"size\":\"small\",\"align\":\"left\",\"width\":400,\"height\":400}}]}",
+    "words": 3
+}

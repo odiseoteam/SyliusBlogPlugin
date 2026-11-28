@@ -11,6 +11,7 @@ use Odiseo\SyliusBlogPlugin\Entity\ArticleCategoryInterface;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleImage;
 use Odiseo\SyliusBlogPlugin\Entity\ArticleInterface;
 use Odiseo\SyliusBlogPlugin\Entity\AuthorInterface;
+use Odiseo\SyliusBlogPlugin\Entity\ContentMedia;
 use Odiseo\SyliusBlogPlugin\Repository\AuthorRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -124,6 +125,45 @@ final class ArticleContext implements Context
             ['type' => 'paragraph', 'content' => [['type' => 'text', 'text' => 'Our pick:']]],
             ['type' => 'product', 'attrs' => ['code' => $product->getCode()]],
         ]], \JSON_THROW_ON_ERROR));
+        $this->manager->flush();
+    }
+
+    #[Given('the :article article shows the image :file described as :alt')]
+    public function theArticleShowsTheImageDescribedAs(ArticleInterface $article, string $file, string $alt): void
+    {
+        $this->appendToContent($article, ['type' => 'image', 'attrs' => ['path' => $this->storeMedia($file), 'alt' => $alt]]);
+    }
+
+    #[Given('the :article article shows a gallery of :first and :second')]
+    public function theArticleShowsAGalleryOf(ArticleInterface $article, string $first, string $second): void
+    {
+        $this->appendToContent($article, ['type' => 'gallery', 'attrs' => ['images' => [
+            ['path' => $this->storeMedia($first), 'alt' => ''],
+            ['path' => $this->storeMedia($second), 'alt' => ''],
+        ]]]);
+    }
+
+    /** Uploads a file of the fixtures as the editor does, and returns its path. */
+    private function storeMedia(string $file): string
+    {
+        $filesPath = $this->minkParameters['files_path'];
+        Assert::string($filesPath);
+        $media = new ContentMedia();
+        $media->setFile(new UploadedFile($filesPath . $file, $file, null, null, true));
+        $this->imageUploader->upload($media);
+        $this->manager->persist($media);
+
+        return (string) $media->getPath();
+    }
+
+    /** @param array<string, mixed> $node */
+    private function appendToContent(ArticleInterface $article, array $node): void
+    {
+        $translation = $article->getTranslation('en_US');
+        $document = json_decode($translation->getContent() ?? '', true);
+        $content = is_array($document) && is_array($document['content'] ?? null) ? $document['content'] : [];
+        $content[] = $node;
+        $translation->setContent(json_encode(['type' => 'doc', 'content' => $content], \JSON_THROW_ON_ERROR));
         $this->manager->flush();
     }
 

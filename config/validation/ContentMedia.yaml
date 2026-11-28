@@ -1,0 +1,11 @@
+Odiseo\SyliusBlogPlugin\Entity\ContentMedia:
+    properties:
+        file:
+            - NotNull:
+                message: odiseo_blog.content_media.file.not_blank
+                groups: ['odiseo_blog']
+            - Image:
+                maxSize: 10M
+                groups: ['odiseo_blog']
+            - Sylius\Bundle\CoreBundle\Validator\Constraints\AllowedImageMimeTypes:
+                groups: ['odiseo_blog']

@@ -27,5 +27,8 @@ odiseo_blog:
         unknown_node: 'The content uses an element the blog does not know: "{{ type }}".'
         video:
             unsupported: 'Only videos of YouTube and Vimeo can be added.'
+    content_media:
+        file:
+            not_blank: 'Choose an image.'
     slug:
         unique: 'This slug is already used.'

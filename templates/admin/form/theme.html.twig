@@ -7,6 +7,15 @@
         invalidProduct: 'odiseo_blog.ui.editor.invalid_product'|trans,
         invalidLink: 'odiseo_blog.ui.editor.invalid_link'|trans,
         invalidVideo: 'odiseo_blog.ui.editor.invalid_video'|trans,
+        image: 'odiseo_blog.ui.editor.image'|trans,
+        gallery: 'odiseo_blog.ui.editor.gallery'|trans,
+        alt: 'odiseo_blog.ui.editor.alt'|trans,
+        remove: 'odiseo_blog.ui.editor.remove'|trans,
+        missingAlt: 'odiseo_blog.ui.editor.missing_alt'|trans,
+        invalidImage: 'odiseo_blog.ui.editor.invalid_image'|trans,
+        invalidGallery: 'odiseo_blog.ui.editor.invalid_gallery'|trans,
+        uploading: 'odiseo_blog.ui.editor.uploading'|trans,
+        uploadFailed: 'odiseo_blog.ui.editor.upload_failed'|trans,
     } -%}
     {# Kept as is when the live form re-renders, so the editor survives. #}
     <div id="{{ id }}_editor" class="mb-3 odiseo-blog-editor" data-live-ignore {{ stimulus_controller('odiseo-blog-editor', {
@@ -15,6 +24,9 @@
         stats: 'odiseo_blog.ui.editor.stats'|trans,
         labels: labels,
         productSearchUrl: product_search_url ?? '',
+        mediaUploadUrl: media_upload_url ?? '',
+        mediaToken: media_upload_url ? csrf_token(media_csrf_token_id) : '',
+        mediaUrls: media_urls,
     }) }}>
         {{ form_label(form) }}
         {{ include('@OdiseoSyliusBlogPlugin/admin/form/content_editor/toolbar.html.twig') }}
@@ -23,6 +35,7 @@
         <div class="alert alert-warning mt-2 mb-0" role="alert" data-odiseo-blog-editor-target="fallback" hidden>
             {{ 'odiseo_blog.ui.editor.fallback'|trans }}
         </div>
+        <div class="alert alert-danger mt-2 mb-0" role="alert" data-odiseo-blog-editor-target="notice" hidden></div>
         <div class="form-hint" data-odiseo-blog-editor-target="stats" aria-live="polite" hidden></div>
         <div data-odiseo-blog-editor-target="help">{{ form_help(form) }}</div>
         {{ form_errors(form) }}

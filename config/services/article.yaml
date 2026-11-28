@@ -18,7 +18,11 @@ services:
 
     odiseo_blog.form.type.content_editor:
         class: Odiseo\SyliusBlogPlugin\Form\Type\ContentEditorType
-        arguments: ['%odiseo_blog.content.words_per_minute%', '@router']
+        arguments:
+            - '%odiseo_blog.content.words_per_minute%'
+            - '@router'
+            - '@odiseo_blog.content.image_url_resolver'
+            - '%sylius_core.allowed_images_mime_types%'
         tags: ['form.type']
 
     odiseo_blog.form.type.article_image:

@@ -35,4 +35,16 @@ final class ReadingArticlesContext implements Context
     {
         Assert::false($this->showPage->hasProduct((string) $product->getName()));
     }
+
+    #[Then('I should see the image :alt in it')]
+    public function iShouldSeeTheImageInIt(string $alt): void
+    {
+        Assert::true($this->showPage->hasImage($alt));
+    }
+
+    #[Then('I should see a gallery of :count images in it')]
+    public function iShouldSeeAGalleryOfImagesInIt(int $count): void
+    {
+        Assert::same($this->showPage->countGalleryImages(), $count);
+    }
 }

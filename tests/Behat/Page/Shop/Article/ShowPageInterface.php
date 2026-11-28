@@ -9,4 +9,8 @@ use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 interface ShowPageInterface extends SymfonyPageInterface
 {
     public function hasProduct(string $name): bool;
+
+    public function hasImage(string $alt): bool;
+
+    public function countGalleryImages(): int;
 }

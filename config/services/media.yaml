@@ -1,0 +1,35 @@
+services:
+    odiseo_blog.controller.admin.media_upload:
+        class: Odiseo\SyliusBlogPlugin\Controller\Admin\MediaUploadAction
+        public: true
+        arguments:
+            - '@odiseo_blog.factory.content_media'
+            - '@sylius.uploader.image'
+            - '@doctrine.orm.entity_manager'
+            - '@validator'
+            - '@security.csrf.token_manager'
+            - '@translator'
+
+    odiseo_blog.media.article_usage_provider:
+        class: Odiseo\SyliusBlogPlugin\Media\ArticleMediaUsageProvider
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@odiseo_blog.content.parser'
+            - '@odiseo_blog.content.extractor.embedded_media'
+            - '%odiseo_blog.model.article_translation.class%'
+        tags: ['odiseo_blog.media_usage_provider']
+
+    odiseo_blog.media.pruner:
+        class: Odiseo\SyliusBlogPlugin\Media\MediaPruner
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - !tagged_iterator odiseo_blog.media_usage_provider
+            - '%odiseo_blog.model.content_media.class%'
+
+    odiseo_blog.command.prune_media:
+        class: Odiseo\SyliusBlogPlugin\Command\PruneMediaCommand
+        arguments:
+            - '@odiseo_blog.media.pruner'
+            - '%odiseo_blog.content.media.prune_after_days%'
+        tags: ['console.command']

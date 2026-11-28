@@ -26,4 +26,10 @@ final class MarkdownLines
 
         return (string) preg_replace('/^(\s*\d+)([.)])(?=\s|$)/m', '$1\\\\$2', $text);
     }
+
+    /** Escapes the characters that would format a piece of text. */
+    public static function escapeInline(string $text): string
+    {
+        return (string) preg_replace('/([\\\\`*_\[\]<>])/', '\\\\$1', $text);
+    }
 }

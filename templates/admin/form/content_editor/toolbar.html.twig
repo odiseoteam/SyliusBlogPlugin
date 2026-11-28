@@ -3,7 +3,7 @@
 
 {% macro command(text, icon, params) %}
     {% import '@SyliusAdmin/shared/helper/button.html.twig' as button %}
-    {% set action = params.dialog is defined ? 'open' : 'run' %}
+    {% set action = params.dialog is defined ? 'open' : (params.align is defined ? 'align' : 'run') %}
     {% set attr = {title: text|trans, 'aria-label': text|trans, 'aria-pressed': 'false', 'data-action': 'odiseo-blog-editor#' ~ action} %}
     {% for name, value in params %}
         {% set attr = attr|merge({('data-odiseo-blog-editor-' ~ name ~ '-param'): value}) %}
@@ -56,11 +56,20 @@
         {{ _self.command('odiseo_blog.ui.editor.code_block', 'source-code', {command: 'codeBlock'}) }}
         {{ _self.command('odiseo_blog.ui.editor.horizontal_rule', 'separator-horizontal', {command: 'horizontalRule'}) }}
     </div>
+    <div class="btn-group">
+        {{ _self.command('odiseo_blog.ui.editor.align_left', 'align-left', {align: 'left'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.align_center', 'align-center', {align: 'center'}) }}
+        {{ _self.command('odiseo_blog.ui.editor.align_right', 'align-right', {align: 'right'}) }}
+    </div>
     {{ dropdown.default({
         custom_trigger: button.default({text: 'odiseo_blog.ui.editor.table'|trans, icon: 'odiseo-blog:table', icon_only: true, class: 'btn-ghost-secondary dropdown-toggle', attr: {title: 'odiseo_blog.ui.editor.table'|trans, 'aria-label': 'odiseo_blog.ui.editor.table'|trans, 'aria-haspopup': 'true'}}),
         content: table_actions,
     }) }}
     <div class="btn-group">
+        {% if media_upload_url %}
+            {{ _self.command('odiseo_blog.ui.editor.image', 'photo', {dialog: 'image'}) }}
+            {{ _self.command('odiseo_blog.ui.editor.gallery', 'library-photo', {dialog: 'gallery'}) }}
+        {% endif %}
         {{ _self.command('odiseo_blog.ui.editor.video', 'movie', {dialog: 'video'}) }}
         {{ _self.command('odiseo_blog.ui.editor.html', 'html', {dialog: 'html'}) }}
         {% if product_search_url %}

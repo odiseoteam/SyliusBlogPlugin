@@ -73,3 +73,58 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.odiseo-blog-editor__image,
+.odiseo-blog-editor__gallery {
+    flex-wrap: wrap;
+}
+
+.odiseo-blog-editor__image > img {
+    display: block;
+    flex: 0 0 var(--odiseo-blog-image-width, 100%);
+    min-width: 0;
+    max-height: 20rem;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: var(--tblr-border-radius);
+}
+
+.odiseo-blog-editor__image > figcaption,
+.odiseo-blog-editor__gallery > * {
+    flex-basis: 100%;
+}
+
+.odiseo-blog-editor__image > .badge,
+.odiseo-blog-editor__gallery > .badge {
+    flex-basis: auto;
+}
+
+.odiseo-blog-editor__gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--odiseo-blog-gallery-columns, 3), minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.odiseo-blog-editor__gallery-grid img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--tblr-border-radius);
+}
+
+.odiseo-blog-editor__gallery-grid {
+    max-width: 32rem;
+}
+
+.odiseo-blog-editor__preview {
+    max-height: 16rem;
+    object-fit: contain;
+}
+
+.odiseo-blog-editor__image[data-align="left"] img {
+    margin-left: 0;
+}
+
+.odiseo-blog-editor__image[data-align="right"] img {
+    margin-right: 0;
+}

@@ -1,0 +1,18 @@
+{"type": "doc", "content": [
+    {"type": "paragraph", "content": [{"type": "text", "text": "The mugs:"}]},
+    {"type": "image", "attrs": {"path": "ab/cd/mugs.jpg", "alt": "Two mugs of \"coffee\" [hot]", "caption": "Fresh *from* the oven", "size": "full", "width": 1600, "height": 1200}},
+    {"type": "image", "attrs": {"path": "ab/cd/small.png", "alt": "", "caption": "", "size": "small", "width": 700, "height": 350}},
+    {"type": "image", "attrs": {"path": "ab/cd/unknown.webp", "size": "medium"}},
+    {"type": "image", "attrs": {"path": "ab/cd/left.jpg", "alt": "On the left", "size": "small", "align": "left", "width": 800, "height": 800}},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Text around it."}]},
+    {"type": "image", "attrs": {"path": "ab/cd/right.jpg", "alt": "On the right", "caption": "Floats", "size": "medium", "align": "right"}},
+    {"type": "image", "attrs": {"path": "ab/cd/wide.jpg", "alt": "Too wide to float", "align": "right"}},
+    {"type": "image", "attrs": {"path": "../secrets.jpg", "alt": "Not drawn"}},
+    {"type": "gallery", "attrs": {"images": [
+        {"path": "ab/cd/one.jpg", "alt": "One mug", "width": 800, "height": 800},
+        {"path": "ab/cd/two.jpg", "alt": "", "width": null, "height": null},
+        {"path": "/etc/passwd.jpg", "alt": "Left out"}
+    ], "columns": 2, "caption": "The whole set"}},
+    {"type": "gallery", "attrs": {"images": [{"path": "ab/cd/three.jpg"}], "columns": 7}},
+    {"type": "gallery", "attrs": {"images": []}}
+]}

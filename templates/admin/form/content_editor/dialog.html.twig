@@ -43,6 +43,45 @@
                     <select id="{{ id }}_dialog_product" class="form-select" data-odiseo-blog-editor-target="product"></select>
                     <div class="form-hint">{{ 'odiseo_blog.ui.editor.product_search_help'|trans }}</div>
                 </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="image" data-title="{{ 'odiseo_blog.ui.editor.image'|trans }}" hidden>
+                    <img class="odiseo-blog-editor__preview img-fluid rounded d-block mx-auto mb-3" alt="" data-odiseo-blog-editor-target="imagePreview" hidden>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_image_file">{{ 'odiseo_blog.ui.editor.image_file'|trans }}</label>
+                        <input type="file" class="form-control" id="{{ id }}_dialog_image_file" accept="{{ image_mime_types }}" data-odiseo-blog-editor-target="imageFile" data-action="change->odiseo-blog-editor#uploadImage">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_image_alt">{{ 'odiseo_blog.ui.editor.alt'|trans }}</label>
+                        <input type="text" class="form-control" id="{{ id }}_dialog_image_alt" maxlength="255" data-odiseo-blog-editor-target="imageAlt">
+                        <div class="form-hint">{{ 'odiseo_blog.ui.editor.alt_help'|trans }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_image_caption">{{ 'odiseo_blog.ui.editor.caption'|trans }}</label>
+                        <input type="text" class="form-control" id="{{ id }}_dialog_image_caption" maxlength="500" data-odiseo-blog-editor-target="imageCaption">
+                    </div>
+                    <label class="form-label" for="{{ id }}_dialog_image_size">{{ 'odiseo_blog.ui.editor.image_size'|trans }}</label>
+                    <select class="form-select" id="{{ id }}_dialog_image_size" data-odiseo-blog-editor-target="imageSize">
+                        {% for size in ['small', 'medium', 'full'] %}
+                            <option value="{{ size }}">{{ ('odiseo_blog.ui.editor.image_size_' ~ size)|trans }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div data-odiseo-blog-editor-target="pane" data-dialog="gallery" data-title="{{ 'odiseo_blog.ui.editor.gallery'|trans }}" hidden>
+                    <ul class="list-group mb-3" data-odiseo-blog-editor-target="galleryList"></ul>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_gallery_files">{{ 'odiseo_blog.ui.editor.gallery_files'|trans }}</label>
+                        <input type="file" class="form-control" id="{{ id }}_dialog_gallery_files" accept="{{ image_mime_types }}" multiple data-odiseo-blog-editor-target="galleryFiles" data-action="change->odiseo-blog-editor#uploadGallery">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ id }}_dialog_gallery_caption">{{ 'odiseo_blog.ui.editor.caption'|trans }}</label>
+                        <input type="text" class="form-control" id="{{ id }}_dialog_gallery_caption" maxlength="500" data-odiseo-blog-editor-target="galleryCaption">
+                    </div>
+                    <label class="form-label" for="{{ id }}_dialog_gallery_columns">{{ 'odiseo_blog.ui.editor.gallery_columns'|trans }}</label>
+                    <select class="form-select" id="{{ id }}_dialog_gallery_columns" data-odiseo-blog-editor-target="galleryColumns">
+                        {% for columns in [2, 3, 4] %}
+                            <option value="{{ columns }}">{{ columns }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="text-danger small mt-2" role="alert" data-odiseo-blog-editor-target="modalError"></div>
             </div>
             <div class="modal-footer">

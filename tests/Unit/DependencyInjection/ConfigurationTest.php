@@ -45,10 +45,10 @@ final class ConfigurationTest extends TestCase
         );
     }
 
-    public function testTheContentHasLimitsTrustsYouTubeAndVimeoAndIsReadAt200WordsPerMinute(): void
+    public function testTheContentHasLimitsTrustsYouTubeAndVimeoIsReadAt200WordsPerMinuteAndKeepsUploadsForAWeek(): void
     {
         self::assertSame(
-            ['max_size' => 1048576, 'max_depth' => 20, 'iframe_hosts' => ['www.youtube-nocookie.com', 'player.vimeo.com'], 'words_per_minute' => 200],
+            ['max_size' => 1048576, 'max_depth' => 20, 'iframe_hosts' => ['www.youtube-nocookie.com', 'player.vimeo.com'], 'words_per_minute' => 200, 'media' => ['prune_after_days' => 7]],
             $this->process([])['content'],
         );
     }
@@ -56,8 +56,8 @@ final class ConfigurationTest extends TestCase
     public function testTheLimitsOfTheContentCanBeChanged(): void
     {
         self::assertSame(
-            ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250],
-            $this->process([['content' => ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250]]])['content'],
+            ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250, 'media' => ['prune_after_days' => 1]],
+            $this->process([['content' => ['max_size' => 2048, 'max_depth' => 8, 'iframe_hosts' => ['maps.example.com'], 'words_per_minute' => 250, 'media' => ['prune_after_days' => 1]]]])['content'],
         );
     }
 
